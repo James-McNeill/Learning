@@ -1,2 +1,2 @@
-# Learning1
+# Learning new
 Programming personal development
