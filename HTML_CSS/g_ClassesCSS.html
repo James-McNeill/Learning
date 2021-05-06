@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2021 by James-McNeill (http://jsbin.com/sewihil/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>My favourite food</title>
+<style id="jsbin-css">
+body {
+  background-color: lightblue;
+}
+
+/* Setting up a class */
+/* .example-div {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: limegreen;
+} */
+
+/* Make sure to start using descriptive class names */
+.green-example {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: limegreen;
+}
+
+/* Can make it explicit */
+/* section > .green-example {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: limegreen;
+}
+ */
+
+/* Can apply a child class which takes
+all elements from parent. Have to make 
+sure when applying the class that they
+assigned as child classes within HTML
+page.*/
+.green-example .cursive-h4 {
+  font-family: cursive;
+}
+
+/* Careful with referencing the class application */
+/* div.green-example {} applies to div where it seens this class
+div .green-example {} having the space looks for descendants from div with this class
+ */
+
+/* Elements can have multiple classes */
+
+</style>
+</head>
+<body>
+  
+  <section>
+    <!-- Classes can be shared -->
+    <div class="green-example">
+      <h4 class="cursive-h4">I'm in the outermost div</h4>
+      <div>
+        <h4>I'm in the innermost div</h4>
+        <p>I'm a paragraph</p>
+      </div>
+    </div>
+    <!-- Adding multiple classes -->
+    <div class="green-example cursive">
+      <h4>I'm in the second div</h4>
+      <div>
+        <h4>I'm in the innermost second div</h4>
+        <p>I'm also a paragraph</p>
+      </div>
+    </div>
+    
+    <div class="cursive">
+      <h4>I'm in the third div</h4>
+      <div>
+        <h4>I'm in the innermost third div</h4>
+        <p>I'm also a paragraph</p>
+      </div>
+    </div>
+    
+  </section>
+  
+  <!-- Main title for the body of the page -->
+  <h1>The Fluffiest Vegan Pancakes</h1>
+  <!-- Paragraph section to add initial details of the recipe -->
+  <p>
+    A great start to the day, the <strong>pancake </strong>way!!        
+  </p>
+    <!-- 
+    Heading for the first section. Provides details on the 
+    ingredients required for the recipe.
+    h3 represents a size smaller than the main title (h1).
+    With each increasing suffix value there is a diminishing
+    size to the text displayed. Hence h4 can be used to add
+    additional context.
+    -->
+    <h3>List of ingredients</h3>
+    <h4>(for four servings)</h4>
+    <!-- Unordered list OPEN -->
+    <ul>
+      <!-- 
+      Ingredients needed 
+      Each list item will display a bullet point
+      -->
+      <li>1 cup flour (125 g)</li>
+      <li>2 tablespoons organic sugar</li>
+      <li>1 tablespoon baking powder</li>
+      <li>½ teaspoon salt</li>
+      <li>1 cup non-dairy milk (240 mL)</li>
+      <li>1 tablespoon apple cider vinegar</li>
+      <li>1 teaspoon vanilla</li>
+      <li>maple syrup, to serve</li>
+    <!-- Unordered list CLOSE -->
+    </ul>
+    <!-- 
+    Heading for the second section. Provides details on
+    the steps taken.
+    -->
+    <h3>Preparation</h3>
+    <!-- Ordered list OPEN -->
+    <ol>
+      <!-- 
+      Steps to take. Each list item will display a numeric
+      value to highlight the order of the process.
+      -->
+      <li>Creating the dry mixture. 
+        In a medium bowl, add the flour, sugar, 
+        baking powder, and salt, and stir to combine.&#128516;</li>
+      <li>For the buttermilk (liquid mixture). 
+        In a medium bowl or liquid measuring cup, 
+        add almond milk, apple cider vinegar, 
+        and vanilla, and stir to combine. 
+        Let it <em>rest for 5-7 minutes</em>.&#128513;</li>
+      <li>Pour the liquid mixture into the
+        dry mixture and whisk until smooth.&#128514;</li>
+      <li>Let batter <em>rest for 5 minutes</em>.&#128515;</li>
+      <li>Pour about ½ cup (65 grams) of batter 
+        onto a nonstick pan or griddle over medium heat.&#128516;</li>
+      <li>When the top begins to bubble, 
+        flip the pancake and cook until golden.</li>
+      <li>Serve warm with maple syrup.</li>
+    <!-- Ordered list CLOSE -->
+    </ol>
+  <!-- Paragraph section to add summary details -->
+  <p class="example-div">
+    <strong><em>Hope you enjoy the recipe</em>!!</strong>
+  </p>
+  
+  <!-- Display image of final version of the recipe -->
+  <img src="https://media.istockphoto.com/photos/pancakes-with-berries-and-maple-syrup-picture-id161170090?k=6&m=161170090&s=612x612&w=0&h=jFpr-OG6-dseBJrQ1Duu9ynlXiK9h9UYXfrT40WJAaA=" alt="Vegan Pancake">
+  <img src="https://media.istockphoto.com/photos/pancakes-picture-id96430985?k=6&m=96430985&s=612x612&w=0&h=zkgYikrhCMjeE4f2RT8jnc7NblKnakM4clYnOOz_gEY=" alt="Pancake with butter">
+  
+  
+  <!-- List of five similar recipes from around the web -->
+  <h3>Similar recipes from around the web</h3>
+  <ul>
+    <li><a href="https://www.bbcgoodfood.com/recipes/easy-vegan-pancakes">BBC good food, Easy vegan pancakes recipe</a></li>
+    <li><a href="https://www.noracooks.com/vegan-pancakes/">Simple Vegan Pancakes</a></li>
+    <li><a href="https://cookieandkate.com/simple-vegan-pancake-recipe/">Super simple vegan pancakes</a></li>
+    <li><a href="https://www.greatbritishchefs.com/recipes/vegan-pancake-recipe">Vegan pancakes</a></li>
+    <li><a href="https://www.allrecipes.com/recipe/191885/vegan-pancakes/">Vegan Pancakes, allrecipes</a></li>
+  </ul>
+  
+</body>
+</html>
+
+
