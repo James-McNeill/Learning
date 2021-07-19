@@ -37,4 +37,4 @@ proc sql;
 	where name in (select upcase(macro_variable) from macro_inputs)
 	order by name
 	;
-run;
+quit;
