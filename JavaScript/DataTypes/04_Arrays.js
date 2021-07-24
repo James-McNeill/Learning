@@ -1,22 +1,3 @@
-<!DOCTYPE html>
-<!--
-Created using JS Bin
-http://jsbin.com
-
-Copyright (c) 2021 by James-McNeill (http://jsbin.com/nafunen/19/edit)
-
-Released under the MIT license: http://jsbin.mit-license.org
--->
-<meta name="robots" content="noindex">
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>JS Bin</title>
-</head>
-<body>
-
-<script id="jsbin-javascript">
 // Constructor pattern for creating objects - boilerplat code
 function Donut(type, glazed, sweetness, hasChocolate) {
   this.type = type;
@@ -42,28 +23,28 @@ console.log(coconutDonut);
 console.log(vanillaDonut);
 
 // Arrays
-// Collection of data
-// var myArray = [1, 2, 3, "checking", "out", true];
-// console.log(myArray.length);
-// console.log(myArray[5]);
+Collection of data
+var myArray = [1, 2, 3, "checking", "out", true];
+console.log(myArray.length);
+console.log(myArray[5]);
 
-// var myNamesArray = new Array();
-// var myNamesArray = []; // array literale notation
-// myNamesArray[0] = "James";
-// myNamesArray[1] = "Test";
-// myNamesArray[10] = "Test1"; // can add value to end with undefined entries
+var myNamesArray = new Array();
+var myNamesArray = []; // array literale notation
+myNamesArray[0] = "James";
+myNamesArray[1] = "Test";
+myNamesArray[10] = "Test1"; // can add value to end with undefined entries
 
-// var myNamesArray = ["James", "Jane", "Jessica", "John", ["blue",
-//                                                         "orange",
-//                                                         "yellow",
-//                                                         "red"]];
-// myNamesArray.push(10); // adds an element
-// var lastName = myNamesArray.pop(); // remove element
-// console.log(myNamesArray[4][0]); // extract element from internal array
+var myNamesArray = ["James", "Jane", "Jessica", "John", ["blue",
+                                                        "orange",
+                                                        "yellow",
+                                                        "red"]];
+myNamesArray.push(10); // adds an element
+var lastName = myNamesArray.pop(); // remove element
+console.log(myNamesArray[4][0]); // extract element from internal array
 
-// console.log(myNamesArray);
-// console.log(myNamesArray.length); // length of zero index array
-// console.log(myNamesArray[10]); // returns "undefined"
+console.log(myNamesArray);
+console.log(myNamesArray.length); // length of zero index array
+console.log(myNamesArray[10]); // returns "undefined"
 
 var myNamesArray = ["Zack","James", "Jane", "Jessica", "John"]
 var sortedArray = myNamesArray.sort();
@@ -93,10 +74,3 @@ var myDonuts = [coconutDonut, vanillaDonut];
 var lastDonut = myDonuts[1];
 lastDonut.sayType();
 lastDonut.showSweetness();
-
-
-
-
-</script>
-</body>
-</html>
