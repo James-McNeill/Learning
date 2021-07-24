@@ -1,34 +1,15 @@
-<!DOCTYPE html>
-<!--
-Created using JS Bin
-http://jsbin.com
-
-Copyright (c) 2021 by James-McNeill (http://jsbin.com/nafunen/2/edit)
-
-Released under the MIT license: http://jsbin.mit-license.org
--->
-<meta name="robots" content="noindex">
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>JS Bin</title>
-</head>
-<body>
-
-<script id="jsbin-javascript">
 // Objects
 // Collections of name-value pairs
 
-// var myName = {1: "James"};
-// console.log(myName);
+var myName = {1: "James"};
+console.log(myName);
 
 // One method to create object
-// var myObject = new Object();
-// myObject['1'] = "James";
-// myObject['2'] = "Sally";
-// myObject['3'] = "Bob";
-// console.log(myObject);
+var myObject = new Object();
+myObject['1'] = "James";
+myObject['2'] = "Sally";
+myObject['3'] = "Bob";
+console.log(myObject);
 
 // Object literal syntax, preffered
 var myOtherObject = {
@@ -56,14 +37,14 @@ var anotherObject = {
 
 var userMobileNumber = anotherObject.numbers.mobile;
 
-// console.log(anotherObject);
-// console.log(anotherObject.firstName);
-// console.log(anotherObject['firstName']);
-// console.log(anotherObject.numbers);
-// console.log(anotherObject.numbers.mobile);
-// console.log(anotherObject.numbers.home);
+console.log(anotherObject);
+console.log(anotherObject.firstName);
+console.log(anotherObject['firstName']);
+console.log(anotherObject.numbers);
+console.log(anotherObject.numbers.mobile);
+console.log(anotherObject.numbers.home);
 
-// console.log(userMobileNumber);
+console.log(userMobileNumber);
 
 var donut = {
   type: "coconut"
@@ -91,12 +72,12 @@ function sayHi() {
   console.log("Say Hi!")
 };
 
-// sayHi();
+sayHi();
 
 // Using the functions from an object
-// donut.sayHi();
-// donut.sayType();
-// donut.showSweetness();
+donut.sayHi();
+donut.sayType();
+donut.showSweetness();
 
 // Constructor pattern for creating objects - boilerplat code
 function Donut(type, glazed, sweetness, hasChocolate) {
@@ -117,10 +98,3 @@ var coconutDonut = new Donut("coconut", false, 8, true);
 // console.log(coconutDonut);
 var vanillaDonut = new Donut("vanilla", true, 10, false);
 vanillaDonut.showSweetness();
-
-
-
-
-</script>
-</body>
-</html>
