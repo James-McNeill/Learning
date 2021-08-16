@@ -8,3 +8,19 @@ proc sql;
 	order by filesize desc
 	;
 quit;
+
+
+*Check the size of the tables. 
+SIZEKMG: nKB for kilobytes, nMB for megabytes and nGB for gigabytes
+SIZEK: nK for kilobytes;
+PROC SQL ;
+  TITLE 'Filesize for CARS Data Set' ;
+  SELECT LIBNAME,
+         MEMNAME,
+         FILESIZE FORMAT=SIZEKMG.,
+         FILESIZE FORMAT=SIZEK.
+    FROM DICTIONARY.TABLES
+      WHERE LIBNAME = 'SASHELP'
+        AND MEMNAME = 'CARS'
+        AND MEMTYPE = 'DATA' ;
+QUIT ;
