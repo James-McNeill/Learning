@@ -31,3 +31,10 @@ plt.hist(red_channel.ravel(), bins=256)
 # Set title and show
 plt.title('Red Histogram')
 plt.show()
+
+# Pixels in an image range from 0 to 255. With 0 being pure black and 255 being pure white. The representation of these pixels values can be analysed using histograms
+
+# colours can be extracted from a 3d numpy array as follows:
+# red = [:, :, 0]
+# green = [:, :, 1]
+# blue = [:, :, 2]
