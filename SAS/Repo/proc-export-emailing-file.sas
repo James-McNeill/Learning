@@ -1,5 +1,5 @@
 /* Location reference within the SAS files folder */
-LIBNAME HOME 'SAS library folder location';
+LIBNAME HOME 'SAS library location';
 
 /* Create a testing dataset */
 data testing;
