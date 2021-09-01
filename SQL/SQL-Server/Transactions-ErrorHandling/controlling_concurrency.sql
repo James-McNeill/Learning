@@ -34,3 +34,39 @@ SELECT * FROM customers;
 
 -- Commit the transaction
 COMMIT TRAN
+
+-- Final level is the SERIALIZABLE which locks data from being adjusted until the transaction has completed.
+-- If the data contained within the TRANS is not being updated/inserted then the update/insert will take place.
+-- Set the appropriate isolation level
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+
+-- Begin a transaction
+BEGIN TRAN
+
+SELECT * FROM customers;
+
+-- After some mathematical operations, we selected information from the customers table.
+SELECT * FROM customers;
+
+-- Commit the transaction
+COMMIT TRAN
+
+-- Another example
+-- Set the appropriate isolation level
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+
+-- Begin a transaction
+BEGIN TRAN
+
+-- Select customer_id between 1 and 10
+SELECT * 
+FROM customers
+WHERE customer_id BETWEEN 1 AND 10;
+
+-- After completing some mathematical operation, select customer_id between 1 and 10
+SELECT * 
+FROM customers
+WHERE customer_id BETWEEN 1 AND 10;
+
+-- Commit the transaction
+COMMIT TRAN
