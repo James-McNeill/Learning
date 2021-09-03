@@ -40,3 +40,32 @@ proc expand data=macroeconomics1 method=none out=macroeconomics;
 	convert CPI=lag1q_log_CPI/transformin=(pctdif 4);
 	convert CPI=CPI_4QMA/transformin=(movave 4);
 run;
+
+/* Additional transformations performed using a macro */
+%macro all_trans_rev(input_data=, input_var=, end=, output_data=);
+
+	proc datasets lib=work nodetails nolist;
+		delete &output_data.;
+	run;
+
+	%do i = 1 %to &end.;
+
+		proc expand data=&input_data. out=out&i.;
+			convert &input_var. = dif&i. / transformout = (dif &i.);
+			convert &input_var. = lag&i. / transformout = (lag &i.);	
+			convert &input_var. = movave&i. / transformout = (movave &i.);
+		run;
+		
+	%end;
+
+	data &output_data.;
+		merge &input_data. out1 - out&end. ;
+	run;
+
+	proc datasets lib=work nodetails nolist;
+		delete out: ;
+	run;
+
+%mend;
+
+%all_trans_rev(input_data=macroeconomics, input_var=CPI, end=12, output_data=data_CPI);
