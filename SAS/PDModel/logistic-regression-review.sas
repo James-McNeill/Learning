@@ -1,5 +1,7 @@
-/* The input dataset relates to the variables which have been created by means of WOE. */
-
+/* The input dataset relates to the variables which have been created by means of WOE. 
+The WOE variables below have been converted from raw values to the WOE values by each bucket.
+Note that the overall input dataset was converted into a Training and Validation split.
+*/
 
 *Print out the list of WOE variables for review;
 proc sql noprint;
