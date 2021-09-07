@@ -1,3 +1,4 @@
+/* Macro is used to allow for automation of the proc report creation */
 %MACRO ESTIMATION_OUTPUT(ESTIMATION /* ESTIMATION=0 & VALIDATION=1 */, 
                                  POPULATION /* GOOD OR BAD */, 
                                  INPUT_DATA /* INPUT DATASET WITH PROBABILITIES */);
