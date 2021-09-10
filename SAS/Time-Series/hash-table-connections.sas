@@ -19,3 +19,9 @@ data base_samp;
 
 run;
 
+/* Review list of time periods to perform joins for */
+*Time period values from the input variable list;
+%let var_num = %sysfunc(countw(&timet.)); *timet: list of time periods (e.g. 0 - 12), countw: method counts total number of values;
+%let var_first = %scan(&timet., 1); *scans for the first value in the list;
+%let var_last = %scan(&timet., &var_num.); *returns the final value in the list;
+
