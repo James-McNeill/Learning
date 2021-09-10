@@ -35,7 +35,7 @@ coefs = best_lr.coef_
 print("Total number of features:", coefs.size)
 print("Number of selected features:", np.count_nonzero(coefs))
 
-# Example: reviewing positive and negative sentiments from movie database
+# Example: reviewing positive and negative sentiments from movie database. vocab: variable list of words
 # Get the indices of the sorted cofficients
 inds_ascending = np.argsort(lr.coef_.flatten()) 
 inds_descending = inds_ascending[::-1]
