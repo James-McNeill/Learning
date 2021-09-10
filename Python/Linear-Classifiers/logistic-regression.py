@@ -34,3 +34,20 @@ best_lr = searcher.best_estimator_
 coefs = best_lr.coef_
 print("Total number of features:", coefs.size)
 print("Number of selected features:", np.count_nonzero(coefs))
+
+# Example: reviewing positive and negative sentiments from movie database
+# Get the indices of the sorted cofficients
+inds_ascending = np.argsort(lr.coef_.flatten()) 
+inds_descending = inds_ascending[::-1]
+
+# Print the most positive words
+print("Most positive words: ", end="")
+for i in range(5):
+    print(vocab[inds_descending[i]], end=", ")
+print("\n")
+
+# Print most negative words
+print("Most negative words: ", end="")
+for i in range(5):
+    print(vocab[inds_ascending[i]], end=", ")
+print("\n")
