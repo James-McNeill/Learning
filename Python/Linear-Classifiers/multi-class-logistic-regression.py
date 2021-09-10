@@ -34,3 +34,16 @@ lr_class_1.fit(X_train, y_train==1)
 
 # Plot the binary classifier (class 1 vs. rest) - One-vs-rest did not fit the classes well but usually it can
 plot_classifier(X_train, y_train==1, lr_class_1)
+
+# One-vs-rest SVM - scikit-learn's SVC object, which is a non-linear "kernel" SVM
+# We'll use SVC instead of LinearSVC from now on
+from sklearn.svm import SVC
+
+# Create/plot the binary classifier (class 1 vs. rest)
+svm_class_1 = SVC()
+svm_class_1.fit(X_train, y_train==1)
+plot_classifier(X_train, y_train==1, svm_class_1)
+
+# The SVC classifier works well as it is able to perform a non-linear method of surrounding the class values to
+# perform a better prediction. A circle was placed around the class being predicted compared to a straight line
+# boundary which would be seen with the LogisiticRegression
