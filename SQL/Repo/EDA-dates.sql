@@ -22,3 +22,15 @@ GROUP BY
     -- Use DATEPART() to Group By the CASE statement
 	CASE WHEN DATEPART(SECOND, StartDate) = 0 THEN 'SECONDS = 0'
 		 WHEN DATEPART(SECOND, StartDate) > 0 THEN 'SECONDS > 0' END
+
+-- Calculating the longest trip by week day
+SELECT
+    -- Select the day of week value for StartDate
+	DATENAME(weekday, StartDate) as DayOfWeek,
+    -- Calculate TotalTripHours
+	SUM(DATEDIFF(SECOND, StartDate, EndDate))/ 3600 as TotalTripHours 
+FROM CapitalBikeShare 
+-- Group by the day of week
+GROUP BY DATENAME(weekday, StartDate)
+-- Order TotalTripHours in descending order
+ORDER BY TotalTripHours DESC
