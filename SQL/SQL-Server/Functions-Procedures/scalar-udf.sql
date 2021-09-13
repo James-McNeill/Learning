@@ -11,7 +11,7 @@ RETURN (
     )
 END
 
--- UDF that contains an input parameter
+-- UDF that contains one input param and one output
 -- Create SumRideHrsSingleDay
 CREATE FUNCTION SumRideHrsSingleDay (@DateParm date)
 -- Specify return data type
@@ -26,4 +26,19 @@ FROM CapitalBikeShare
  -- Only include transactions where StartDate = @DateParm
 WHERE CAST(StartDate AS date) = @DateParm)
 -- End
+END
+
+-- UDF with multiple input params and one output
+-- Create the function
+CREATE FUNCTION SumRideHrsDateRange (@StartDateParm datetime, @EndDateParm datetime)
+-- Specify return data type
+RETURNS numeric
+AS
+BEGIN
+RETURN
+-- Sum the difference between StartDate and EndDate
+(SELECT SUM(DATEDIFF(second, StartDate, EndDate))/3600
+FROM CapitalBikeShare
+-- Include only the relevant transactions
+WHERE StartDate > @StartDateParm and StartDate < @EndDateParm)
 END
