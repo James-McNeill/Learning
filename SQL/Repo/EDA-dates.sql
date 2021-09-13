@@ -34,3 +34,16 @@ FROM CapitalBikeShare
 GROUP BY DATENAME(weekday, StartDate)
 -- Order TotalTripHours in descending order
 ORDER BY TotalTripHours DESC
+
+-- Looking for the outlier value across the month. Aiming to review which Saturday value was the outlier
+SELECT
+	-- Calculate TotalRideHours using SUM() and DATEDIFF()
+  	SUM(DATEDIFF(SECOND, StartDate, EndDate))/ 3600 AS TotalRideHours,
+    -- Select the DATE portion of StartDate
+  	CONVERT(DATE, StartDate) AS DateOnly,
+    -- Select the WEEKDAY
+  	DATENAME(weekday, CONVERT(DATE, StartDate)) AS DayOfWeek 
+FROM CapitalBikeShare
+-- Only include Saturday
+WHERE DATENAME(weekday, StartDate) = 'Saturday' 
+GROUP BY CONVERT(DATE, StartDate);
