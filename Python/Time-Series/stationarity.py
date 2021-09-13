@@ -16,6 +16,15 @@ import numpy as np
 from statsmodels.tsa.stattools import adfuller, kpss
 
 class stationarity:
+    '''
+    Performs a stationarity review of each of the columns that are contained within the DataFrame being reviewed.
+    df: transformed macro-economic variables for review
+    ---
+    Application of the class
+    # Apply the stationarity testing - df_out2 contains the transformed macro-economic variables e.g., first differences
+    and lagged values have been applied
+    df_stat = stmd.stationarity().stationarity_test(df_out2)
+    '''
     
     # Constructor
     #def __init__(self):
@@ -36,7 +45,7 @@ class stationarity:
 
             # KPSS test. The option 'ct' for the regression parameter, means that the 'deterministic trend' is reviewed
             # instead of the mean value
-            stats, p, lags, cv = kpss(df.loc[df[col].notnull(),col], 'ct', nlags='auto')
+            stats, p, _, _ = kpss(df.loc[df[col].notnull(),col], 'ct', nlags='auto')
 
             # Populate the tmp DataFrame
             tmp = tmp.append({'variable': col
