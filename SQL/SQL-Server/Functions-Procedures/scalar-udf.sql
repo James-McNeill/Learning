@@ -5,10 +5,10 @@ CREATE FUNCTION GetYesterday()
 RETURNS date
 AS
 BEGIN
--- Calculate yesterday's date value
-RETURN (
-    SELECT DATEADD(day, -1, GETDATE())
-    )
+    -- Calculate yesterday's date value
+    RETURN (
+        SELECT DATEADD(day, -1, GETDATE())
+        )
 END
 
 -- UDF that contains one input param and one output
@@ -17,15 +17,13 @@ CREATE FUNCTION SumRideHrsSingleDay (@DateParm date)
 -- Specify return data type
 RETURNS numeric
 AS
--- Begin
 BEGIN
-RETURN
--- Add the difference between StartDate and EndDate
-(SELECT SUM(DATEDIFF(second, StartDate, EndDate))/3600
-FROM CapitalBikeShare
- -- Only include transactions where StartDate = @DateParm
-WHERE CAST(StartDate AS date) = @DateParm)
--- End
+    RETURN
+    -- Add the difference between StartDate and EndDate
+    (SELECT SUM(DATEDIFF(second, StartDate, EndDate))/3600
+    FROM CapitalBikeShare
+     -- Only include transactions where StartDate = @DateParm
+    WHERE CAST(StartDate AS date) = @DateParm)
 END
 
 -- UDF with multiple input params and one output
@@ -35,10 +33,10 @@ CREATE FUNCTION SumRideHrsDateRange (@StartDateParm datetime, @EndDateParm datet
 RETURNS numeric
 AS
 BEGIN
-RETURN
--- Sum the difference between StartDate and EndDate
-(SELECT SUM(DATEDIFF(second, StartDate, EndDate))/3600
-FROM CapitalBikeShare
--- Include only the relevant transactions
-WHERE StartDate > @StartDateParm and StartDate < @EndDateParm)
+    RETURN
+    -- Sum the difference between StartDate and EndDate
+    (SELECT SUM(DATEDIFF(second, StartDate, EndDate))/3600
+    FROM CapitalBikeShare
+    -- Include only the relevant transactions
+    WHERE StartDate > @StartDateParm and StartDate < @EndDateParm)
 END
