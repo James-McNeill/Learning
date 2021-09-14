@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title> REDIRECTING to the ECB website </title>
+
+<script type = "text/javascript">
+	
+	var now = new Date();
+	var hour = now.getHours();
+	//var time = now.toLocaleTimeString();
+	
+	//determine if it is morning
+	if (hour < 12)
+		document.write( "<h1>Good Morning ");
+	//determine if the time is pm
+	if (hour > 12)
+	{
+		//convert to a 12-hour clock
+		hour = hour - 12;
+		//determine whether it is before 6pm
+		if (hour < 6)
+			document.write("<h1>Good Afternoon ");
+		//determine whether it is after 6pm
+		if (hour > 6)
+			document.write("<h1>Good Evening ");
+	}//end if
+
+	document.writeln(" and thank you for visiting this website</h1>");
+	document.writeln("<h2>We are currently REDIRECTING you to the ECB website which will explain the SSM Targeted Review of Internal Models</h2>");
+
+	//document.writeln("<h3>Current time is - " + time +" </h3>");
+
+</script>
+	
+</head>
+	
+<!-- REDIRECTING STARTS -->
+	<meta http-equiv="refresh" content="15;URL=https://www.bankingsupervision.europa.eu/about/ssmexplained/html/trim.en.html">
+
+<body>
+
+<p>Can you guess the time in seconds until we are REDIRECTED?</p>
+
+<input id="numb">
+
+<button type="button" onclick="myFunction()">Submit</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    var x, text;
+
+    // Get the value of the input field with id="numb"
+    x = document.getElementById("numb").value;
+
+    // If x is Not a Number or less than one or greater than 10
+    if (x < 15 ) {
+        text = "Input too low, clock is ticking...";
+    } 
+    else if (x > 15) {
+        text = "Input too high, clock is ticking...";
+    }
+    else if (x = 15) {
+        text = "BINGO!";
+    }
+    else if (isNaN(x)) { text = "A number please, clock is ticking...";}
+    else { text = "What were you thinking? THe clock is ticking...";}
+    document.getElementById("demo").innerHTML = text;
+}
+</script>
+
+</body>
+
+	
+</html>
