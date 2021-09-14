@@ -40,7 +40,11 @@ run;
 		   %put &date. &i. &start. &yyyymm. &date_adj. &yyyy_mm.;
 
     /* Bring in the monthly table to review */
-	%if %sysfunc(exist(&inputtable.&yyyymm.)) %then %do;
+/* 
+Also able to review if a SAS dataset is a VIEW
+%else %if %sysfunc(exist(&inputtable.&yyyymm., VIEW)) %then %do
+*/
+	%if %sysfunc(exist(&inputtable.&yyyymm.)) %then %do; 
 	data output_&yyyy_mm. ;
 		set &inputtable.&yyyymm.
 		(keep= account_no fb_arrange_detail adj_arrears arrears_banding)
