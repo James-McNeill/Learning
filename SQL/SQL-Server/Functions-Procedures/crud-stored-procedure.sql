@@ -1,3 +1,7 @@
+-- Making use of the RideSummary table the following stored procedures will be used
+-- to perform the CRUD process
+
+-- 1. Perform an INSERT statement to the table
 -- Create the stored procedure
 CREATE PROCEDURE dbo.cusp_RideSummaryCreate 
     (@DateParm date,
@@ -39,4 +43,20 @@ SET
     RideHours = @RideHrs
 -- Include records where Date equals @Date
 WHERE Date = @Date
+END;
+
+-- 3. Create a DELETE statement to the table
+-- Create the stored procedure
+CREATE PROCEDURE dbo.cuspRideSummaryDelete
+	-- Specify @DateParm input parameter
+	(@DateParm date,
+     -- Specify @RowCountOut output parameter
+     @RowCountOut int OUTPUT)
+AS
+BEGIN
+-- Delete record(s) where Date equals @DateParm
+DELETE FROM dbo.RideSummary
+WHERE Date = @DateParm
+-- Set @RowCountOut to @@ROWCOUNT
+SET @RowCountOut = @@ROWCOUNT
 END;
