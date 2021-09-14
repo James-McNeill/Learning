@@ -23,3 +23,19 @@ EXEC @RideHrs = dbo.SumRideHrsSingleDay @DateParm = '3/5/2018'
 SELECT 
   'Total Ride Hours for 3/5/2018:', 
   @RideHrs
+
+-- 3. Execute TVF into a table variable
+-- Create @StationStats
+DECLARE @StationStats TABLE(
+	StartStation nvarchar(100), 
+	RideCount int, 
+	TotalDuration numeric)
+-- Populate @StationStats with the results of the function
+INSERT INTO @StationStats
+SELECT TOP 10 *
+-- Execute SumStationStats with 3/15/2018, input param is stored in parenthesis
+FROM dbo.SumStationStats('3/15/2018') 
+ORDER BY RideCount DESC
+-- Select all the records from @StationStats
+SELECT * 
+FROM @StationStats
