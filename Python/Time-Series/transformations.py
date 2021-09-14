@@ -16,10 +16,26 @@ import numpy as np
 from scipy.stats import norm
 
 class transformations:
-    
-    # Constructor
-    #def __init__(self):
-        
+    '''
+    Examples of using the methods
+    ---
+    Applying basic transformations:
+    df_ind1 = df_ind.copy()
+    utl.transformations().basic_transformations(df_ind1, 1)
+    # Drop initial columns after transformation
+    orig_cols = list(df_ind.columns)
+    df_ind1.drop(columns=orig_cols, inplace=True)
+    ---
+    Applying lags to the basic transformations:
+    df_ind2 = df_ind1.copy()
+    utl.transformations().create_lags(df_ind2)
+    # Drop original columns from the final transformed list
+    orig_cols = list(df_ind1.columns)
+    df_ind2.drop(columns=orig_cols, inplace=True)
+    ---
+    Test for missing and/or infinity value's for a variable after the transformations
+    df_miss_inf = utl.transformations().missing_infinity_values(df_ind2)
+    '''  
         
     # Method - Create UDF for the basic transformations
     def basic_transformations(self, df, addTrans=None):
