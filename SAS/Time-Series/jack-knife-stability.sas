@@ -1,5 +1,5 @@
 
-/*RBS COLOURS - NO CHANGE HERE*/
+/*COLOURS*/
 %let Col1 = 10,47,100;
 %let Col2 = 6,179,187;
 %let Col3 = 232,66,97;
@@ -8,7 +8,6 @@
 %let Col6 = 102,100,101;
 %let Col7 = 37,166,233;
 %let Col8 = 4,134,140;
-
 
 %macro hex2(n);
   %local digits n1 n2;
