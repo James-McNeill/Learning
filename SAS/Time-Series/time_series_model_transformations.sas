@@ -143,3 +143,21 @@ set &LIB_IN..&DS_IN.;
 	%end;
 RUN;
 %MEND create_lags;
+
+
+/* Running the all transformations and lags */
+*Transform independent variable(s);
+%all_transformations(LIB_IN=WORK,
+					DS_IN=IND,
+					DATE_VAR=DATE,
+					Lib_OUT=WORK,
+					DS_out=IND_TRS,
+					APPLY_LOGIT=N,
+					APPLY_G=N,
+					APPLY_J=N,
+					APPLY_B=N,
+					APPLY_M=N
+					);
+
+*Create lags on the transformed from the previous step;
+%create_lags(LIB_IN=WORK,DS_IN=IND_TRS,MAX_LAG=4,LIB_OUT=WORK,DS_OUT=IND_TRS_LAG);
