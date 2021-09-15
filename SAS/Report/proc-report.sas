@@ -1,4 +1,4 @@
-/* 1a) Capital report */
+/* Basic Proc report methods */
 proc report data=input_data out=output_report;
 title1 "&Scenario";
 title2 "Balance Comparison";
