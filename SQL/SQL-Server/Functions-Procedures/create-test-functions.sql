@@ -38,3 +38,22 @@ RETURN
           -- 5pm (17) to 12am (24) shift
 	     WHEN @Hour >= 17 AND @Hour < 24 THEN 3 END)
 END;
+
+
+-- TEST: check to see that the three functions are working properly
+SELECT
+	-- Select the first 100 records of PickupDate
+	TOP 100 PickupDate,
+    -- Determine the shift value of PickupDate
+	dbo.GetShiftNumber(DATEPART(hour, PickupDate)) AS 'Shift',
+    -- Select FareAmount
+	FareAmount,
+    -- Convert FareAmount to Euro
+	dbo.ConvertDollar(FareAmount, 0.87) AS 'FareinEuro',
+    -- Select TripDistance
+	TripDistance,
+    -- Convert TripDistance to kilometers
+	dbo.ConvertMiletoKm(TripDistance) AS 'TripDistanceinKM'
+FROM YellowTripData
+-- Only include records for the 2nd shift
+WHERE dbo.GetShiftNumber(DATEPART(hour, PickupDate)) = 2;
