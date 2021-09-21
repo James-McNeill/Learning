@@ -22,3 +22,18 @@ val informPlayer: String = {
 
 // Print the message
 print(informPlayer)
+
+// Create a function to perform the if statement review
+// Find the number of points that will cause a bust
+def pointsToBust(hand: Int): Int = {
+  // If the hand is a bust, 0 points remain
+  if (hand > 21)
+    0
+  // Otherwise, calculate the difference between 21 and the current hand
+  else
+    21 - hand
+}
+
+// Test pointsToBust with 10♠ and 5♣
+val myHandPointsToBust = pointsToBust(tenSpades + fiveClubs)
+println(myHandPointsToBust)
