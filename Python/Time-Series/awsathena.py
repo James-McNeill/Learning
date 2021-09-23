@@ -18,6 +18,10 @@ import sys
 util.check_and_install_python_mod("pyathena") # module to connect AWS Sagemaker to AWS Athena
 util.check_and_install_python_mod("openpyxl") # module can be used to run the pd.read_excel() method
 
+# Example of openpyxl being used
+# # Import the independent variable excel file
+# df_ind = pd.read_excel('INDEPENDENT_VARIABLES.xlsx', engine='openpyxl', index_col='Date', parse_dates=True).rename_axis('macro', axis=1)
+
 # Import modules from pyathena
 from pyathena import connect
 from pyathena.pandas.cursor import PandasCursor
