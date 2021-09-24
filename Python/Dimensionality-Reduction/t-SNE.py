@@ -16,3 +16,10 @@ m = TSNE(learning_rate=50)
 # Fit and transform the t-SNE model on the numeric dataset
 tsne_features = m.fit_transform(df_numeric)
 print(tsne_features.shape)
+
+# Perform visualizations of the reduced dataset
+# Color the points by Gender
+sns.scatterplot(x="x", y="y", hue='Gender', data=df)
+
+# Show the plot
+plt.show()
