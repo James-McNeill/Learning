@@ -33,3 +33,13 @@ mask = sel.get_support()
 reduced_df = head_df.loc[:, mask]
 
 print("Dimensionality reduced from {} to {}.".format(head_df.shape[1], reduced_df.shape[1]))
+
+
+# Create a boolean mask on whether each feature less than 50% missing values.
+mask = school_df.isnull().sum() / len(school_df) < 0.5
+
+# Create a reduced dataset by applying the mask
+reduced_df = school_df.loc[:, mask]
+
+print(school_df.shape)
+print(reduced_df.shape)
