@@ -1,4 +1,4 @@
-# Take the details from "" and run the additional code below to perform the full analysis
+# Take the details from "pipeline-full-implementation.py" and run the additional code below to perform the full analysis
 
 # Create the parameter grid
 gbm_param_grid = {
