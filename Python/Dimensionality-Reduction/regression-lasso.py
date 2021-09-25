@@ -25,7 +25,7 @@ zero_coef = la.coef_ == 0
 n_ignored = sum(zero_coef)
 print("The model has ignored {} out of {} features.".format(n_ignored, len(la.coef_)))
 
-# Adjusting the aplha parameter for model regularization
+# Adjusting the aplha parameter for model regularization - very manual process
 # Find the highest alpha value with R-squared above 98%
 la = Lasso(alpha=0.1, random_state=0)
 
@@ -37,3 +37,19 @@ n_ignored_features = sum(la.coef_ == 0)
 # Print peformance stats 
 print("The model can predict {0:.1%} of the variance in the test set.".format(r_squared))
 print("{} out of {} features were ignored.".format(n_ignored_features, len(la.coef_)))
+
+# Automate the aplha selection using LassoCV method
+from sklearn.linear_model import LassoCV
+
+# Create and fit the LassoCV model on the training set
+lcv = LassoCV()
+lcv.fit(X_train, y_train)
+print('Optimal alpha = {0:.3f}'.format(lcv.alpha_))
+
+# Calculate R squared on the test set
+r_squared = lcv.score(X_test, y_test)
+print('The model explains {0:.1%} of the test set variance'.format(r_squared))
+
+# Create a mask for coefficients not equal to zero
+lcv_mask = lcv.coef_ != 0
+print('{} features out of {} selected'.format(sum(lcv_mask), len(lcv_mask)))
