@@ -24,7 +24,7 @@ tfidf_vec = TfidfVectorizer()
 # Transform the text into tf-idf vectors
 text_tfidf = tfidf_vec.fit_transform(title_text)
 
-# Using tf/idf within ML model to classify
+# Using tf/idf within ML model to classify. ML model = NaiveBayes
 # Split the dataset according to the class distribution of category_desc
 y = volunteer["category_desc"]
 X_train, X_test, y_train, y_test = train_test_split(text_tfidf.toarray(), y, stratify=y)
