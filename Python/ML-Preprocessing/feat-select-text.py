@@ -30,3 +30,13 @@ filtered_words = words_to_filter(vocab, tfidf_vec.vocabulary_, text_tfidf, 3)
 
 # By converting filtered_words back to a list, we can use it to filter the columns in the text vector
 filtered_text = text_tfidf[:, list(filtered_words)]
+
+# Build a model using the filtered text
+# Split the dataset according to the class distribution of category_desc, using the filtered_text vector
+train_X, test_X, train_y, test_y = train_test_split(filtered_text.toarray(), volunteer["category_desc"], stratify=volunteer["category_desc"])
+
+# Fit the model to the training data
+nb.fit(train_X, train_y)
+
+# Print out the model's accuracy
+print(nb.score(test_X, test_y))
