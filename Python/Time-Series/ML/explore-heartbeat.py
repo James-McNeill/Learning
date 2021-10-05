@@ -26,3 +26,15 @@ ax1.set(title="Normal Data")
 ax2.plot(time, mean_abnormal)
 ax2.set(title="Abnormal Data")
 plt.show()
+
+# Baseline model - making use of the raw data the Linear Classifier will perform a weak initial classification. 
+# Once the input data has been transformed more then a robust estimate can be created.
+from sklearn.svm import LinearSVC
+
+# Initialize and fit the model
+model = LinearSVC()
+model.fit(X_train, y_train)
+
+# Generate predictions and score them manually
+predictions = model.predict(X_test)
+print(sum(predictions == y_test.squeeze()) / len(y_test))
