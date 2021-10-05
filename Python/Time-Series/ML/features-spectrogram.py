@@ -2,6 +2,7 @@
 # The first step in this process is to calculate a spectrogram of sound. 
 # This describes what spectral content (e.g., low and high pitches) are present in the sound over time.
 
+# 1. Initial data analysis
 # Import the stft function
 from librosa.core import stft
 
@@ -22,7 +23,7 @@ axs[0].plot(time, audio)
 specshow(spec_db, sr=sfreq, x_axis='time', y_axis='hz', hop_length=HOP_LENGTH)
 plt.show()
 
-# Feature Engineering
+# 2. Feature Engineering
 # Import library
 import librosa as lr
 
@@ -44,3 +45,26 @@ ax.plot(times_spec, centroids)
 ax.fill_between(times_spec, centroids - bandwidths / 2, centroids + bandwidths / 2, alpha=.5)
 ax.set(ylim=[None, 6000])
 plt.show()
+
+# 3. Combine features within Classifier
+# Loop through each spectrogram
+bandwidths = []
+centroids = []
+
+# Create the two lists
+for spec in spectrograms:
+    # Calculate the mean spectral bandwidth
+    this_mean_bandwidth = np.mean(lr.feature.spectral_bandwidth(S=spec))
+    # Calculate the mean spectral centroid
+    this_mean_centroid = np.mean(lr.feature.spectral_centroid(S=spec))
+    # Collect the values
+    bandwidths.append(this_mean_bandwidth)  
+    centroids.append(this_mean_centroid)
+
+# Create X and y arrays
+X = np.column_stack([means, stds, maxs, tempo_mean, tempo_max, tempo_std, bandwidths, centroids])
+y = labels.reshape([-1, 1])
+
+# Fit the model and score on testing data
+percent_score = cross_val_score(model, X, y, cv=5)
+print(np.mean(percent_score))
