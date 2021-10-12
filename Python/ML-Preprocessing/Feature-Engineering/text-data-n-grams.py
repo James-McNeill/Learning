@@ -5,6 +5,7 @@
 # trigrams: Sequences of two consecutive words
 # Overall aim is trying to review the sentement of the text (positive / neutral / negative)
 
+# 1. Perform the n-gram assessment of the text
 # Import CountVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -18,3 +19,11 @@ cv_trigram = cv_trigram_vec.fit_transform(speech_df['text_clean'])
 
 # Print the trigram features
 print(cv_trigram_vec.get_feature_names())
+
+# 2. Finding the most common words
+# Create a DataFrame of the features
+cv_tri_df = pd.DataFrame(cv_trigram.toarray(), 
+                 columns=cv_trigram_vec.get_feature_names()).add_prefix('Counts_')
+
+# Print the top 5 words in the sorted output
+print(cv_tri_df.sum().sort_values(ascending=False).head())
