@@ -36,5 +36,6 @@ preds_east = predictions[east_teams]
 print('The MAE for East teams is {}'.format(
     mae(true_east, preds_east)))
 
-# Print the West accuracy
+# Print the West accuracy - shows the accuracy of the game predictions. Experts picked game wins better for the West
+# so this showed a lower MAE (predicted games win difference to actual)
 print('The MAE for West conference is {}'.format(west_error))
