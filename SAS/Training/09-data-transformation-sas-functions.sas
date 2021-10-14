@@ -3,34 +3,34 @@
 *In-built functions that provide programming shortcuts for many calculations and manipulations of data;
 
 *Dataset to be used;
-data act_trans;
-	set actmgt (obs=100);
+data sample;
+	set input_data (obs=100);
 run;
 
 *Example of a SAS function;
-data act_a;
-	set act_trans
-	(keep=account_no brand system tot_arr_bal_amt drawdown_amt);
-	Avg_amt_1 = mean(tot_arr_bal_amt, drawdown_amt);
+data sample_a;
+	set sample
+	(keep=account brand current_balance drawdown_amt);
+	Avg_amt_1 = mean(current_balance, drawdown_amt);
 run;
 
 *Character to Numeric conversion - INPUT function, requires the informat that the variable is being changed to;
-data act_b;
-	set act_trans
-	(keep=account_no app_seq);
+data sample_b;
+	set sample
+	(keep=account app_seq);
 	app_seq_num = input(app_seq, 2.);
 run;
 
 *Numeric to Character conversion - PUT function, requires the format that the variable is currently in;
-data act_c;
-	set act_trans
-	(keep=account_no branch_no);
-	acct_char = put(account_no, 6.);
+data sample_c;
+	set sample
+	(keep=account branch_no);
+	acct_char = put(account, 6.);
 	branch_char = put(branch_no, 6.);
 
-	acct_branch = account_no||branch_no;
-	acct_branch_1 = put(account_no, 6.)||put(branch_no, 6.);
-	acct_branch_2 = cats(account_no, branch_no);
+	acct_branch = account||branch_no;
+	acct_branch_1 = put(account, 6.)||put(branch_no, 6.);
+	acct_branch_2 = cats(account, branch_no);
 run;
 
 *Manipulating SAS date values with functions;
@@ -39,56 +39,55 @@ run;
 *A SAS time value is stored as the number of seconds since midnight;
 *A SAS datetime value is stored as the number of seconds since midnight on 01/01/1960;
 
-data act_dates;
-	set act_trans
-	(keep=account_no acc_incep_dt drawdown_dt rbs_applic_date schdd_term_dt drv_maturity_dt);
+data sample_dates;
+	set sample
+	(keep=account incep_dt drawdown_dt maturity_dt);
 
-	incep_draw = acc_incep_dt - drawdown_dt;
-	incep_rbs = acc_incep_dt - rbs_applic_date;
+	incep_draw = incep_dt - drawdown_dt;
 
 	*Typical SAS date functions;
-	date = mdy(month(acc_incep_dt), 1, year(acc_incep_dt));
+	date = mdy(month(incep_dt), 1, year(incep_dt));
 	now = today();
 	now1 = date();
 	curtime = time();
-	day = day(acc_incep_dt);
-	weekday = weekday(acc_incep_dt);	*1 = Sunday, 7 = Saturday;
-	month = month(acc_incep_dt);
-	yr = year(acc_incep_dt);
+	day = day(incep_dt);
+	weekday = weekday(incep_dt);	*1 = Sunday, 7 = Saturday;
+	month = month(incep_dt);
+	yr = year(incep_dt);
 
-	*INTCK function;
-	k1 = intck("day", acc_incep_dt, rbs_applic_date);
-	k2 = intck("week", acc_incep_dt, rbs_applic_date);
-	k3 = intck("month", acc_incep_dt, rbs_applic_date);
-	k4 = intck("qtr", acc_incep_dt, rbs_applic_date);
-	k5 = intck("year", acc_incep_dt, rbs_applic_date);
+	*INTCK function - date difference;
+	k1 = intck("day", incep_dt, maturity_dt);
+	k2 = intck("week", incep_dt, maturity_dt);
+	k3 = intck("month", incep_dt, maturity_dt);
+	k4 = intck("qtr", incep_dt, maturity_dt);
+	k5 = intck("year", incep_dt, maturity_dt);
 
-	*INTNX function;
-	x1 = intnx("day", acc_incep_dt, 1);
-	x2 = intnx("week", acc_incep_dt, 1);
-	x3 = intnx("month", acc_incep_dt, 1);
-	x4 = intnx("qtr", acc_incep_dt, 1);
-	x5 = intnx("year", acc_incep_dt, 1);
+	*INTNX function - date addition;
+	x1 = intnx("day", incep_dt, 1);
+	x2 = intnx("week", incep_dt, 1);
+	x3 = intnx("month", incep_dt, 1);
+	x4 = intnx("qtr", incep_dt, 1);
+	x5 = intnx("year", incep_dt, 1);
 
 /*	format x1 - x5 date9.;*/
 
 	*Additional functions;
 	*DATDIF - days between two dates;
-	d1 = datdif(acc_incep_dt, rbs_applic_date, "act/act");
-	d2 = datdif(acc_incep_dt, rbs_applic_date, "30/360");
-	d3 = datdif(acc_incep_dt, rbs_applic_date, "act/360");
-	d4 = datdif(acc_incep_dt, rbs_applic_date, "ACT/365");
+	d1 = datdif(incep_dt, maturity_dt, "act/act");
+	d2 = datdif(incep_dt, maturity_dt, "30/360");
+	d3 = datdif(incep_dt, maturity_dt, "act/360");
+	d4 = datdif(incep_dt, maturity_dt, "ACT/365");
 	*YRDIF - years between two dates;
-	y1 = yrdif(acc_incep_dt, rbs_applic_date, "act/act");
-	y2 = yrdif(acc_incep_dt, rbs_applic_date, "30/360");
-	y3 = yrdif(acc_incep_dt, rbs_applic_date, "ACT/360");
-	y4 = yrdif(acc_incep_dt, rbs_applic_date, "act/365");
+	y1 = yrdif(incep_dt, maturity_dt, "act/act");
+	y2 = yrdif(incep_dt, maturity_dt, "30/360");
+	y3 = yrdif(incep_dt, maturity_dt, "ACT/360");
+	y4 = yrdif(incep_dt, maturity_dt, "act/365");
 
 run;
 
-data act_dates_checking;
-	set act_trans
-	(keep=account_no acc_incep_dt drawdown_dt rbs_applic_date schdd_term_dt drv_maturity_dt);
+data sample_dates_checking;
+	set sample
+	(keep=account incep_dt drawdown_dt drv_maturity_dt);
 
 	*Keying incorrect dates - warnings will be displayed in log but code will still execute;
 	date = mdy(15, 1, 2019);
@@ -96,10 +95,10 @@ data act_dates_checking;
 run;
 
 *Modifying character values with functions;
-data act_charact;
-	set act_trans
-	(keep=account_no );
-/*	(keep=account_no _character_);*/
+data sample_charact;
+	set sample
+	(keep=account);
+/*	(keep=account _character_); *display all remaining character variables;*/
 	name = "hello, world";
 	name1 = "bloggs, john doe";
 	name2 = "bloggs, john    ";
@@ -154,10 +153,9 @@ data act_charact;
 run;
 
 *Modifying numeric values with functions;
-data act_numeric;
-	set act_trans
-	(keep=account_no tot_curr_bal_amt
-	rename=(tot_curr_bal_amt = current_balance));
+data sample_numeric;
+	set sample
+	(keep=account current_balance);
 
 	*INT function - remove values after decimal place;
 	int_bal = int(current_balance);
@@ -173,9 +171,9 @@ data act_numeric;
 run;
 
 *Nesting SAS functions;
-data act_nest;
-	set act_trans
-	(keep=account_no system drawdown_dt tot_curr_bal_amt);
+data sample_nest;
+	set sample
+	(keep=account system drawdown_dt current_balance);
 
 	name = "hello, world";
 
