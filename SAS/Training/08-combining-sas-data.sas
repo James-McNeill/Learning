@@ -5,22 +5,20 @@ data close1;
 	set closed
 	(/*firstobs=10*/
 	obs=20
-	keep=account_no
+	keep=account
 		brand
 		system
-		tot_curr_bal_amt);
+		current_balance);
 run;
 
 data close2;
 	set closed
 	(/*firstobs=50 obs=100*/
 	obs=10
-	keep=account_no
-	brand_id
-	tot_arr_bal_amt);
+	keep=account
+	brand
+	arrears_balance);
 run;
-
-
 
 *One-to-one merging;
 *NOTE - The number of observations in the new data set is the number of observations in the smallest original data set.
@@ -53,12 +51,12 @@ revert to not producing any updated outputs. ;
 *Interleaving;
 *Intersperses observations from two or more datasets, based on one or more common variables. Each input data set must be sorted or
 indexed in ascending order based on the BY variable(s).;
-proc sort data=close1 out=close1s; by account_no; run;
-proc sort data=close2 out=close2s; by account_no; run;
+proc sort data=close1 out=close1s; by account; run;
+proc sort data=close2 out=close2s; by account; run;
 
 data inter;
 	set close1s close2s;
-	by account_no;
+	by account;
 run;
 
 *Match-merging;
@@ -67,14 +65,14 @@ of a common variable. Similar to the interleaving each dataset has to be ordered
 
 data match;
 	merge close1s close2s;
-	by account_no;
+	by account;
 run;
 
 *Renaming variables;
 data match1;
-	merge close1s(rename=(tot_curr_bal_amt = current_balance)) 
-		  close2s(rename=(tot_arr_bal_amt = arrears_balance));
-	by account_no;
+	merge close1s 
+		  close2s;
+	by account;
 run;
 
 *Excluding unmatched observations;
@@ -83,7 +81,7 @@ Selecting observations from both tables that match;
 data match_both;
 	merge close1s(in=a)
 		  close2s(in=b);
-	by account_no;
+	by account;
 
 	*Two methods to select matching observations from both tables;
 /*	if a=1 and b=1;*/
@@ -94,7 +92,7 @@ run;
 data match_left;
 	merge close1s(in=a)
 		  close2s(in=b);
-	by account_no;
+	by account;
 
 	if a;
 run;
@@ -103,8 +101,7 @@ run;
 data match_right;
 	merge close1s(in=a)
 		  close2s(in=b);
-	by account_no;
+	by account;
 
 	if b;
 run;
-
