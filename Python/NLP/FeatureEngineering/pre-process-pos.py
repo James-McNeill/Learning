@@ -11,8 +11,17 @@ doc = nlp(lotf)
 pos = [(token.text, token.pos_) for token in doc]
 print(pos)
 
-# Count the number of nouns from the tokens within a piece of text
-nlp = spacy.load('en_core_web_sm')
+# Returns number of proper nouns
+def proper_nouns(text, model=nlp):
+  	# Create doc object
+    doc = model(text)
+    # Generate list of POS tags
+    pos = [token.pos_ for token in doc]
+    
+    # Return number of proper nouns
+    return pos.count('PROPN')
+
+print(proper_nouns("Abdul, Bill and Cathy went to the market to buy apples.", nlp))
 
 # Returns number of other nouns
 def nouns(text, model=nlp):
