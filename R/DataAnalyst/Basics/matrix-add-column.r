@@ -18,3 +18,9 @@ worldwide_vector <- rowSums(star_wars_matrix)
 all_wars_matrix <- cbind(star_wars_matrix, worldwide_vector)
 
 # cbind(): can add a column or multiple columns to a matrix, which merges matrices and/or vectors together by column
+
+# Total revenue for US and non-US
+total_revenue_vector <- colSums(all_wars_matrix)
+  
+# Print out total_revenue_vector
+total_revenue_vector
