@@ -13,3 +13,6 @@ poker_wednesday <- poker_vector[3]
 
 # Define a new variable based on a selection - select combination of elements
 poker_midweek <- poker_vector[c(2, 3, 4)]
+
+# Define a new variable based on a selection - select a range of elements. Both values are inclusive
+roulette_selection_vector <- roulette_vector[2:5]
