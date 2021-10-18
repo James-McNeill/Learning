@@ -16,3 +16,9 @@ poker_midweek <- poker_vector[c(2, 3, 4)]
 
 # Define a new variable based on a selection - select a range of elements. Both values are inclusive
 roulette_selection_vector <- roulette_vector[2:5]
+
+# Select poker results for Monday, Tuesday and Wednesday - as the vectors have names, the names values can be used as well
+poker_start <- poker_vector[c("Monday", "Tuesday", "Wednesday")]
+  
+# Calculate the average of the elements in poker_start
+mean(poker_start)
