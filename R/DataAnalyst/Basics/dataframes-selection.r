@@ -14,3 +14,13 @@ rings_vector <- planets_df$rings
   
 # Print out rings_vector
 rings_vector
+
+# Adapt the code to select all columns for planets with rings - select true values
+planets_df[rings_vector, ]
+
+# Select planets with diameter < 1
+subset(planets_df, subset = diameter < 1)
+
+# subset(my_df, subset = some_condition)
+# my_df: dataframe to be reviewed
+# subset: condition to filter dataframe on. Can use columns that are logical or create a filter string as shown above
