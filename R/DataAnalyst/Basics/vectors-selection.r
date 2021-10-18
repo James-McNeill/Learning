@@ -8,5 +8,8 @@ days_vector <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
 names(poker_vector) <- days_vector
 names(roulette_vector) <- days_vector
 
-# Define a new variable based on a selection
+# Define a new variable based on a selection - select one element of the vector
 poker_wednesday <- poker_vector[3]
+
+# Define a new variable based on a selection - select combination of elements
+poker_midweek <- poker_vector[c(2, 3, 4)]
