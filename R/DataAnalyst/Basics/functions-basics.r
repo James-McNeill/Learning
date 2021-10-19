@@ -31,3 +31,16 @@ avg_sum_trimmed <- mean(linkedin + facebook, trim = 0.2)
 # Inspect both new variables
 avg_sum
 avg_sum_trimmed
+
+# 4. Working with missing values parameter. The parameter na.rm relates to the missing values and whether
+# they should be excluded when performing the calculations. By default the option is set to FALSE and missing
+# values are included.
+# The linkedin and facebook vectors have already been created for you
+linkedin <- c(16, 9, 13, 5, NA, 17, 14)
+facebook <- c(17, NA, 5, 16, 8, 13, 14)
+
+# Basic average of linkedin - result is NA
+mean(linkedin)
+
+# Advanced average of linkedin - result is average of non missing values
+mean(linkedin, na.rm = TRUE)
