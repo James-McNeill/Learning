@@ -13,3 +13,17 @@ while (speed > 30) {
 
 # Print out the speed variable
 speed
+
+# 2. Additional while loop statement
+
+# Extend/adapt the while loop - the paste() method lets the KW param speed to be added
+while (speed > 30) {
+  print(paste("Your speed is",speed))
+  if (speed > 48) {
+    print("Slow down big time!")
+    speed <- speed - 11
+  } else {
+    print("Slow down!")
+    speed <- speed - 6
+  }
+}
