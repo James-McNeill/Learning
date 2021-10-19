@@ -1,6 +1,7 @@
 # Conditional statements
 # Reviewing the conditional operators (if statements)
 
+# 1. Simple if statement
 # Variables related to your last day of recordings
 medium <- "LinkedIn"
 num_views <- 20
