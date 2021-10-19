@@ -26,3 +26,13 @@ sum_abs <- function(x, y) {
 
 # Use the function
 sum_abs(-2, 3)
+
+# 2. Function with no parameters
+# Define the function hello()
+hello <- function() {
+    print("Hi there!")
+    return (TRUE)
+}
+
+# Call the function hello()
+hello()
