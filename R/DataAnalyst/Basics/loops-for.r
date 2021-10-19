@@ -14,3 +14,19 @@ for (l in linkedin) {
 for (l in 1:length(linkedin)) {
     print(linkedin[l])
 }
+
+# 2. Working with list
+# The nyc list is already specified
+nyc <- list(pop = 8405837, 
+            boroughs = c("Manhattan", "Bronx", "Brooklyn", "Queens", "Staten Island"), 
+            capital = FALSE)
+
+# Loop version 1
+for (n in nyc) {
+    print(n)
+}
+
+# Loop version 2
+for (n in 1:length(nyc)) {
+    print(nyc[[n]])
+}
