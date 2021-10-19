@@ -20,3 +20,14 @@ avg_fb <- mean(facebook)
 # Inspect avg_li and avg_fb
 avg_li
 avg_fb
+
+# 3. Using an optional keyword parameter within the mean() function
+# Calculate the mean of the sum
+avg_sum <- mean(linkedin + facebook)
+
+# Calculate the trimmed mean of the sum
+avg_sum_trimmed <- mean(linkedin + facebook, trim = 0.2)
+
+# Inspect both new variables
+avg_sum
+avg_sum_trimmed
