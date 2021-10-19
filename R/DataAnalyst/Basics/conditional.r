@@ -15,3 +15,18 @@ if (medium == "LinkedIn") {
 if (num_views > 15) {
   print("You are popular!")
 }
+
+# 2. Adding the else statement component
+# Control structure for medium
+if (medium == "LinkedIn") {
+  print("Showing LinkedIn information")
+} else {
+  print("Unknown medium")
+}
+
+# Control structure for num_views
+if (num_views > 15) {
+  print("You're popular!")
+} else {
+  print("Try to be more visible!")
+}
