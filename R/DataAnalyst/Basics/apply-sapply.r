@@ -57,3 +57,15 @@ freezing_l <- lapply(temp, below_zero)
 
 # Are freezing_s and freezing_l identical? - return a value of TRUE showing that both methods produced the same results
 identical(freezing_s, freezing_l)
+
+# 5. Functions that return a NULL
+# Definition of print_info()
+print_info <- function(x) {
+  cat("The average temperature is", mean(x), "\n")
+}
+
+# Apply print_info() over temp using sapply()
+sapply(temp, print_info)
+
+# Apply print_info() over temp using lapply()
+lapply(temp, print_info)
