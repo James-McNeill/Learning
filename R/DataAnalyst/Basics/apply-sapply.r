@@ -42,3 +42,18 @@ sapply(temp, extremes)
 
 # Apply extremes() over temp with lapply() - produces a list of paired values for each vector element from temp
 lapply(temp, extremes)
+
+# 4. Compare the two apply methods with the identical method
+# Definition of below_zero()
+below_zero <- function(x) {
+  return(x[x < 0])
+}
+
+# Apply below_zero over temp using sapply(): freezing_s
+freezing_s <- sapply(temp, below_zero)
+
+# Apply below_zero over temp using lapply(): freezing_l
+freezing_l <- lapply(temp, below_zero)
+
+# Are freezing_s and freezing_l identical? - return a value of TRUE showing that both methods produced the same results
+identical(freezing_s, freezing_l)
