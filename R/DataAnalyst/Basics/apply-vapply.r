@@ -18,5 +18,5 @@ basics <- function(x) {
   c(min = min(x), mean = mean(x), median = median(x), max = max(x))
 }
 
-# Fix the error:
+# Fix the error: initial value was 3 which matched the vapply from above, this caused an error as four methods are now present in the function
 vapply(temp, basics, numeric(4))
