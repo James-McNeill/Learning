@@ -39,3 +39,15 @@ select_second <- function(x) {
 
 # Apply select_second() over split_low: years
 years <- lapply(split_low, select_second)
+
+# 3. Create and use anonymous function i.e. function not assigned to a variable
+# split_low has been created for you
+split_low
+
+# Transform: use anonymous function inside lapply
+function(x) {x[1]}
+names <- lapply(split_low, function(x) {x[1]})
+
+# Transform: use anonymous function inside lapply
+function(x) {x[2]}
+years <- lapply(split_low, function(x) {x[2]})
