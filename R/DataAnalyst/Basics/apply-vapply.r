@@ -20,3 +20,14 @@ basics <- function(x) {
 
 # Fix the error: initial value was 3 which matched the vapply from above, this caused an error as four methods are now present in the function
 vapply(temp, basics, numeric(4))
+
+# 3. Convert sapply to vapply methods
+# temp is already defined in the workspace
+
+# Convert to vapply() expression
+sapply(temp, max)
+vapply(temp, max, numeric(1))
+
+# Convert to vapply() expression
+sapply(temp, function(x, y) { mean(x) > y }, y = 5)
+vapply(temp, function(x, y) { mean(x) > y }, y = 5, logical(1))
