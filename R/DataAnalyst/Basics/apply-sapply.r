@@ -30,3 +30,15 @@ sapply(temp, extremes_avg)
 
 # Apply extremes_avg() over temp using lapply()
 lapply(temp, extremes_avg)
+
+# 3. Returning a vector
+# Create a function that returns min and max of a vector: extremes
+extremes <- function(x) {
+  c(min = min(x), max = max(x))
+}
+
+# Apply extremes() over temp with sapply() - produces a matrix for the two vectors (min, max)
+sapply(temp, extremes)
+
+# Apply extremes() over temp with lapply() - produces a list of paired values for each vector element from temp
+lapply(temp, extremes)
