@@ -36,3 +36,12 @@ rev(sort(social_vec))
 
 # Fix me - had to switch the two functions into the correct order
 rep(seq(1, 7, by = 2), times = 7)
+
+# Create first sequence: seq1
+seq1 <- seq(1, 500, by = 3)
+
+# Create second sequence: seq2
+seq2 <- seq(1200, 900, by = -7)
+
+# Calculate total sum of the sequences
+sum(append(seq1, seq2))
