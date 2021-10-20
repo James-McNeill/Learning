@@ -33,3 +33,6 @@ social_vec <- append(li_vec, fb_vec)
 
 # Sort social_vec
 rev(sort(social_vec))
+
+# Fix me - had to switch the two functions into the correct order
+rep(seq(1, 7, by = 2), times = 7)
