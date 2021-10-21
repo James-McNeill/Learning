@@ -1,11 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
-#%% Find the file names in the current directory
+# Find the file names in the current directory
 # Method 1
 #import os
 #import pandas as pd
@@ -24,11 +17,11 @@ This is a temporary script file.
 #for f in files:
 #    print(f)
 
-#%%
+#
 #https://www.dotnetperls.com/sort-file-size-python
 #Give this method a go
 
-#%% Method 2
+# Method 2
 
 import os
 import pandas as pd
@@ -43,7 +36,7 @@ print("Empty Dataframe ", df, sep="\n")
 #%% print the current directory
 print(os.getcwd())
 
-##%% extract and append data values
+# extract and append data values
 #for r, d, f in os.walk(os.getcwd()):
 #    for file in f:
 ##        print("Root: ", r)
@@ -60,7 +53,7 @@ print(os.getcwd())
 #        break
 #        df.append(, ignore_index=True)
 
-#%% extract and append data values
+# extract and append data values
 for r, d, f in os.walk(os.getcwd()):
     for file in tqdm(f):
         p = re.split(r"\\", r)
@@ -73,6 +66,3 @@ for r, d, f in os.walk(os.getcwd()):
 #        print(l)
 #        print(p[-1])
 #        break
-        
-#%% Method 3
-# Run through each of the folders in the directories to pick up all the files
