@@ -1,13 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
 # 1. Start Python and check versions
 
-#%% Check the versions of libraries
+# Check the versions of libraries
 # Python version
 import sys
 print('Python: {}'.format(sys.version))
@@ -27,7 +20,7 @@ print('pandas: {}'.format(pandas.__version__))
 import sklearn
 print('sklearn: {}'.format(sklearn.__version__))
 
-#%% Try to put this code into a function??
+# FUTURE: Develop into a function
 #def lib_review(libref):
 #    import libref
 #    print('libref: {}'.format(libref.__version__))
