@@ -39,3 +39,10 @@ ggplot(gapminder_1952, aes(x = pop, y = lifeExp, color = continent)) +
 ggplot(gapminder_1952, aes(x = pop, y = lifeExp, color = continent, size = gdpPercap)) +
   geom_point() +
   scale_x_log10()
+
+# 4. Faceting, provides subgraph
+# Scatter plot comparing pop and lifeExp, faceted by continent
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp)) +
+  geom_point() +
+  scale_x_log10() +
+  facet_wrap(~ continent)
