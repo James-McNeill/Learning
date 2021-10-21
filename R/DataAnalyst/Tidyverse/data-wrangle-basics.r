@@ -42,3 +42,10 @@ gapminder %>%
 # Use mutate to create a new column called lifeExpMonths
 gapminder %>%
     mutate(lifeExpMonths = lifeExp * 12)
+
+# 4. Bringing it all together
+# Filter, mutate, and arrange the gapminder dataset
+gapminder %>%
+    filter(year == 2007) %>%
+        mutate(lifeExpMonths = lifeExp * 12) %>%
+            arrange(desc(lifeExpMonths))
