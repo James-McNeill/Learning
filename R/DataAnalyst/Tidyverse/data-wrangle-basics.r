@@ -28,3 +28,8 @@ gapminder %>%
 # Sort in descending order of lifeExp
 gapminder %>%
     arrange(desc(lifeExp))
+
+# Filter for the year 1957, then arrange in descending order of population. Can use pipe operator multiple times (similar to bash) to produce the final dataset
+gapminder %>%
+    filter(year == 1957) %>%
+        arrange(desc(pop))
