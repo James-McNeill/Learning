@@ -19,3 +19,12 @@ gapminder %>% filter(year == 1957)
 # Filter for China in 2002. Multiple filters can be separated by a comma
 gapminder %>%
     filter(country == "China", year == 2002)
+
+# 2. Verb - arrange, used for sorting data
+# Sort in ascending order of lifeExp
+gapminder %>%
+    arrange(lifeExp)
+  
+# Sort in descending order of lifeExp
+gapminder %>%
+    arrange(desc(lifeExp))
