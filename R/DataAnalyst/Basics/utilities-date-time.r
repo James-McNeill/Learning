@@ -58,3 +58,18 @@ time2 <- as.POSIXct(str2, format = "%Y-%m-%d %H:%M:%S")
 # Convert times to formatted strings
 format(time1, "%M")
 format(time2, "%I:%M %p")
+
+# 3. Calculations with Dates
+# day1, day2, day3, day4 and day5 are already available in the workspace
+
+# Difference between last and first pizza day
+day5 - day1
+
+# Create vector pizza
+pizza <- c(day1, day2, day3, day4, day5)
+
+# Create differences between consecutive pizza days: day_diff
+day_diff <- diff(pizza)
+
+# Average period between two consecutive pizza days
+mean(day_diff)
