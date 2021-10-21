@@ -8,3 +8,10 @@ library(dplyr)
 
 # Look at the gapminder dataset
 gapminder
+
+# 1. Verb - filter
+library(gapminder)
+library(dplyr)
+
+# Filter the gapminder dataset for the year 1957. %>%: represents a pipe
+gapminder %>% filter(year == 1957)
