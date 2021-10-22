@@ -43,3 +43,12 @@ oceania_1952 <- gapminder %>%
 # Create a bar plot of gdpPercap by country
 ggplot(oceania_1952, aes(x = country, y = gdpPercap)) +
     geom_col()
+
+# 3. Histograms
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952) %>%
+  mutate(pop_by_mil = pop / 1000000)
+
+# Create a histogram of population (pop_by_mil). Only the x axis aesthetic is required. Can make alterations within the geom_histogram layer
+ggplot(gapminder_1952, aes(x = pop_by_mil)) +
+  geom_histogram(bins = 50)
