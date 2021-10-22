@@ -33,6 +33,20 @@ gapminder %>%
     summarize(medianLifeExp = median(lifeExp),
             maxGdpPercap = max(gdpPercap))
 
+# 3. Visualize the summary tables
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+
+by_year <- gapminder %>%
+  group_by(year) %>%
+  summarize(medianLifeExp = median(lifeExp),
+            maxGdpPercap = max(gdpPercap))
+
+# Create a scatter plot showing the change in medianLifeExp over time. expand_limits: provides capability to set origin
+ggplot(by_year, aes(x = year, y = medianLifeExp)) +
+  geom_point() +
+  expand_limits(y = 0)
 # Find median life expectancy and maximum GDP per capita in each continent/year combination
 gapminder %>%
     group_by(continent, year) %>%
