@@ -39,3 +39,6 @@ AS
 -- Triggers can only run when the defined event takes place
 -- Stored procedures have to be explicitly called to work
 
+-- 5. Triggers Vs computed columns
+-- Triggers can be used to compute columns using data from multiple tables
+-- Computed columns can only be created by using data from the same table
