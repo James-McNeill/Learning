@@ -34,3 +34,8 @@ AS
 	INSERT INTO ProductsHistory(Product, Price, Currency, FirstAdded)
 	SELECT Product, Price, Currency, GETDATE()
 	FROM inserted;
+
+-- 4. Trigger Vs stored procedures
+-- Triggers can only run when the defined event takes place
+-- Stored procedures have to be explicitly called to work
+
