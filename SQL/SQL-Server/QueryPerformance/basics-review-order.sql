@@ -58,3 +58,11 @@ INNER JOIN
 	ON ps.PlayerName = p.PlayerName 
 GROUP BY Team
 HAVING AVG(BMI) >= 25;
+
+-- 3. Syntax order and processing order
+-- Understanding the processing order is key to ensuring that the query is optimised
+SELECT Date, Place, NearestPop, Magnitude
+FROM Earthquakes
+WHERE Country = 'NZ'
+	AND Magnitude >= 7.5
+ORDER BY Magnitude DESC;
