@@ -24,3 +24,14 @@ by_year_continent <- gapminder %>%
 ggplot(by_year_continent, aes(x = year, y = medianGdpPercap, color = continent)) +
     geom_line() + 
     expand_limits(y = 0)
+
+# 2. Bar plots
+# Summarize the median gdpPercap by continent in 1952
+by_continent <- gapminder %>%   
+                    filter(year == 1952) %>%
+                    group_by(continent) %>%
+                    summarize(medianGdpPercap = median(gdpPercap))
+
+# Create a bar plot showing medianGdp by continent
+ggplot(by_continent, aes(x = continent, y = medianGdpPercap)) +
+    geom_col()
