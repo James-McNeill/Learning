@@ -53,3 +53,11 @@ INSTEAD OF UPDATE
 AS
 	RAISERROR ('Updates on "Orders" table are not permitted.
                 Place a new order to add new products.', 16, 1);
+
+-- Create a new trigger
+CREATE TRIGGER PreventNewDiscounts
+ON Discounts
+INSTEAD OF INSERT
+AS
+	RAISERROR ('You are not allowed to add discounts for existing customers.
+                Contact the Sales Manager for more details.', 16, 1);
