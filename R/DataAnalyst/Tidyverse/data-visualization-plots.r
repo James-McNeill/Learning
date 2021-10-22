@@ -61,3 +61,10 @@ gapminder_1952 <- gapminder %>%
 ggplot(gapminder_1952, aes(x = pop)) +
   geom_histogram() +
   scale_x_log10()
+
+# 4. Boxplot
+
+# Create a boxplot comparing gdpPercap among continents
+ggplot(gapminder_1952, aes(x = continent, y = gdpPercap)) +
+  geom_boxplot() +
+  scale_y_log10()
