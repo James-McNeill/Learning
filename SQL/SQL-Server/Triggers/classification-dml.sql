@@ -1,4 +1,4 @@
--- Trigger classification
+-- Trigger classification DML
 
 -- 1. AFTER triggers
 -- Create the trigger. After a product has been retired store the details in the special deleted table
@@ -44,3 +44,5 @@ ON Orders
 AFTER INSERT
 AS
 	EXECUTE SendEmailtoSales;
+
+-- 2. INSTEAD OF trigger
