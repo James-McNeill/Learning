@@ -1,5 +1,7 @@
 -- Triggers in t-sql
 -- Used to automate tasks using custom designed triggers that are similar to stored procedures
+-- Data Manipulation Language (DML) triggers: special type of stored procedure that takes place when a DML event occurs on the table / view defined in the trigger
+-- Data Description Language (DDL) triggers: can be used to CREATE, ALTER and DROP any objects
 
 -- 1. Create a new trigger that fires when deleting data
 CREATE TRIGGER PreventDiscountsDelete -- trigger name
