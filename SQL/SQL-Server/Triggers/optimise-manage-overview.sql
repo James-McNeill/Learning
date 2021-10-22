@@ -19,3 +19,8 @@ ON Discounts
 INSTEAD OF DELETE
 AS
 	PRINT 'You are not allowed to remove data from the Discounts table.';
+
+-- 3. Disable the trigger
+-- Pause the trigger execution
+DISABLE TRIGGER PreventOrdersUpdate
+ON Orders;
