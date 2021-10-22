@@ -77,3 +77,26 @@ WHERE Magnitude >= 8
 	AND Country IS NOT NULL
 GROUP BY NearestPop, Country -- Group columns
 ORDER BY NumEarthquakes DESC;
+
+-- 5. UNION and UNION ALL. UNION: removes duplicates, UNION ALL: includes all rows even duplicates
+-- UNION
+SELECT CityName AS NearCityName, -- City name column
+	   CountryCode
+FROM Cities
+
+UNION -- Append queries
+
+SELECT Capital AS NearCityName, -- Nation capital column
+       Code2 AS CountryCode
+FROM Nations;
+
+-- UNION ALL
+SELECT CityName AS NearCityName,
+	   CountryCode
+FROM Cities
+
+UNION ALL -- Append queries
+
+SELECT Capital AS NearCityName,
+       Code2 AS CountryCode  -- Country code column
+FROM Nations;
