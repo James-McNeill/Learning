@@ -7,3 +7,8 @@ library(dplyr)
 # Summarize to find the median life expectancy
 gapminder %>%
     summarize(medianLifeExp = median(lifeExp))
+
+# Filter for 1957 then summarize the median life expectancy
+gapminder %>%
+    filter(year == 1957) %>%
+    summarize(medianLifeExp = median(lifeExp))
