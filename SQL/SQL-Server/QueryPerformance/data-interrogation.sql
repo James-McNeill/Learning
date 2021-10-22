@@ -16,3 +16,12 @@ FROM
      (DRebound+ORebound)/CAST(GamesPlayed AS numeric) AS AvgRebounds
 	 FROM PlayerStats) tr
 WHERE AvgRebounds >= 12; -- Filter rows
+
+-- Using wildcards, simplfy where possible
+SELECT PlayerName, 
+      Country,
+      College, 
+      DraftYear, 
+      DraftNumber 
+FROM Players 
+WHERE College LIKE 'Louisiana%';
