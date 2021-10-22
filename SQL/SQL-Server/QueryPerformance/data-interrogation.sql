@@ -35,3 +35,28 @@ WHERE Position = 'PF'
 GROUP BY Team
 -- Filter for total points greater than 3000
 HAVING SUM(TotalPoints) > 3000;
+
+-- 3. Selecting sample of rows
+-- TOP
+SELECT TOP 10 -- Limit the number of rows to ten
+      Latitude,
+      Longitude,
+	  Magnitude,
+	  Depth,
+	  NearestPop
+FROM Earthquakes
+WHERE Country = 'PG'
+	OR Country = 'ID'
+ORDER BY Depth; -- Order results from shallowest to deepest
+
+-- Percentage of rows
+SELECT TOP 25 PERCENT -- Limit rows to the upper quartile
+       Latitude,
+       Longitude,
+	   Magnitude,
+	   Depth,
+	   NearestPop
+FROM Earthquakes
+WHERE Country = 'PG'
+	OR Country = 'ID'
+ORDER BY Magnitude DESC; -- Order the results
