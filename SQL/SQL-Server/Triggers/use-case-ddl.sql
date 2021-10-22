@@ -17,3 +17,13 @@ AS
 		  ,EVENTDATA().value('(/EVENT_INSTANCE/LoginName)[1]', 'NVARCHAR(100)') AS UserAccount
 		  ,EVENTDATA().value('(/EVENT_INSTANCE/TSQLCommand/CommandText)[1]', 'NVARCHAR(MAX)') AS Query
 		  ,EVENTDATA().value('(/EVENT_INSTANCE/PostTime)[1]', 'DATETIME') AS EventTime;
+
+-- 2. Prevent server changes
+-- Create a trigger to prevent database deletion
+CREATE TRIGGER PreventDatabaseDelete
+-- Attach the trigger at the server level
+ON ALL SERVER 
+FOR DROP_DATABASE
+AS
+   PRINT 'You are not allowed to remove existing databases.';
+   ROLLBACK;
