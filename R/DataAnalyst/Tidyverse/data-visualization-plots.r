@@ -52,3 +52,12 @@ gapminder_1952 <- gapminder %>%
 # Create a histogram of population (pop_by_mil). Only the x axis aesthetic is required. Can make alterations within the geom_histogram layer
 ggplot(gapminder_1952, aes(x = pop_by_mil)) +
   geom_histogram(bins = 50)
+
+# Filter data
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Create a histogram of population (pop), with x on a log scale
+ggplot(gapminder_1952, aes(x = pop)) +
+  geom_histogram() +
+  scale_x_log10()
