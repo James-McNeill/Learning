@@ -11,3 +11,11 @@ ON DATABASE;
 -- Remove the server trigger
 DROP TRIGGER DisallowLinkedServers
 ON ALL SERVER;
+
+-- 2. Modify trigger after creation
+-- Fix the typo in the trigger message
+ALTER TRIGGER PreventDiscountsDelete
+ON Discounts
+INSTEAD OF DELETE
+AS
+	PRINT 'You are not allowed to remove data from the Discounts table.';
