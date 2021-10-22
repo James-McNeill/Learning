@@ -59,3 +59,21 @@ WHERE NOT EXISTS -- Add the operator to compare queries
 	(SELECT 1
 	 FROM Cities AS c
 	 WHERE n.Code2 = c.CountryCode); -- Columns being compared
+
+-- 5. NOT IN with IS NOT NULL
+SELECT WorldBankRegion,
+       CountryName,
+       Capital -- Capital city name column
+FROM Nations
+WHERE Capital NOT IN
+	(SELECT NearestPop -- City name column
+     FROM Earthquakes);
+     
+SELECT WorldBankRegion,
+       CountryName,
+       Capital
+FROM Nations
+WHERE Capital NOT IN
+	(SELECT NearestPop
+     FROM Earthquakes
+     WHERE NearestPop IS NOT NULL); -- filter condition
