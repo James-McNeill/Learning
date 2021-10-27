@@ -8,5 +8,12 @@ rdd = sc.parallelize(sample_list)
 # Create a PySpark DataFrame
 names_df = spark.createDataFrame(rdd, schema=['Name', 'Age'])
 
-# Check the type of names_df
+# Check the type of names_df - displays that a spark DataFrame has been created
 print("The type of names_df is", type(names_df))
+
+# 2. Create DataFrame using CSV file
+# Create an DataFrame from file_path
+people_df = spark.read.csv(file_path, header=True, inferSchema=True)
+
+# Check the type of people_df
+print("The type of people_df is", type(people_df))
