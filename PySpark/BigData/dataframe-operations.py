@@ -1,5 +1,21 @@
 # Performing operations on the DataFrame
 
+# DataFrame transformations
+# select()
+# filter()
+# groupby()
+# orderby()
+# dropDuplicates()
+# withColumnRenamed()
+
+# DataFrame actions
+# printSchema()
+# head()
+# show()
+# count()
+# columns
+# describe()
+
 # 1. Initial EDA
 # Print the first 10 observations 
 people_df.show(10)
