@@ -13,6 +13,7 @@ print("The type of names_df is", type(names_df))
 
 # 2. Create DataFrame using CSV file
 # Create an DataFrame from file_path
+# inferSchema: allows the method to infer the data type for each column within the DataFrame
 people_df = spark.read.csv(file_path, header=True, inferSchema=True)
 
 # Check the type of people_df
