@@ -67,3 +67,19 @@ GROUP BY c.CustomerID,
          c.CompanyName;
 	 
 SET STATISTICS IO OFF -- Turn the IO command off
+
+-- 3. Indexes
+-- 1. Clustered index: stores each index value once, similar to a dictionary. Common structure is a B-TREE algorithm
+-- 2. Unclustered index: similar to a contents at the back of a book. Maintains the index value similar to page numbers for each item
+
+-- Clustered Index
+-- Query 1
+SELECT *
+FROM Cities
+WHERE CountryCode = 'RU' -- Country code
+		OR CountryCode = 'CN' -- Country code
+
+-- Query 2: this query runs quicker and performs less reads as the index is in place
+SELECT *
+FROM Cities
+WHERE CountryCode IN ('JM','NZ') -- Country codes
