@@ -33,3 +33,22 @@ WHERE EXISTS -- Sub-query filter operator
           AND c.Pop2017 > 2000000);
 
 SET STATISTICS TIME OFF -- Turn the time command off
+
+-- 2. STATISTICS IO
+-- Aims to review query performance by understanding the number of reads that are made of the tables used within the query.
+-- A more efficient query will make less reads of a table
+SET STATISTICS IO ON -- Turn the IO command on
+
+-- Example 1. Results will show the number of reads made against each table used
+SELECT CustomerID,
+       CompanyName,
+       (SELECT COUNT(*) 
+	    FROM Orders AS o -- Add table
+		WHERE c.CustomerID = o.CustomerID) CountOrders
+FROM Customers AS c
+WHERE CustomerID IN -- Add filter operator
+       (SELECT CustomerID 
+	    FROM Orders 
+		WHERE ShipCity IN
+            ('Berlin','Bern','Bruxelles','Helsinki',
+			'Lisboa','Madrid','Paris','London'));
