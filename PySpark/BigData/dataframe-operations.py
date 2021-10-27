@@ -22,3 +22,13 @@ people_df_sub_nodup = people_df_sub.dropDuplicates()
 
 # Count the number of rows
 print("There were {} rows before removing duplicates, and {} rows after removing duplicates".format(people_df_sub.count(), people_df_sub_nodup.count()))
+
+# 3. Filtering DataFrame
+# Filter people_df to select females 
+people_df_female = people_df.filter(people_df.sex == "female")
+
+# Filter people_df to select males
+people_df_male = people_df.filter(people_df.sex == "male")
+
+# Count the number of rows 
+print("There are {} rows in the people_df_female DataFrame and {} rows in the people_df_male DataFrame".format(people_df_female.count(), people_df_male.count()))
