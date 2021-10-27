@@ -1,6 +1,6 @@
 # MLlib classification
 
-# 1. Load the data
+# 1. Load the data. Aiming to predict email spam
 # Load the datasets into RDDs
 spam_rdd = sc.textFile(file_path_spam)
 non_spam_rdd = sc.textFile(file_path_non_spam)
@@ -27,3 +27,20 @@ non_spam_samples = non_spam_features.map(lambda features:LabeledPoint(0, feature
 
 # Combine the two datasets
 samples = spam_samples.join(non_spam_samples)
+
+# 3. Logistic regression model
+# Split the data into training and testing
+train_samples,test_samples = samples.randomSplit([0.8, 0.2])
+
+# Train the model
+model = LogisticRegressionWithLBFGS.train(train_samples)
+
+# Create a prediction label from the test data
+predictions = model.predict(test_samples.map(lambda x: x.features))
+
+# Combine original labels with the predicted labels
+labels_and_preds = test_samples.map(lambda x: x.label).zip(predictions)
+
+# Check the accuracy of the model on the test data
+accuracy = labels_and_preds.filter(lambda x: x[0] == x[1]).count() / float(test_samples.count())
+print("Model accuracy : {:.2f}".format(accuracy))
