@@ -10,3 +10,16 @@ df_pandas = names_df.toPandas()
 # Create a horizontal bar plot
 df_pandas.plot(kind='barh', x='Name', y='Age', colormap='winter_r')
 plt.show()
+
+# 2. Example using FIFA 2018 data
+# Load the Dataframe
+fifa_df = spark.read.csv(file_path, header=True, inferSchema=True)
+
+# Check the schema of columns
+fifa_df.printSchema()
+
+# Show the first 10 observations
+fifa_df.show(10)
+
+# Print the total number of rows
+print("There are {} rows in the fifa_df DataFrame".format(fifa_df.count()))
