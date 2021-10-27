@@ -83,3 +83,7 @@ WHERE CountryCode = 'RU' -- Country code
 SELECT *
 FROM Cities
 WHERE CountryCode IN ('JM','NZ') -- Country codes
+
+-- 4. Execution plan
+-- Can be used to highlight the different operations that take place when the SQL optimizer is working to develop the query operations.
+-- Within SSMS it is displayed as a diagram of each individual step in the process
