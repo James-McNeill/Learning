@@ -77,3 +77,28 @@ WHERE Capital NOT IN
 	(SELECT NearestPop
      FROM Earthquakes
      WHERE NearestPop IS NOT NULL); -- filter condition
+
+-- 6. LEFT OUTER JOIN (inclusive)
+-- First attempt
+SELECT c.CustomerID,
+       c.CompanyName,
+	   c.ContactName,
+	   c.ContactTitle,
+	   c.Phone 
+FROM Customers c
+LEFT OUTER JOIN Orders o -- Joining operator
+	ON c.CustomerID = o.CustomerID -- Joining columns
+WHERE c.Country = 'France';
+
+-- 7. LEFT OUTER JOIN (exclusive)
+-- Second attempt
+SELECT c.CustomerID,
+       c.CompanyName,
+	   c.ContactName,
+	   c.ContactTitle,
+	   c.Phone 
+FROM Customers c
+LEFT OUTER JOIN Orders o
+	ON c.CustomerID = o.CustomerID
+WHERE c.Country = 'France'
+	AND o.CustomerID IS NULL; -- Filter condition
