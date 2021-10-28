@@ -25,3 +25,14 @@ voter_df_single = voter_df_single.withColumn('ROW_ID', F.monotonically_increasin
 # Show the top 10 IDs in each DataFrame 
 voter_df.orderBy(voter_df.ROW_ID.desc()).show(10)
 voter_df_single.orderBy(voter_df_single.ROW_ID.desc()).show(10)
+
+# 3. Other ID tricks
+# Determine the highest ROW_ID and save it in previous_max_ID
+previous_max_ID = voter_df_march.select('ROW_ID').rdd.max()[0]
+
+# Add a ROW_ID column to voter_df_april starting at the desired value
+voter_df_april = voter_df_april.withColumn('ROW_ID', previous_max_ID + F.monotonically_increasing_id())
+
+# Show the ROW_ID from both DataFrames and compare
+voter_df_march.select('ROW_ID').show()
+voter_df_april.select('ROW_ID').show()
