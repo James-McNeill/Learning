@@ -1,5 +1,8 @@
 # Filtering with the dataframe
 
+# Import module
+import pyspark.sql.functions as F
+
 # 1. Filtering column content
 # Show the distinct VOTER_NAME entries
 voter_df.select('VOTER_NAME').distinct().show(40, truncate=False)
