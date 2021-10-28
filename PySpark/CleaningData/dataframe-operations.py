@@ -31,3 +31,11 @@ voter_df = voter_df.drop('splits')
 
 # Show the voter_df DataFrame
 voter_df.show()
+
+# 3. when() example
+# Add a column to voter_df for any voter with the title **Councilmember**
+voter_df = voter_df.withColumn('random_val',
+                               F.when(voter_df.TITLE == 'Councilmember', F.rand()))
+
+# Show some of the DataFrame rows, noting whether the when clause worked
+voter_df.show()
