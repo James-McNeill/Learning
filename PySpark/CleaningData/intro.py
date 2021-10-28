@@ -11,7 +11,7 @@ people_schema = StructType([
   StructField('city', StringType(), False)
 ])
 
-# Using lazy processing: data will not be processed until an action method is called
+# 1. Using lazy processing: data will not be processed until an action method is called
 # Load the CSV file
 aa_dfw_df = spark.read.format('csv').options(Header=True).load('AA_DFW_2018.csv.gz')
 
@@ -44,3 +44,14 @@ df3.write.parquet('AA_DFW_ALL.parquet', mode='overwrite')
 
 # Read the Parquet file into a new DataFrame and run a count
 print(spark.read.parquet('AA_DFW_ALL.parquet').count())
+
+# 3. SQL and Parquet
+# Read the Parquet file into flights_df
+flights_df = spark.read.parquet('AA_DFW_ALL.parquet')
+
+# Register the temp table
+flights_df.createOrReplaceTempView('flights')
+
+# Run a SQL query of the average flight duration
+avg_duration = spark.sql('SELECT avg(flight_duration) from flights').collect()[0]
+print('The average flight time is: %d' % avg_duration)
