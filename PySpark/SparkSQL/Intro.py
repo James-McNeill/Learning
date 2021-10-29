@@ -37,3 +37,14 @@ LEAD(time,1) OVER (PARTITION BY train_id ORDER BY time) AS time_next
 FROM schedule
 """
 spark.sql(query).show()
+
+# 3. Aggregation, step by step
+# Give the identical result in each command
+spark.sql('SELECT train_id, MIN(time) AS start FROM schedule GROUP BY train_id').show()
+df.groupBy('train_id').agg({'time':'MIN'}).withColumnRenamed('min(time)', 'start').show()
+
+# Print the second column of the result
+spark.sql('SELECT train_id, MIN(time), MAX(time) FROM schedule GROUP BY train_id').show()
+result = df.groupBy('train_id').agg({'time':'min', 'time':'max'})
+result.show()
+print(result.columns[1])
