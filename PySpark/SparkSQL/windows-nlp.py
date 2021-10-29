@@ -73,3 +73,35 @@ LIMIT 10
 """
 df = spark.sql(query)
 df.show()
+
+# 3. Most frequent 3-tuples per chapter
+subquery = """
+SELECT chapter, w1, w2, w3, COUNT(*) as count
+FROM
+(
+    SELECT
+    chapter,
+    word AS w1,
+    LEAD(word, 1) OVER(PARTITION BY chapter ORDER BY id ) AS w2,
+    LEAD(word, 2) OVER(PARTITION BY chapter ORDER BY id ) AS w3
+    FROM text
+)
+GROUP BY chapter, w1, w2, w3
+ORDER BY chapter, count DESC
+"""
+
+# Take the output from the subquery and produce a follow up query
+query = """
+SELECT chapter, w1, w2, w3, count FROM
+(
+  SELECT
+  chapter,
+  ROW_NUMBER() OVER (PARTITION BY chapter ORDER BY count DESC) AS row,
+  w1, w2, w3, count
+  FROM ( %s )
+)
+WHERE row = 1
+ORDER BY chapter ASC
+""" % subquery
+
+spark.sql(query).show()
