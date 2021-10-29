@@ -61,3 +61,15 @@ dot_df.show()
 query = "SELECT train_id, MIN(time) as start, MAX(time) as end  FROM schedule GROUP BY train_id"
 sql_df = spark.sql(query)
 sql_df.show()
+
+# 3. Aggregate dot SQL
+# Import modules
+from pyspark.sql import Window
+from pyspark.sql.functions import lead
+
+# Obtain the identical result using dot notation 
+dot_df = df.withColumn('time_next', lead('time', 1)
+                                .over(Window.partitionBy('train_id')
+                                        .orderBy('time')
+                                )
+                        )
