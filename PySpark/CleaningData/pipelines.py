@@ -103,6 +103,7 @@ invalid_folder_count = invalid_df.select('folder').distinct().count()
 print("%d distinct invalid folders found" % invalid_folder_count)
 
 # D. Final Analysis
+# 1. Initial review and define schema
 # Select the dog details and show 10 untruncated rows
 print(joined_df.select('dog_list').show(10, truncate=False))
 
@@ -114,3 +115,21 @@ DogType = StructType([
     StructField("end_x", IntegerType(), False),
     StructField("end_y", IntegerType(), False)
 ])
+
+# 2. Per image count
+# Create a function to return the number and type of dogs as a tuple
+def dogParse(doglist):
+  dogs = []
+  for dog in doglist:
+    (breed, start_x, start_y, end_x, end_y) = dog.split(',')
+    dogs.append((breed, int(start_x), int(start_y), int(end_x), int(end_y)))
+  return dogs
+
+# Create a UDF
+udfDogParse = F.udf(dogParse, ArrayType(DogType))
+
+# Use the UDF to list of dogs and drop the old column
+joined_df = joined_df.withColumn('dogs', udfDogParse('dog_list')).drop('dog_list')
+
+# Show the number of dogs in the first 10 rows
+joined_df.select(F.size('dogs')).show(10)
