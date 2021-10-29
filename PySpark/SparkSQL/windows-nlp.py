@@ -40,3 +40,20 @@ repart_df = text_df.repartition(12, 'chapter')
 
 # Prove that repart_df has 12 partitions
 repart_df.rdd.getNumPartitions()
+
+# C. Finding common word sequences
+# Find the top 10 sequences of five words
+query = """
+SELECT w1, w2, w3, w4, w5, COUNT(*) AS count FROM (
+   SELECT word AS w1,
+   LEAD(word, 1) OVER(PARTITION BY part ORDER BY id) AS w2,
+   LEAD(word, 2) OVER(PARTITION BY part ORDER BY id) AS w3,
+   LEAD(word, 3) OVER(PARTITION BY part ORDER BY id) AS w4,
+   LEAD(word, 4) OVER(PARTITION BY part ORDER BY id) AS w5
+   FROM text
+)
+GROUP BY w1, w2, w3, w4, w5
+ORDER BY count DESC
+LIMIT 10 """
+df = spark.sql(query)
+df.show()
