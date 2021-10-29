@@ -69,3 +69,11 @@ departures_df = spark.read.csv('departures.txt.gz').distinct()
 # Print the number of partitions for each instance
 print("Partition count before change: %d" % before)
 print("Partition count after change: %d" % departures_df.rdd.getNumPartitions())
+
+# D. Improving performance
+# Join the flights_df and aiports_df DataFrames
+normal_df = flights_df.join(airports_df, \
+    flights_df["Destination Airport"] == airports_df["IATA"] )
+
+# Show the query plan: provides details of the steps that are taken when the code is processing
+normal_df.explain()
