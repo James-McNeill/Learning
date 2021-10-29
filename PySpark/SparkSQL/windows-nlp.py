@@ -33,3 +33,10 @@ LEAD(word, 2) OVER(PARTITION BY part ORDER BY id) AS w5
 FROM text
 """
 spark.sql(query).where("part = 12").show(10)
+
+# 2. Repartition the data. Ensures that the data for each chapter is contained on the same node (machine)
+# Repartition text_df into 12 partitions on 'chapter' column
+repart_df = text_df.repartition(12, 'chapter')
+
+# Prove that repart_df has 12 partitions
+repart_df.rdd.getNumPartitions()
