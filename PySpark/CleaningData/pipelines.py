@@ -101,3 +101,16 @@ print(" split_df:\t%d\n joined_df:\t%d\n invalid_df: \t%d" % (split_count, joine
 # Determine the number of distinct folder rows removed
 invalid_folder_count = invalid_df.select('folder').distinct().count()
 print("%d distinct invalid folders found" % invalid_folder_count)
+
+# D. Final Analysis
+# Select the dog details and show 10 untruncated rows
+print(joined_df.select('dog_list').show(10, truncate=False))
+
+# Define a schema type for the details in the dog list
+DogType = StructType([
+	StructField("breed", StringType(), False),
+    StructField("start_x", IntegerType(), False),
+    StructField("start_y", IntegerType(), False),
+    StructField("end_x", IntegerType(), False),
+    StructField("end_y", IntegerType(), False)
+])
