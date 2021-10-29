@@ -71,9 +71,22 @@ print("Partition count before change: %d" % before)
 print("Partition count after change: %d" % departures_df.rdd.getNumPartitions())
 
 # D. Improving performance
+# 1. Show example of a regular join
 # Join the flights_df and aiports_df DataFrames
 normal_df = flights_df.join(airports_df, \
     flights_df["Destination Airport"] == airports_df["IATA"] )
 
 # Show the query plan: provides details of the steps that are taken when the code is processing
 normal_df.explain()
+
+# 2. Using broadcast on Spark joins. By broadcasting a DataFrame a copy of the DataFrame broadcast is assigned to each node.
+# Overall this helps to improve the performance of the operations
+# Import the broadcast method from pyspark.sql.functions
+from pyspark.sql.functions import broadcast
+
+# Join the flights_df and airports_df DataFrames using broadcasting
+broadcast_df = flights_df.join(broadcast(airports_df), \
+    flights_df["Destination Airport"] == airports_df["IATA"] )
+
+# Show the query plan and compare against the original
+broadcast_df.explain()
