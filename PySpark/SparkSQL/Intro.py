@@ -15,6 +15,7 @@ spark.sql("DESCRIBE schedule").show()
 # spark.sql("SELECT * FROM tablename LIMIT 0").show()
 
 # B. Window functions
+# 1. Calculate the running total between rows
 # Add col running_total that sums diff_min col in each group. diff_min: difference in minutes between train stops during the journey
 query = """
 SELECT train_id, station, time, diff_min,
@@ -23,4 +24,16 @@ FROM schedule
 """
 
 # Run the query and display the result
+spark.sql(query).show()
+
+# 2. Add the next time between rows by using LEAD
+query = """
+SELECT 
+ROW_NUMBER() OVER (ORDER BY time) AS row,
+train_id, 
+station, 
+time, 
+LEAD(time,1) OVER (PARTITION BY train_id ORDER BY time) AS time_next 
+FROM schedule
+"""
 spark.sql(query).show()
