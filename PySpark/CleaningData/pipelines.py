@@ -85,3 +85,19 @@ joined_df = split_df.join(F.broadcast(valid_folders_df), "folder")
 # Compare the number of rows remaining
 joined_count = joined_df.count()
 print("Before: %d\nAfter: %d" % (split_count, joined_count))
+
+# 2. Examine invalid rows
+# Determine the row counts for each DataFrame
+split_count = split_df.count()
+joined_count = joined_df.count()
+
+# Create a DataFrame containing the invalid rows
+invalid_df = split_df.join(F.broadcast(joined_df), 'folder', 'leftouter')
+
+# Validate the count of the new DataFrame is as expected
+invalid_count = invalid_df.count()
+print(" split_df:\t%d\n joined_df:\t%d\n invalid_df: \t%d" % (split_count, joined_count, invalid_count))
+
+# Determine the number of distinct folder rows removed
+invalid_folder_count = invalid_df.select('folder').distinct().count()
+print("%d distinct invalid folders found" % invalid_folder_count)
