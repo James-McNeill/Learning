@@ -24,3 +24,18 @@ departures_df.unpersist()
 
 # Check the cache status again
 print("Is departures_df cached?: %s" % departures_df.is_cached)
+
+# B. Import performance
+# Import the full and split files into DataFrames. The split files refers to a list of 13 files (departures_000.txt.gz - departures_013.txt.gz) 
+# that can be imported together as split files and the method parses them together
+full_df = spark.read.csv('departures_full.txt.gz')
+split_df = spark.read.csv('departures_*.txt.gz')
+
+# Print the count and run time for each DataFrame
+start_time_a = time.time()
+print("Total rows in full DataFrame:\t%d" % full_df.count())
+print("Time to run: %f" % (time.time() - start_time_a))
+
+start_time_b = time.time()
+print("Total rows in split DataFrame:\t%d" % split_df.count())
+print("Time to run: %f" % (time.time() - start_time_b))
