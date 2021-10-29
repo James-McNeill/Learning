@@ -133,3 +133,21 @@ joined_df = joined_df.withColumn('dogs', udfDogParse('dog_list')).drop('dog_list
 
 # Show the number of dogs in the first 10 rows
 joined_df.select(F.size('dogs')).show(10)
+
+# 3. Percentage dog pixels
+# Define a UDF to determine the number of pixels per image
+def dogPixelCount(doglist):
+  totalpixels = 0
+  for dog in doglist:
+    totalpixels += (dog[3] - dog[1]) * (dog[4] - dog[2])
+  return totalpixels
+
+# Define a UDF for the pixel count
+udfDogPixelCount = F.udf(dogPixelCount, IntegerType())
+joined_df = joined_df.withColumn('dog_pixels', udfDogPixelCount('dogs'))
+
+# Create a column representing the percentage of pixels
+joined_df = joined_df.withColumn('dog_percent', (joined_df.dog_pixels / (joined_df.width * joined_df.height)) * 100)
+
+# Show the first 10 annotations with more than 60% dog
+joined_df.where('dog_percent > 60').show(10)
