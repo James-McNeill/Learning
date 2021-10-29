@@ -38,7 +38,8 @@ FROM schedule
 """
 spark.sql(query).show()
 
-# 3. Aggregation, step by step
+# C. Dot Notation Vs SQL steps
+# 1. Aggregation, step by step
 # Give the identical result in each command
 spark.sql('SELECT train_id, MIN(time) AS start FROM schedule GROUP BY train_id').show()
 df.groupBy('train_id').agg({'time':'MIN'}).withColumnRenamed('min(time)', 'start').show()
@@ -48,3 +49,15 @@ spark.sql('SELECT train_id, MIN(time), MAX(time) FROM schedule GROUP BY train_id
 result = df.groupBy('train_id').agg({'time':'min', 'time':'max'})
 result.show()
 print(result.columns[1])
+
+# 2. Aggregating the same column twice
+# Dot notation logic
+from pyspark.sql.functions import min, max, col
+expr = [min(col("time")).alias('start'), max(col("time")).alias('end')]
+dot_df = df.groupBy("train_id").agg(*expr)
+dot_df.show()
+
+# Write a SQL query giving a result identical to dot_df. This piece of code is less cumbersome
+query = "SELECT train_id, MIN(time) as start, MAX(time) as end  FROM schedule GROUP BY train_id"
+sql_df = spark.sql(query)
+sql_df.show()
