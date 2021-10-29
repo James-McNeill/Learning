@@ -70,3 +70,18 @@ split_df = split_df.withColumn('dog_list', udfRetriever(split_df['split_cols'], 
 
 # Remove the original column, split_cols, and the colcount
 split_df = split_df.drop('_c0').drop('split_cols').drop('colcount')
+
+# C. Data Validation
+# 1. Validate rows via join
+# Rename the column in valid_folders_df
+valid_folders_df = valid_folders_df.withColumnRenamed('_c0', 'folder')
+
+# Count the number of rows in split_df
+split_count = split_df.count()
+
+# Join the DataFrames
+joined_df = split_df.join(F.broadcast(valid_folders_df), "folder")
+
+# Compare the number of rows remaining
+joined_count = joined_df.count()
+print("Before: %d\nAfter: %d" % (split_count, joined_count))
