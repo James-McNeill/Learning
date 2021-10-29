@@ -73,3 +73,21 @@ dot_df = df.withColumn('time_next', lead('time', 1)
                                         .orderBy('time')
                                 )
                         )
+
+# 4. Convert window function from dot notation to SQL
+# a. Dot notation
+window = Window.partitionBy('train_id').orderBy('time')
+dot_df = df.withColumn('diff_min', 
+                    (unix_timestamp(lead('time', 1).over(window),'H:m') 
+                     - unix_timestamp('time', 'H:m'))/60)
+
+# b. SQL code
+# Create a SQL query to obtain an identical result to dot_df
+query = """
+SELECT *, 
+(UNIX_TIMESTAMP(LEAD(time, 1) OVER (PARTITION BY train_id ORDER BY time),'H:m') 
+ - UNIX_TIMESTAMP(time, 'H:m'))/60 AS diff_min 
+FROM schedule 
+"""
+sql_df = spark.sql(query)
+sql_df.show()
