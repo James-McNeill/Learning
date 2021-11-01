@@ -10,3 +10,20 @@ nonempty_udf = udf(lambda x:
 # Returns first element of the array as string
 s_udf = udf(lambda x: str(x[0]) if (x and type(x) is list and len(x) > 0)
     else '', StringType())
+
+# 2. Practice array column
+# Show the rows where doc contains the item '5'
+df_before.where(array_contains('doc', '5')).show()
+
+# UDF removes items in TRIVIAL_TOKENS from array
+rm_trivial_udf = udf(lambda x:
+                     list(set(x) - TRIVIAL_TOKENS) if x
+                     else x,
+                     ArrayType(StringType()))
+
+# Remove trivial tokens from 'in' and 'out' columns of df2
+df_after = df_before.withColumn('in', rm_trivial_udf('in'))\
+                    .withColumn('out', rm_trivial_udf('out'))
+
+# Show the rows of df_after where doc contains the item '5'
+df_after.where(array_contains('doc','5')).show()
