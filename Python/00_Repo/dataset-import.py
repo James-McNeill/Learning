@@ -1,13 +1,13 @@
 """
 #----------------------------------------------------------------------------------+
 #      This python client gives you an ability to:                                 |
-#       - Import the datasets (IRB / IMP) from AWS Athena connection               |
+#       - Import the datasets from AWS Athena connection               |
 #----------------------------------------------------------------------------------+
 """
 __author__ = "James Mc Neill"
 __version__ = "1.0"
 __maintainer__ = "James Mc Neill"
-__email__ = "james.mcneill@ulsterbank.com"
+__email__ = "jmcneill06@outlook.com"
 __status__ = "Test"
 
 # Import packages
