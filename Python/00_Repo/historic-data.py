@@ -7,7 +7,7 @@
 __author__ = "James Mc Neill"
 __version__ = "1.0"
 __maintainer__ = "James Mc Neill"
-__email__ = "jmcneill06@ulsterbank.com"
+__email__ = "jmcneill06@outlook.com"
 __status__ = "Test"
 
 # Import packages
