@@ -28,6 +28,30 @@ pandas_cursor = create_cursor()
 client = boto3.client('glue')
 
 class HistoricData:
+    '''
+    Historic data class that can be used to review the meta data for tables.
+    Examples
+    ---
+    repu alias imported the class
+    # Extract the metadata for specific datasets to show DataFrame format
+    test_data = repu.HistoricData('2017-11-01','2020-12-01').metaData("db","table_prefix")
+    
+    # Extract metadata for all datasets being reviewed and store in dictionary
+    hist = repu.HistoricData('2017-11-01','2020-12-01')
+    dfDict = hist.dictDataframes()
+    # Extracts the keys and values to create new variables to assign.
+    # The DataFrames have now been created
+    for k,v in dfDict.items():
+        exec(k+'=v')
+        print(f'{k}')
+    # Confirm that the full history of datasets was created
+    framesList = [dfDict[hist.dfs[z]] for z in range(0,len(hist.dfs))]
+    result = pd.concat(framesList)
+    result.groupby(['DatabaseName','TableName']).count()
+    # Missing datasets for review
+    result_empty = result[result['Rows']==0]
+    result_empty
+    '''
     # Constructor values
     def __init__(self, start, end):
         self.start = start
