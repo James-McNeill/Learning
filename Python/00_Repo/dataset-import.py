@@ -1,7 +1,7 @@
 """
 #----------------------------------------------------------------------------------+
 #      This python client gives you an ability to:                                 |
-#       - Import the datasets from AWS Athena connection               |
+#       - Import the datasets from AWS Athena connection                           |
 #----------------------------------------------------------------------------------+
 """
 __author__ = "James Mc Neill"
@@ -26,8 +26,8 @@ class datasetImport:
     # Constructor
     def __init__(self):
         self.varList = ['accg_unit_id','prod_type_code','product','rwa_calc_type'
-                           ,'dr_led_exp','drv_ead_dt_adj','drv_pd','drv_pool_pd_adj','drv_pool_rwa'
-                          ,'drv_pool_el','drv_pool_lgd_adj','drv_pool_lgd_dt_adj',
+                        ,'dr_led_exp','drv_ead_dt_adj','drv_pd','drv_pool_pd_adj','drv_pool_rwa'
+                        ,'drv_pool_el','drv_pool_lgd_adj','drv_pool_lgd_dt_adj',
                        'drv_int_accrued']
         self.strIrb = ",".join(self.varList)
         self.impVarList = varList = ['account_no','prod','prodsplit','report_exclude_flag'
@@ -38,7 +38,7 @@ class datasetImport:
         #print(f'{self.strIrb}')
         
     # Method - IRB data review
-    def irbData(self,databaseName,tableName):
+    def irbData(self, databaseName, tableName):
         df = None
         try:
             df = pandas_cursor.execute(
@@ -55,7 +55,7 @@ class datasetImport:
         return df
     
     # Method - Impairment data review
-    def impData(self,databaseName,tableName):
+    def impData(self, databaseName, tableName):
         df = None
         try:
             df = pandas_cursor.execute(
@@ -72,7 +72,7 @@ class datasetImport:
         return df
     
     # Method - IFRS 9 12m PD data review
-    def impPD(self, databaseName,tableName,channel,product):
+    def impPD(self, databaseName, tableName, channel, product):
         """
         impPD('reg_mart','t_ifrs9_pln_account_2019_11','Personal','Loans')
         """
