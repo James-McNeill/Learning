@@ -17,3 +17,16 @@ df_new = df.withColumn('label', get_first_udf('output'))
 
 # Show the first five rows 
 df_new.show(5)
+
+# 3. Transforming text to vector format
+# Transform df using model
+result = model.transform(df.withColumnRenamed('in', 'words'))\
+        .withColumnRenamed('words', 'in')\
+        .withColumnRenamed('vec', 'invec')
+result.drop('sentence').show(3, False)
+
+# Add a column based on the out column called outvec
+result = model.transform(result.withColumnRenamed('out', 'words'))\
+        .withColumnRenamed('words', 'out')\
+        .withColumnRenamed('vec', 'outvec')
+result.select('invec', 'outvec').show(3, False)	
