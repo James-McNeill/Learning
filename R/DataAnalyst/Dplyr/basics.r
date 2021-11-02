@@ -15,3 +15,11 @@ counties_selected <- counties %>%
 counties_selected %>%
   # Add a verb to sort in descending order of public_work
   arrange(desc(public_work))
+
+# 4. Filtering for conditions
+counties_selected <- counties %>%
+  select(state, county, population)
+
+counties_selected %>%
+  # Filter for counties with a population above 1000000
+  filter(state == 'California' & population > 1000000)
