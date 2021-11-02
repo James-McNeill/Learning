@@ -22,3 +22,12 @@ babynames %>%
   ungroup() %>%
   # Add the fraction_max column containing the number by the name maximum 
   mutate(fraction_max = number / name_max)
+
+# 3. Visualizing the normalized change. Taking the data from the previous step and storing in variable (names_normalized)
+names_filtered <- names_normalized %>%
+  # Filter for the names Steven, Thomas, and Matthew
+  filter(name %in% c('Steven', 'Thomas', 'Matthew'))
+
+# Visualize these names over time
+ggplot(names_filtered, aes(x = year, y = fraction_max, color = name)) +
+geom_line()
