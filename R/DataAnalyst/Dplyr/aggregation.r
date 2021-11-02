@@ -19,3 +19,12 @@ counties_selected %>%
   mutate(population_walk = walk * population / 100) %>%
   # Count weighted by the new column, sort in descending order
   count(state, wt = population_walk, sort = TRUE)
+
+# B. Summarizing
+# 1. Summarize overview
+counties_selected %>%
+  # Summarize to find minimum population, maximum unemployment, and average income
+  summarize(min_population = min(population),
+            max_unemployment = max(unemployment),
+            average_income = mean(income)
+  )
