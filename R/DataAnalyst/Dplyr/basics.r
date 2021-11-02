@@ -34,3 +34,13 @@ counties_selected %>%
   filter(state == 'Texas' & population > 10000) %>%
   # Sort in descending order of private_work
   arrange(desc(private_work))
+
+# 6. Mutate and arranging
+counties_selected <- counties %>%
+  select(state, county, population, public_work)
+
+# Mutate is used to create a new column
+counties_selected %>%
+  mutate(public_workers = public_work * population / 100) %>%
+  # Sort in descending order of the public_workers column
+  arrange(desc(public_workers))
