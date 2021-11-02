@@ -9,3 +9,6 @@ Working through training courses and articles
 - HTML and CSS
 - JavaScript
 - Python
+
+> DataCamp learning
+> Code that has been collected over time
