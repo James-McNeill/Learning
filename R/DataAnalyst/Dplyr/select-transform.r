@@ -35,3 +35,14 @@ counties %>%
   count(state) %>%
   # Rename the n column to num_counties. The column n is created by default when using the count() verb
   rename(num_counties = n)
+
+# 2. Rename methods
+# a. Rename within the select method
+counties %>%
+  # Select state, county, and poverty as poverty_rate
+  select(state, county, poverty_rate = poverty)
+# b. Rename within the rename method
+counties %>%
+  # Select state, county, and poverty as poverty_rate
+  select(state, county, poverty) %>%
+  rename(poverty_rate = poverty)
