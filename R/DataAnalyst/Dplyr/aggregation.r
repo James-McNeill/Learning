@@ -64,3 +64,14 @@ counties_selected %>%
   summarize(average_income = mean(income)) %>%
   # Find the highest income state in each region
   top_n(1, average_income)
+
+# 3. Finding which state has the largest population by Metro / Nonmetro area. Then count how many states this takes place
+counties_selected %>%
+  # Find the total population for each combination of state and metro
+  group_by(state, metro) %>%
+  summarize(total_pop = sum(population)) %>%
+  # Extract the most populated row for each state
+  top_n(1, total_pop) %>%
+  # Count the states with more people in Metro or Nonmetro areas
+  ungroup(metro) %>%
+  count(metro)
