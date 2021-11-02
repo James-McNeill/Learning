@@ -31,3 +31,13 @@ names_filtered <- names_normalized %>%
 # Visualize these names over time
 ggplot(names_filtered, aes(x = year, y = fraction_max, color = name)) +
 geom_line()
+
+# B. Window functions
+# 1. Using ratios to describe the frequency of a name
+babynames_fraction %>%
+  # Arrange the data in order of name, then year 
+  arrange(name, year) %>%
+  # Group the data by name
+  group_by(name) %>%
+  # Add a ratio column that contains the ratio of fraction between each year 
+  mutate(ratio = fraction / lag(fraction))
