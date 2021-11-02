@@ -12,3 +12,10 @@ counties_selected %>%
 # Find number of counties per state, weighted by citizens, sorted in descending order
 counties_selected %>%
   count(state, wt = citizens, sort = TRUE)
+
+# 3. Count and mutate
+counties_selected %>%
+  # Add population_walk containing the total number of people who walk to work 
+  mutate(population_walk = walk * population / 100) %>%
+  # Count weighted by the new column, sort in descending order
+  count(state, wt = population_walk, sort = TRUE)
