@@ -1,0 +1,13 @@
+# Grouped mutates and window functions
+
+# A. Grouped mutates
+# 1. Finding the year each name is most common
+# Calculate the fraction of people born each year with the same name
+babynames %>%
+  group_by(year) %>%
+  mutate(year_total = sum(number)) %>%
+  ungroup() %>%
+  mutate(fraction = number / year_total) %>%
+  # Find the year each name is most common
+  group_by(name) %>%
+  top_n(1, fraction)
