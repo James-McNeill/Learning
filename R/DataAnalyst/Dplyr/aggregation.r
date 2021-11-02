@@ -38,3 +38,14 @@ counties_selected %>%
   mutate(density = total_population / total_area) %>%
   # Sort by density in descending order
   arrange(desc(density))
+
+# 3. Summarize by state and region
+counties_selected %>%
+  # Group and summarize to find the total population
+  group_by(region, state) %>%
+  summarize(total_pop = sum(population)) %>%
+  # Calculate the average_pop and median_pop columns 
+  summarize(average_pop = mean(total_pop),
+            median_pop = median(total_pop)
+  )
+  
