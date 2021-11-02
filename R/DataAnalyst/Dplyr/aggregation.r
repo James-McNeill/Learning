@@ -28,3 +28,13 @@ counties_selected %>%
             max_unemployment = max(unemployment),
             average_income = mean(income)
   )
+
+# 2. Summarize by state
+counties_selected %>%
+  group_by(state) %>%
+  summarize(total_area = sum(land_area),
+            total_population = sum(population)) %>%
+  # Add a density column
+  mutate(density = total_population / total_area) %>%
+  # Sort by density in descending order
+  arrange(desc(density))
