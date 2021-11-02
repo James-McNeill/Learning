@@ -49,3 +49,10 @@ counties_selected %>%
             median_pop = median(total_pop)
   )
   
+# C. top_n
+# 1. Selecting a county from each region
+counties_selected %>%
+  # Group by region
+  group_by(region) %>%
+  # Find the greatest number of citizens who walk to work. Second positional parameter relates to the column to filter by
+  top_n(1, walk)
