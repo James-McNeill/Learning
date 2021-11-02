@@ -56,3 +56,11 @@ counties_selected %>%
   group_by(region) %>%
   # Find the greatest number of citizens who walk to work. Second positional parameter relates to the column to filter by
   top_n(1, walk)
+
+# 2. Finding the highest average income
+counties_selected %>%
+  group_by(region, state) %>%
+  # Calculate average income
+  summarize(average_income = mean(income)) %>%
+  # Find the highest income state in each region
+  top_n(1, average_income)
