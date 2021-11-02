@@ -10,3 +10,16 @@ counties %>%
   select(state, county, population, professional:production) %>%
   # Arrange service in descending order 
   arrange(desc(service))
+
+# 2. Select helpers
+# ?select_helpers : code input to console provides overview 
+# contains(): include the column names that contain the word being referenced
+# starts_with(): include the prefix for the column name
+# ends_with(): include the suffix for the column name
+# last_col(): returns the last column from the table
+
+counties %>%
+  # Select the state, county, population, and those ending with "work"
+  select(state, county, population, ends_with("work")) %>%
+  # Filter for counties that have at least 50% of people engaged in public work
+  filter(public_work >= 50)
