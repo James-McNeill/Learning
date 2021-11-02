@@ -23,6 +23,25 @@ from ._methods import (dict_to_list, column_exist, check_var_list, create_date_l
 pandas_cursor = create_cursor()
 
 class transition:
+    '''
+    Example
+    ---
+    # Create the metadata file for the impairment dataset
+    meta = repu.HistoricData('2018-11-01','2019-12-01').metaData('database','table_name_prefix_')
+    # Current year for review
+    cy = '2019_11'
+    df_cy = repu.transition().impData("database",f"table_name_prefix_{cy}",meta)
+    # Creating the string output to use within the Max Stage function
+    strOut = repu.transition().stringCon(db='database',tb='table_name_prefix_',startDt='2018-11-01', endDt='2019-12-01')
+    # Run the maxStage function
+    maxStage = repu.transition().maxStage(strOut)
+    # Combine the data together
+    df_r1 = repu.transition().combineData(df_py, df_cy, maxStage)
+    # Creating the transition rates by channel_type and product_type
+    df_tr = repu.transition().transition_rates(df_r1)
+    # Add a derived variable for the transition rate. Work to do to refine this variable value creation
+    df_tr['variable'] = df_tr['channel_type'] + df_tr['product_type'] + df_tr['stage_s'].astype(str) + df_tr['stage_e'].astype(str)
+    '''
     # Constructor
     def __init__(self):
         self.varList = ['input_variables']
