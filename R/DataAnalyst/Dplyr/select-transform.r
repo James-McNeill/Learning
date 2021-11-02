@@ -23,3 +23,7 @@ counties %>%
   select(state, county, population, ends_with("work")) %>%
   # Filter for counties that have at least 50% of people engaged in public work
   filter(public_work >= 50)
+
+# 3. Exclude column from selection. Code will exclude column from the selection and return all other columns
+counties %>%
+  select(-census_id)
