@@ -27,3 +27,11 @@ counties %>%
 # 3. Exclude column from selection. Code will exclude column from the selection and return all other columns
 counties %>%
   select(-census_id)
+
+# B. Rename verb
+# 1. Rename a column after count()
+counties %>%
+  # Count the number of counties in each state
+  count(state) %>%
+  # Rename the n column to num_counties. The column n is created by default when using the count() verb
+  rename(num_counties = n)
