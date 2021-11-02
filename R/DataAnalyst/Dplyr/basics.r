@@ -53,3 +53,14 @@ counties_selected <- counties %>%
 counties_selected %>%
   # Calculate proportion_women as the fraction of the population made up of women
   mutate(proportion_women = women / population)
+
+# 8. All together, select, filter, mutate and arrange
+counties %>%
+  # Select the five columns 
+  select(state, county, population, men, women) %>%
+  # Add the proportion_men variable
+  mutate(proportion_men = men / population) %>%
+  # Filter for population of at least 10,000
+  filter(population >= 10000) %>%
+  # Arrange proportion of men in descending order 
+  arrange(desc(proportion_men))
