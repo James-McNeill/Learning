@@ -47,8 +47,15 @@ parts %>%
 	replace_na(list(n = 0))
 
 # C. Join tables on themselves. Tables that contain a parent_id can be used to show the parent to child relationship within a table
+# 1. Joining parents to children
 themes %>% 
 	# Inner join the themes table
 	inner_join(themes, by = c("id" = "parent_id"), suffix = c("_parent", "_child")) %>%
 	# Filter for the "Harry Potter" parent name 
 	filter(name_parent == "Harry Potter")
+
+# 2. Joining themes to grandchildren
+# Join themes to itself again to find the grandchild relationships
+themes %>% 
+  inner_join(themes, by = c("id" = "parent_id"), suffix = c("_parent", "_child")) %>%
+  inner_join(themes, by = c("id_child" = "parent_id"), suffix = c("_parent", "_grandchild"))
