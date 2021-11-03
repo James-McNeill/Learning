@@ -10,3 +10,7 @@ batwing %>%
 # Filter the batwing set for parts that aren't in the batmobile set
 batwing %>%
     anti_join(batmobile, by = "part_num")
+
+# 2. Use inventory_parts to find colors included in at least one set
+colors %>%
+    semi_join(inventory_parts, by = c("id" = "color_id"))
