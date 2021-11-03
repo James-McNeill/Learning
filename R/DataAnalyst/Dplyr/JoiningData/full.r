@@ -22,3 +22,12 @@ batman_parts %>%
   # Replace NAs with 0s in the n_batman and n_star_wars columns 
   replace_na(list(n_batman = 0,
                   n_star_wars = 0))
+
+# 4. Comparing star wars with batman LEGO parts
+parts_joined %>%
+  # Sort the number of star wars pieces in descending order 
+  arrange(desc(n_star_wars)) %>%
+  # Join the colors table to the parts_joined table
+  inner_join(colors, by = c("color_id" = "id")) %>%
+  # Join the parts table to the previous join 
+  inner_join(parts, by = "part_num", suffix = c("_color", "_part"))
