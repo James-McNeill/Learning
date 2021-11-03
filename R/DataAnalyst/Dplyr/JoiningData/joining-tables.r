@@ -14,3 +14,10 @@ parts %>%
 # Combine the parts and inventory_parts tables
 inventory_parts %>%
     inner_join(parts, by = 'part_num')
+
+# 3. Joining three tables
+sets %>%
+	# Add inventories using an inner join 
+	inner_join(inventories, by = 'set_num') %>%
+	# Add inventory_parts using an inner join . Joins with the inventories table
+	inner_join(inventory_parts, by = c('id' = 'inventory_id'))
