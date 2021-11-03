@@ -40,3 +40,10 @@ questions %>%
 	full_join(answer_counts, by = c("id" = "question_id")) %>%
 	# Replace the NAs in the n column
 	replace_na(list(n = 0))
+
+# 3. Adding tags information
+question_answer_counts %>%
+	# Join the question_tags tables
+	inner_join(question_tags, by = c("id" = "question_id")) %>%
+	# Join the tags table
+	inner_join(tags, by = c("tag_id" = "id"))
