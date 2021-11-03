@@ -47,3 +47,13 @@ question_answer_counts %>%
 	inner_join(question_tags, by = c("id" = "question_id")) %>%
 	# Join the tags table
 	inner_join(tags, by = c("tag_id" = "id"))
+
+# 4. Average number of answers by question
+tagged_answers %>%
+	# Aggregate by tag_name
+    group_by(tag_name) %>%
+	# Summarize questions and average_answers
+    summarize(questions = n(),
+              average_answers = mean(n)) %>%
+	# Sort the questions in descending order
+    arrange(desc(questions))
