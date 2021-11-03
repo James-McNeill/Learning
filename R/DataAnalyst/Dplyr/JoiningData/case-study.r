@@ -69,3 +69,14 @@ questions %>%
 answers %>%
   inner_join(question_tags, by = "question_id") %>%
   inner_join(tags, by = c("tag_id" = "id"))
+
+# 2. Binding and counting posts
+# Combine the two tables into posts_with_tags
+posts_with_tags <- bind_rows(questions_with_tags %>% mutate(type = "question"),
+                              answers_with_tags %>% mutate(type = "answer"))
+
+# library(lubridate) # A date package within R
+# Add a year column, then count by type, year, and tag_name
+posts_with_tags %>%
+    mutate(year = year(creation_date)) %>%
+    count(type, year, tag_name)
