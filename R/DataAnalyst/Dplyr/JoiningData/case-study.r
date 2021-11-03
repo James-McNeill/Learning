@@ -15,3 +15,8 @@ questions_with_tags %>%
           	  num_questions = n()) %>%
 	# Sort num_questions in descending order
 	arrange(desc(num_questions))
+
+# 3. Tags that never appear on R questions
+# Using a join, filter for tags that are never on an R question
+tags %>%
+    anti_join(question_tags, by = c("id" = "tag_id"))
