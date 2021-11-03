@@ -20,3 +20,13 @@ star_destroyer_colors <- star_destroyer %>%
 # Left join the Millennium Falcon colors to the Star Destroyer colors
 millennium_falcon_colors %>%
   left_join(star_destroyer_colors, by = 'color_id', suffix = c('_falcon', '_star_destroyer'))
+
+# 3. Finding an observation that has a missing value
+inventory_version_1 <- inventories %>%
+  filter(version == 1)
+
+# Join versions to sets
+sets %>%
+  left_join(inventory_version_1, by = 'set_num') %>%
+  # Filter for where version is na. Shows that the joined table has no matching value
+  filter(is.na(version))
