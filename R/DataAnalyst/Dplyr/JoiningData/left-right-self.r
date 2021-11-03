@@ -38,3 +38,10 @@ parts %>%
 	right_join(part_categories, by = c("part_cat_id" = "id")) %>%
 	# Filter for NA
 	filter(is.na(n))
+
+# 2. Cleaning up the missing count values using replace_na() method
+parts %>%
+	count(part_cat_id) %>%
+	right_join(part_categories, by = c("part_cat_id" = "id")) %>%
+	# Use replace_na to replace missing values in the n column
+	replace_na(list(n = 0))
