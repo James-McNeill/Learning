@@ -14,3 +14,12 @@ batwing %>%
 # 2. Use inventory_parts to find colors included in at least one set
 colors %>%
     semi_join(inventory_parts, by = c("id" = "color_id"))
+
+# 3. Anti_join used to extract the missing "set_num" 
+# Use filter() to extract version 1 
+version_1_inventories <- inventories %>%
+    filter(version == 1)
+
+# Use anti_join() to find which set is missing a version 1
+sets %>%
+    anti_join(version_1_inventories, by = "set_num") 
