@@ -1,7 +1,7 @@
 # Working with left, right and self joins
 
 # A. Left join
-# 1. Left join by two different variables
+# 1. Left join by two different variable names
 # Combine the star_destroyer and millennium_falcon tables
 millennium_falcon %>%
     left_join(star_destroyer, by = c('part_num', 'color_id'), suffix = c('_falcon', '_star_destroyer'))
