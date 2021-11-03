@@ -45,3 +45,10 @@ parts %>%
 	right_join(part_categories, by = c("part_cat_id" = "id")) %>%
 	# Use replace_na to replace missing values in the n column
 	replace_na(list(n = 0))
+
+# C. Join tables on themselves. Tables that contain a parent_id can be used to show the parent to child relationship within a table
+themes %>% 
+	# Inner join the themes table
+	inner_join(themes, by = c("id" = "parent_id"), suffix = c("_parent", "_child")) %>%
+	# Filter for the "Harry Potter" parent name 
+	filter(name_parent == "Harry Potter")
