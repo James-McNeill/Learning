@@ -59,3 +59,10 @@ themes %>%
 themes %>% 
   inner_join(themes, by = c("id" = "parent_id"), suffix = c("_parent", "_child")) %>%
   inner_join(themes, by = c("id_child" = "parent_id"), suffix = c("_parent", "_grandchild"))
+
+# 3. Left join a table to itself
+themes %>% 
+  # Left join the themes table to its own children
+  left_join(themes, by = c("id" = "parent_id"), suffix = c("_parent", "_child")) %>%
+  # Filter for themes that have no child themes
+  filter(is.na(name_child))
