@@ -30,3 +30,11 @@ sets %>%
   left_join(inventory_version_1, by = 'set_num') %>%
   # Filter for where version is na. Shows that the joined table has no matching value
   filter(is.na(version))
+
+# B. Right join
+# 1. Counting part colors
+parts %>%
+	count(part_cat_id) %>%
+	right_join(part_categories, by = c("part_cat_id" = "id")) %>%
+	# Filter for NA
+	filter(is.na(n))
