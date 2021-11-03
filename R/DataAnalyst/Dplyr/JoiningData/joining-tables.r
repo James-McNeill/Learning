@@ -9,3 +9,8 @@ parts %>%
 # Combine the parts and inventory_parts tables. If the two tables have the same variable name then can include only one for the by parameter
 parts %>%
     inner_join(inventory_parts, by = 'part_num')
+
+# Shows that the same join with tables in the opposite positions returns the same output
+# Combine the parts and inventory_parts tables
+inventory_parts %>%
+    inner_join(parts, by = 'part_num')
