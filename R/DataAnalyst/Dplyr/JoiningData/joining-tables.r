@@ -21,3 +21,11 @@ sets %>%
 	inner_join(inventories, by = 'set_num') %>%
 	# Add inventory_parts using an inner join . Joins with the inventories table
 	inner_join(inventory_parts, by = c('id' = 'inventory_id'))
+
+# 4. Join multiple tables and check for most common color of lego pieces
+# Count the number of colors and sort
+sets %>%
+	inner_join(inventories, by = "set_num") %>%
+	inner_join(inventory_parts, by = c("id" = "inventory_id")) %>%
+	inner_join(colors, by = c("color_id" = "id"), suffix = c("_set", "_color")) %>%
+	count(name_color, sort = TRUE)
