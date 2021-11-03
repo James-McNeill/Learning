@@ -36,3 +36,11 @@ batman_colors %>%
          total = total_batman + total_star_wars) %>%
   # Filter for totals greater than 200
   filter(total > 200)
+
+# 2. Visualizing the difference
+# Create a bar plot using colors_joined and the name and difference columns
+ggplot(colors_joined, aes(name, difference, fill = name)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(values = color_palette, guide = FALSE) +
+  labs(y = "Difference: Batman - Star Wars")
