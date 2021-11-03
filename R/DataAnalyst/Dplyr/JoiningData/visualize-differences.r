@@ -26,3 +26,13 @@ star_wars_colors <- inventory_parts_themes %>%
   # Add a fraction column of the total divided by the sum of the total 
   mutate(fraction = total / sum(total))
 
+# 1. Combining sets
+batman_colors %>%
+  full_join(star_wars_colors, by = "color_id", suffix = c("_batman", "_star_wars")) %>%
+  replace_na(list(total_batman = 0, total_star_wars = 0)) %>%
+  inner_join(colors, by = c("color_id" = "id")) %>%
+  # Create the difference and total columns
+  mutate(difference = fraction_batman - fraction_star_wars,
+         total = total_batman + total_star_wars) %>%
+  # Filter for totals greater than 200
+  filter(total > 200)
