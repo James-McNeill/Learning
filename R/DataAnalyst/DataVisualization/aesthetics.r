@@ -61,3 +61,8 @@ ggplot(mtcars, aes(wt, mpg, color = fcyl)) +
 ggplot(mtcars, aes(wt, mpg, color = fcyl)) +
   # Add points layer with shape 24 and color yellow
   geom_point(shape = 24, color = "yellow")
+
+# 3. Going all out
+# 5 aesthetics
+ggplot(mtcars, aes(mpg, qsec, color = fcyl, shape = fam, size = hp / wt)) +
+  geom_point()
