@@ -34,3 +34,17 @@ plt_mpg_vs_wt +
 plt_mpg_vs_wt +
   geom_point(aes(shape = fcyl)) +
   geom_text(aes(label = fcyl))
+
+# B. Attributes
+# 1. Color, shape, size and alpha
+# A hexadecimal color
+my_blue <- "#4ABEFF"
+
+ggplot(mtcars, aes(wt, mpg)) +
+  # Set the point color and alpha
+  geom_point(color = my_blue, alpha = 0.6)
+
+# Change the color mapping to a fill mapping
+ggplot(mtcars, aes(wt, mpg, fill = fcyl)) +
+  # Set point size and shape
+  geom_point(color = my_blue, size = 10, shape = 1)
