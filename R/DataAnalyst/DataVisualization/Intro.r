@@ -20,3 +20,12 @@ library(ggplot2)
 # Change the command below so that cyl is treated as factor. Using the factor() method helps to convert the data type
 ggplot(mtcars, aes(factor(cyl), mpg)) +
   geom_point()
+
+# B. Grammar graphics
+# Edit to add a color aesthetic mapped to disp
+ggplot(mtcars, aes(wt, mpg, color = disp)) +
+  geom_point()
+
+# Change the color aesthetic to a size aesthetic
+ggplot(mtcars, aes(wt, mpg, size = disp)) +
+  geom_point()
