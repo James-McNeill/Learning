@@ -54,3 +54,20 @@ ggplot(Vocab, aes(education, vocabulary)) +
 ggplot(Vocab, aes(education, vocabulary)) +
   # Set the shape to 1
   geom_jitter(alpha = 0.2, shape = 1)
+
+# B. Histograms
+# 1. Drawing histograms
+ggplot(mtcars, aes(mpg)) +
+  # Set the binwidth to 1
+  geom_histogram(binwidth = 1)
+
+# Map y to the internal variable ..density.. show frequency densities
+ggplot(mtcars, aes(mpg, y = ..density..)) +
+  geom_histogram(binwidth = 1)
+
+# Change the fill color
+datacamp_light_blue <- "#51A8C9"
+
+ggplot(mtcars, aes(mpg, ..density..)) +
+  # Set the fill color to datacamp_light_blue
+  geom_histogram(binwidth = 1, fill = datacamp_light_blue)
