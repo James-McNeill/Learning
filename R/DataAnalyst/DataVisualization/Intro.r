@@ -37,3 +37,10 @@ ggplot(mtcars, aes(wt, mpg, size = disp)) +
 ggplot(diamonds, aes(carat, price)) +
   geom_point() +
   geom_smooth()
+
+# 2. Changing one or multiple geom attributes
+# alpha: KW param is used to control the opacity of the data points
+# adding color to the geometry makes a trend line for each of the clarity categories
+ggplot(diamonds, aes(carat, price, color = clarity)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth()
