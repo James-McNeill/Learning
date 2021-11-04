@@ -91,3 +91,15 @@ ggplot(mtcars, aes(fcyl, fill = fam)) +
   geom_bar(position = "dodge") +
   labs(x = "Number of Cylinders", y = "Count")
   scale_fill_manual("Transmission", values = palette)
+
+# 2. Setting a dummy aesthetic. Can setup limits on plots
+# Plot 0 vs. mpg
+ggplot(mtcars, aes(mpg, 0)) +
+  # Add jitter 
+  geom_point(position = "jitter")
+
+# define the y limits range
+ggplot(mtcars, aes(mpg, 0)) +
+  geom_jitter() +
+  # Set the y-axis limits
+  ylim(-2, 2)
