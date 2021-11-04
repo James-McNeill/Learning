@@ -21,3 +21,16 @@ plt_mpg_vs_wt <- ggplot(mtcars, aes(wt, mpg))
 # Map fcyl to size
 plt_mpg_vs_wt +
   geom_point(aes(size = fcyl))
+
+# Map fcyl to alpha, not size
+plt_mpg_vs_wt +
+  geom_point(aes(alpha = fcyl))
+
+# Map fcyl to shape, not alpha
+plt_mpg_vs_wt +
+  geom_point(aes(shape = fcyl))
+
+# Use text layer and map fcyl to label
+plt_mpg_vs_wt +
+  geom_point(aes(shape = fcyl)) +
+  geom_text(aes(label = fcyl))
