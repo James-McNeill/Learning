@@ -36,3 +36,21 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
 ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
   # Use a jitter position function with width 0.1
   geom_point(alpha = 0.5, position = position_jitter(width = 0.1))
+
+# 4. Overplotting 4: Integer data
+# Examine the structure of Vocab
+str(Vocab)
+
+# Plot vocabulary vs. education
+ggplot(Vocab, aes(education, vocabulary)) +
+  # Add a point layer
+  geom_point()
+
+# Add a jitter layer
+ggplot(Vocab, aes(education, vocabulary)) +
+  # Change to a jitter layer
+  geom_jitter()
+
+ggplot(Vocab, aes(education, vocabulary)) +
+  # Set the shape to 1
+  geom_jitter(alpha = 0.2, shape = 1)
