@@ -29,3 +29,11 @@ ggplot(mtcars, aes(wt, mpg, color = disp)) +
 # Change the color aesthetic to a size aesthetic
 ggplot(mtcars, aes(wt, mpg, size = disp)) +
   geom_point()
+
+# C. ggplot2 layers
+# 1. Adding geometries
+# geom_point(): adds points (as in a scatter plot)
+# geom_smooth(): adds a smooth trend curve
+ggplot(diamonds, aes(carat, price)) +
+  geom_point() +
+  geom_smooth()
