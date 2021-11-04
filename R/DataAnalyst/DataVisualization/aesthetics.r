@@ -66,3 +66,28 @@ ggplot(mtcars, aes(wt, mpg, color = fcyl)) +
 # 5 aesthetics
 ggplot(mtcars, aes(mpg, qsec, color = fcyl, shape = fam, size = hp / wt)) +
   geom_point()
+
+# C. Modifying aesthetics
+# 1. Updating aesthetics labels
+ggplot(mtcars, aes(fcyl, fill = fam)) +
+  geom_bar() +
+  # Set the axis labels
+  labs(x = "Number of Cylinders", y = "Count")
+
+# Using the scale_fill_manual
+palette <- c(automatic = "#377EB8", manual = "#E41A1C")
+
+ggplot(mtcars, aes(fcyl, fill = fam)) +
+  geom_bar() +
+  labs(x = "Number of Cylinders", y = "Count") +
+  # Set the fill color scale
+  scale_fill_manual("Transmission", values = palette)
+
+# Adding a position parameter
+palette <- c(automatic = "#377EB8", manual = "#E41A1C")
+
+# Set the position so that the bars are side by side
+ggplot(mtcars, aes(fcyl, fill = fam)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Number of Cylinders", y = "Count")
+  scale_fill_manual("Transmission", values = palette)
