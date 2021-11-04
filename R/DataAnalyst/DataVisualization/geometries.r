@@ -71,3 +71,43 @@ datacamp_light_blue <- "#51A8C9"
 ggplot(mtcars, aes(mpg, ..density..)) +
   # Set the fill color to datacamp_light_blue
   geom_histogram(binwidth = 1, fill = datacamp_light_blue)
+
+# 2. Positions in histograms
+ggplot(mtcars, aes(mpg, fill = fam)) +
+  # Change the position to fill. Bars fill the y-axis
+  geom_histogram(binwidth = 1, position = "fill")
+
+ggplot(mtcars, aes(mpg, fill = fam)) +
+  # Change the position to identity, with transparency 0.4
+  geom_histogram(binwidth = 1, position = "identity", alpha = 0.4) 
+
+# C. Bar plots
+# Plot fcyl, filled by fam
+ggplot(mtcars, aes(fcyl, fill = fam)) +
+  # Add a bar layer
+  geom_bar()
+
+ggplot(mtcars, aes(fcyl, fill = fam)) +
+  # Set the position to "fill"
+  geom_bar(position = "fill")
+
+ggplot(mtcars, aes(fcyl, fill = fam)) +
+  # Change the position to "dodge"
+  geom_bar(position = "dodge")
+
+# 2. Overlapping bar plots
+ggplot(mtcars, aes(cyl, fill = fam)) +
+  # Change position to use the functional form, with width 0.2
+  geom_bar(position = position_dodge(width = 0.2))
+
+ggplot(mtcars, aes(cyl, fill = fam)) +
+  # Set the transparency to 0.6
+  geom_bar(position = position_dodge(width = 0.2), alpha = 0.6)
+
+# 3. Sequential color palette
+# Plot education, filled by vocabulary
+ggplot(Vocab, aes(education, fill = vocabulary)) +
+  # Add a bar layer with position "fill"
+  geom_bar(position = "fill") +
+  # Add a brewer fill scale with default palette
+  scale_fill_brewer()
