@@ -48,3 +48,12 @@ ggplot(mtcars, aes(wt, mpg)) +
 ggplot(mtcars, aes(wt, mpg, fill = fcyl)) +
   # Set point size and shape
   geom_point(color = my_blue, size = 10, shape = 1)
+
+# 2. Conflicts with aesthetics
+ggplot(mtcars, aes(wt, mpg, color = fcyl)) +
+  # Add point layer with alpha 0.5
+  geom_point(alpha = 0.5)
+
+ggplot(mtcars, aes(wt, mpg, color = fcyl)) +
+  # Add text layer with label rownames(mtcars) and color red
+  geom_text(label = rownames(mtcars), color = "red")
