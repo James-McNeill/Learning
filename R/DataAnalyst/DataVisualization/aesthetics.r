@@ -13,3 +13,11 @@ ggplot(mtcars, aes(wt, mpg, color = fcyl)) +
 # Map color to fam
 ggplot(mtcars, aes(wt, mpg, fill = fcyl, color = fam)) +
   geom_point(shape = 21, size = 4, alpha = 0.6)
+
+# 3. Comparing aesthetics
+# Establish the base layer
+plt_mpg_vs_wt <- ggplot(mtcars, aes(wt, mpg))
+
+# Map fcyl to size
+plt_mpg_vs_wt +
+  geom_point(aes(size = fcyl))
