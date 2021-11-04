@@ -57,3 +57,7 @@ ggplot(mtcars, aes(wt, mpg, color = fcyl)) +
 ggplot(mtcars, aes(wt, mpg, color = fcyl)) +
   # Add text layer with label rownames(mtcars) and color red
   geom_text(label = rownames(mtcars), color = "red")
+
+ggplot(mtcars, aes(wt, mpg, color = fcyl)) +
+  # Add points layer with shape 24 and color yellow
+  geom_point(shape = 24, color = "yellow")
