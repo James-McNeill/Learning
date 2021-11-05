@@ -19,18 +19,17 @@ plt_prop_unemployed_over_time +
 # 2. Modifying theme elements
 plt_prop_unemployed_over_time +
   theme(
-    # For all rectangles, set the fill color to grey92
-    rect = element_rect(fill = "grey92"),
-    # For the legend key, turn off the outline
-    legend.key = element_rect(color = NA)
-  )
-# Turn off features
-plt_prop_unemployed_over_time +
-  theme(
     rect = element_rect(fill = "grey92"),
     legend.key = element_rect(color = NA),
-    # Turn off axis ticks
     axis.ticks = element_blank(),
-    # Turn off the panel grid
-    panel.grid = element_blank()
+    panel.grid = element_blank(),
+    panel.grid.major.y = element_line(
+      color = "white",
+      size = 0.5,
+      linetype = "dotted"
+    ),
+    # Set the axis text color to grey25
+    axis.text = element_text(color = "grey25"),
+    # Set the plot title font face to italic and font size to 16
+   plot.title = element_text(size = 16, face = "italic")
   )
