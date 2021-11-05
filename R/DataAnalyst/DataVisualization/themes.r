@@ -108,3 +108,9 @@ theme_tufte_recession <- theme_tufte() + theme_recession
 
 # Add the Tufte recession theme to the plot
 plt_prop_unemployed_over_time + theme_tufte_recession
+
+# Set theme_tufte_recession as the default theme
+theme_set(theme_tufte_recession)
+
+# Draw the plot (without explicitly adding a theme)
+plt_prop_unemployed_over_time
