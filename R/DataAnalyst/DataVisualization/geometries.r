@@ -111,3 +111,17 @@ ggplot(Vocab, aes(education, fill = vocabulary)) +
   geom_bar(position = "fill") +
   # Add a brewer fill scale with default palette
   scale_fill_brewer()
+
+# D. Line plots
+# 1. Basic Line plots
+# Print the head of economics
+head(economics)
+
+# Using economics, plot unemploy vs. date
+ggplot(economics, aes(date, unemploy)) +
+  # Make it a line plot
+  geom_line()
+
+# Change the y-axis to the proportion of the population that is unemployed
+ggplot(economics, aes(date, y = unemploy / pop)) +
+  geom_line()
