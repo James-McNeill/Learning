@@ -76,3 +76,16 @@ plt_prop_unemployed_over_time +
 # Add a void theme
 plt_prop_unemployed_over_time +
   theme_void()
+
+# 2. Exploring ggthemes from this library
+# Use the fivethirtyeight theme
+plt_prop_unemployed_over_time +
+  theme_fivethirtyeight()
+
+# Use Tufte's theme
+plt_prop_unemployed_over_time +
+  theme_tufte()
+
+# Use the Wall Street Journal theme
+plt_prop_unemployed_over_time +
+  theme_wsj()
