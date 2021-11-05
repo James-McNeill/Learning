@@ -1,5 +1,6 @@
 # Working with Themes from scratch
 
+# A. Initial themes review
 # 1. Themes from scratch
 # View the default plot
 plt_prop_unemployed_over_time
@@ -61,3 +62,17 @@ plt_mpg_vs_wt_by_cyl +
     # Set the plot margin to (10, 30, 50, 70) millimeters
     plot.margin = margin(10, 30, 50, 70, "mm")
   )
+
+# B. Theme flexibility
+# 1. Built-in themes
+# Add a black and white theme
+plt_prop_unemployed_over_time +
+  theme_bw()
+
+# Add a classic theme
+plt_prop_unemployed_over_time +
+  theme_classic()
+
+# Add a void theme
+plt_prop_unemployed_over_time +
+  theme_void()
