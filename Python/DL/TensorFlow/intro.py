@@ -85,3 +85,14 @@ def compute_gradient(x0):
 print(compute_gradient(-1.0))
 print(compute_gradient(1.0))
 print(compute_gradient(0.0))
+
+# 3. Working with image data. Model aims to predict if the letter image is a K or X
+# Reshape model from a 1x3 to a 3x1 tensor
+model = reshape(model, (3, 1))
+
+# Multiply letter by model. Perform matrix multiplication using matmul()
+output = matmul(letter, model)
+
+# Sum over output and print prediction using the numpy method
+prediction = reduce_sum(output)
+print(prediction.numpy())
