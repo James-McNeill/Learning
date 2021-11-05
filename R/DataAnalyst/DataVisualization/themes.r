@@ -24,3 +24,13 @@ plt_prop_unemployed_over_time +
     # For the legend key, turn off the outline
     legend.key = element_rect(color = NA)
   )
+# Turn off features
+plt_prop_unemployed_over_time +
+  theme(
+    rect = element_rect(fill = "grey92"),
+    legend.key = element_rect(color = NA),
+    # Turn off axis ticks
+    axis.ticks = element_blank(),
+    # Turn off the panel grid
+    panel.grid = element_blank()
+  )
