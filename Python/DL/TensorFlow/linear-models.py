@@ -29,3 +29,20 @@ waterfront = tf.cast(housing['waterfront'], tf.bool)
 # Print price and waterfront
 print(price)
 print(waterfront)
+
+# B. Loss functions
+# 1. Loss functions with TF
+# Import the keras module from tensorflow
+from tensorflow import keras
+
+# Compute the mean squared error (mse) - penalizes large prediction deviations from actual values
+loss = keras.losses.mse(price, predictions)
+
+# Print the mean squared error (mse)
+print(loss.numpy())
+
+# Compute the mean absolute error (mae) - lower loss value returned as the algorithm doesn't penalize large losses as much
+loss = keras.losses.mae(price, predictions)
+
+# Print the mean absolute error (mae)
+print(loss.numpy())
