@@ -125,3 +125,20 @@ ggplot(economics, aes(date, unemploy)) +
 # Change the y-axis to the proportion of the population that is unemployed
 ggplot(economics, aes(date, y = unemploy / pop)) +
   geom_line()
+
+# 2. Multiple time series
+# Plot the Rainbow Salmon time series
+ggplot(fish.species, aes(x = Year, y = Rainbow)) +
+  geom_line()
+
+# Plot the Pink Salmon time series
+ggplot(fish.species, aes(x = Year, y = Pink)) +
+  geom_line()
+
+# Plot multiple time-series by grouping by species
+ggplot(fish.tidy, aes(Year, Capture)) +
+  geom_line(aes(group = Species))
+
+# Plot multiple time-series by coloring by species
+ggplot(fish.tidy, aes(x = Year, y = Capture, color = Species)) +
+  geom_line(aes(group = Species))
