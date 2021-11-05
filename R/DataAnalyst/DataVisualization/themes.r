@@ -128,3 +128,42 @@ ggplot(gm2007, aes(x = lifeExp, y = country, color = lifeExp)) +
   scale_x_continuous("", expand = c(0,0), limits = c(30,90), position = "top") +
   scale_color_gradientn(colors = palette) +
   labs(title = "Highest and lowest life expectancies, 2007", caption = "Source: gapminder")
+
+# 2. Using annotate() for embellishment
+# Define the theme
+plt_country_vs_lifeExp +
+  theme_classic() +
+  theme(axis.line.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text = element_text(color = "black"),
+        axis.title = element_blank(),
+        legend.position = "none")
+
+# Add a vertical line
+plt_country_vs_lifeExp +
+  step_1_themes +
+  geom_vline(xintercept = global_mean, color = "grey40", linetype = 3)
+
+# Add text
+plt_country_vs_lifeExp +
+  step_1_themes +
+  geom_vline(xintercept = global_mean, color = "grey40", linetype = 3) +
+  annotate(
+    "text",
+    x = x_start, y = y_start,
+    label = "The\nglobal\naverage",
+    vjust = 1, size = 3, color = "grey40"
+  )
+
+# Add a curve
+plt_country_vs_lifeExp +  
+  step_1_themes +
+  geom_vline(xintercept = global_mean, color = "grey40", linetype = 3) +
+  step_3_annotation +
+  annotate(
+    "curve",
+    x = x_start, y = y_start,
+    xend = x_end, yend = y_end,
+    arrow = arrow(length = unit(0.2, "cm"), type = "closed"),
+    color = "grey40"
+  )
