@@ -15,3 +15,12 @@ plt_prop_unemployed_over_time +
 # Position the legend inside the plot at (0.6, 0.1)
 plt_prop_unemployed_over_time +
   theme(legend.position = c(0.6, 0.1))
+
+# 2. Modifying theme elements
+plt_prop_unemployed_over_time +
+  theme(
+    # For all rectangles, set the fill color to grey92
+    rect = element_rect(fill = "grey92"),
+    # For the legend key, turn off the outline
+    legend.key = element_rect(color = NA)
+  )
