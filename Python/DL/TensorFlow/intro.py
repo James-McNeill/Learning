@@ -60,3 +60,11 @@ billpred = matmul(features, params)
 # Compute and print the error
 error = bill - billpred
 print(error.numpy())
+
+# C. Advanced operations
+# 1. Reshape tensors. Working with two images (grayscale and color)
+# Reshape the grayscale image tensor into a vector
+gray_vector = reshape(gray_tensor, (784, 1))
+
+# Reshape the color image tensor into a vector
+color_vector = reshape(color_tensor, (2352, 1))
