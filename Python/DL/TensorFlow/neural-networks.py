@@ -83,3 +83,25 @@ outputs = keras.layers.Dense(6, activation='softmax')(dense2)
 
 # Print first five predictions
 print(outputs.numpy()[:5])
+
+# C. Optimizers
+# 1. The dangers of local minima. When setting the starting point if there are multiple local minima values then this point can be crucial to the search.
+# As the algorithm works to optimize very quickly then the first minima that is found will be returned in the example below. As there are two different
+# minima values picking the different starting values returns different minima values
+
+# Initialize x_1 and x_2
+x_1 = Variable(6.0,float32)
+x_2 = Variable(0.3,float32)
+
+# Define the optimization operation. The Stochastic Gradient Descent optimizer works to find the local minima quickly but this may result in it missing
+# the overall minima value from the data inputs.
+opt = keras.optimizers.SGD(learning_rate=0.01)
+
+for j in range(100):
+	# Perform minimization using the loss function and x_1
+	opt.minimize(lambda: loss_function(x_1), var_list=[x_1])
+	# Perform minimization using the loss function and x_2
+	opt.minimize(lambda: loss_function(x_2), var_list=[x_2])
+
+# Print x_1 and x_2 as numpy arrays
+print(x_1.numpy(), x_2.numpy())
