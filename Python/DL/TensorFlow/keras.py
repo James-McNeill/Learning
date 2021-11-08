@@ -89,9 +89,9 @@ model.compile(optimizer='RMSprop', loss='categorical_crossentropy', metrics=['ac
 model.fit(sign_language_features, sign_language_labels, epochs=10, validation_split=0.10)
 
 # 3. Overfitting detection
-# As a high number of nodes have been selected then the model will aim to memorize instead of generalizing the model parameters to make predictions.
-# After a period of model builds this will result in the validation loss increasing as training loss reduces to zero. This means that the model
-# has memorized too much and is not able to fit the validation set as well.
+# As a high number of nodes (larger number of model parameters) have been selected then the model will aim to memorize instead of generalizing 
+# the model parameters to make predictions. After a period of model builds this will result in the validation loss increasing as training loss 
+# reduces to zero. This means that the model has memorized too much and is not able to fit the validation set as well.
 # Define sequential model
 model = keras.Sequential()
 
