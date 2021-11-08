@@ -22,3 +22,9 @@ model.add(Dense(32, activation='relu'))
 
 # Add the output layer
 model.add(Dense(1))
+
+# 2. Compile the model
+model.compile(optimizer='adam', loss='mean_squared_error')
+
+# Verify that model contains information from compiling
+print("Loss function: " + model.loss)
