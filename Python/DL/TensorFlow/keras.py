@@ -108,7 +108,7 @@ model.compile(optimizer=keras.optimizers.Adam(lr=0.001),
 # Complete the model fit operation
 model.fit(sign_language_features, sign_language_labels, epochs=50, validation_split=0.50)
 
-# 4. Evaluatin models
+# 4. Evaluating models
 # Evaluate the small model using the train data
 small_train = small_model.evaluate(train_features, train_labels)
 
@@ -124,3 +124,20 @@ large_test = large_model.evaluate(test_features, test_labels)
 # Print losses
 print('\n Small - Train: {}, Test: {}'.format(small_train, small_test))
 print('Large - Train: {}, Test: {}'.format(large_train, large_test))
+
+# C. Training models with the Estimators API
+# 1. Preparing to train with Estimators
+# Define feature columns for bedrooms and bathrooms
+bedrooms = feature_column.numeric_column("bedrooms")
+bathrooms = feature_column.numeric_column("bathrooms")
+
+# Define the list of feature columns
+feature_list = [bedrooms, bathrooms]
+
+def input_fn():
+	# Define the labels
+	labels = np.array(housing['price'])
+	# Define the features
+	features = {'bedrooms':np.array(housing['bedrooms']), 
+                'bathrooms':np.array(housing['bathrooms'])}
+	return features, labels
