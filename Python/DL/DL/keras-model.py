@@ -28,3 +28,9 @@ model.compile(optimizer='adam', loss='mean_squared_error')
 
 # Verify that model contains information from compiling
 print("Loss function: " + model.loss)
+
+# 3. Fit the model
+# Displays the model fit taking place and how the loss function output is being produced each time.
+# epoch: relates to the number of times that the model trains through all of the data within the input file i.e. each time all of the rows (samples) have been
+# reviewed when training the model for each hidden layer node
+model.fit(predictors, target)
