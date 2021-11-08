@@ -75,3 +75,36 @@ slope = input_data * error * 2
 
 # Print the slope
 print(slope)
+
+# 2. Improving model weights
+# learning_rate: by applying a smaller learning rate this means that the update to the model will be a small step forward. Then a model
+# review of the new error can take place. If there is an improvement in the error prediction then this model change can be seen as an improvement. 
+# However, if we had taken a larger step forward using a larger learning rate and this resulted in the error increasing, then the model would have
+# moved in the wrong direction and a larger correction would be required. Therefore, care is required when making model improvements
+
+# Set the learning rate: learning_rate
+learning_rate = 0.01
+
+# Calculate the predictions: preds
+preds = (weights * input_data).sum()
+
+# Calculate the error: error
+error = preds - target
+
+# Calculate the slope: slope
+slope = 2 * input_data * error
+
+# Update the weights: weights_updated
+weights_updated = weights - (learning_rate * slope)
+
+# Get updated predictions: preds_updated
+preds_updated = (weights_updated * input_data).sum()
+
+# Calculate updated error: error_updated
+error_updated = preds_updated - target
+
+# Print the original error
+print(error)
+
+# Print the updated error
+print(error_updated)
