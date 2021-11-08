@@ -61,3 +61,17 @@ mse_1 = mean_squared_error(target_actuals, model_output_1)
 # Print mse_0 and mse_1
 print("Mean squared error with weights_0: %f" %mse_0)
 print("Mean squared error with weights_1: %f" %mse_1)
+
+# B. Gradient Descent
+# 1. Calculating slopes
+# Calculate the predictions: preds
+preds = (weights * input_data).sum()
+
+# Calculate the error: error
+error = preds - target
+
+# Calculate the slope: slope
+slope = input_data * error * 2
+
+# Print the slope
+print(slope)
