@@ -87,3 +87,23 @@ model.compile(optimizer='RMSprop', loss='categorical_crossentropy', metrics=['ac
 # Add the number of epochs and the validation split. epochs helps to show how many times the model trains and the validation_split shows the split
 # percentage of the input data that is used to validate the model performance
 model.fit(sign_language_features, sign_language_labels, epochs=10, validation_split=0.10)
+
+# 3. Overfitting detection
+# As a high number of nodes have been selected then the model will aim to memorize instead of generalizing the model parameters to make predictions.
+# After a period of model builds this will result in the validation loss increasing as training loss reduces to zero. This means that the model
+# has memorized too much and is not able to fit the validation set as well.
+# Define sequential model
+model = keras.Sequential()
+
+# Define the first layer
+model.add(keras.layers.Dense(1024, activation='relu', input_shape=(784,)))
+
+# Add activation function to classifier
+model.add(keras.layers.Dense(4, activation='softmax'))
+
+# Finish the model compilation
+model.compile(optimizer=keras.optimizers.Adam(lr=0.001), 
+              loss='categorical_crossentropy', metrics=['accuracy'])
+
+# Complete the model fit operation
+model.fit(sign_language_features, sign_language_labels, epochs=50, validation_split=0.50)
