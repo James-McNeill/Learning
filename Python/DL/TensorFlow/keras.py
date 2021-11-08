@@ -52,3 +52,20 @@ model = keras.Model(inputs=[m1_inputs, m2_inputs], outputs=merged)
 
 # Print a model summary. Shows how the model architecture works. Also outputs a connected to column to ensure users understand where the layers work together
 print(model.summary())
+
+# B. Training and validation with Keras
+# 1. Training with Keras
+# Define a sequential model
+model = keras.Sequential()
+
+# Define a hidden layer
+model.add(keras.layers.Dense(16, activation='relu', input_shape=(784,)))
+
+# Define the output layer
+model.add(keras.layers.Dense(4, activation='softmax'))
+
+# Compile the model
+model.compile('SGD', loss='categorical_crossentropy')
+
+# Complete the fitting operation. As the training set is only being used the model performance metric just relates to the loss
+model.fit(sign_language_features, sign_language_labels, epochs=5)
