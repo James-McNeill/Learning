@@ -127,3 +127,24 @@ plt.plot(model_1_training.history['val_loss'], 'r', model_2_training.history['va
 plt.xlabel('Epochs')
 plt.ylabel('Validation score')
 plt.show()
+
+# C. Building a digit recognition model
+# Making use of the MNIST digit image recognition dataset to build a deep learning image recognition model.
+# The features (X) and target (y) have been pre-processed
+# Create the model: model
+model = Sequential()
+
+# Add the first hidden layer
+model.add(Dense(50, activation='relu', input_shape=(784,)))
+
+# Add the second hidden layer
+model.add(Dense(50, activation='relu'))
+
+# Add the output layer
+model.add(Dense(10, activation='softmax'))
+
+# Compile the model
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+# Fit the model
+model.fit(X, y, validation_split=0.3)
