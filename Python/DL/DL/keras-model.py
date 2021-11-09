@@ -34,3 +34,28 @@ print("Loss function: " + model.loss)
 # epoch: relates to the number of times that the model trains through all of the data within the input file i.e. each time all of the rows (samples) have been
 # reviewed when training the model for each hidden layer node
 model.fit(predictors, target)
+
+# B. Classification models
+# Import necessary modules
+import keras
+from keras.layers import Dense
+from keras.models import Sequential
+from keras.utils import to_categorical
+
+# Convert the target to categorical: target. Have to create multiple output nodes for the keras model output when performing classification
+target = to_categorical(df.survived)
+
+# Set up the model
+model = Sequential()
+
+# Add the first layer
+model.add(Dense(32, activation='relu', input_shape=(n_cols,)))
+
+# Add the output layer. There are two nodes for the number of classification values
+model.add(Dense(2, activation='softmax'))
+
+# Compile the model
+model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
+
+# Fit the model
+model.fit(predictors, target)
