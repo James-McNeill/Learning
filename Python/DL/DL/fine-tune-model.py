@@ -43,3 +43,28 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 
 # Fit the model
 hist = model.fit(predictors, target, validation_split=0.3)
+
+# 2. Early stopping: Optimizing the optimizer
+# Import EarlyStopping
+from keras.callbacks import EarlyStopping
+
+# Save the number of columns in predictors: n_cols
+n_cols = predictors.shape[1]
+input_shape = (n_cols,)
+
+# Specify the model
+model = Sequential()
+model.add(Dense(100, activation='relu', input_shape = input_shape))
+model.add(Dense(100, activation='relu'))
+model.add(Dense(2, activation='softmax'))
+
+# Compile the model
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+# Define early_stopping_monitor. If the model has not improved after the number of rounds shown then the algorithm will exit
+early_stopping_monitor = EarlyStopping(patience=2)
+
+# Fit the model
+# epochs: default value is 10. So increasing the amount will potentially increase the number of model builds
+# callbacks: have to be provided as a list. A number of options can be assigned
+model.fit(predictors, target, epochs=30, validation_split=0.3, callbacks=[early_stopping_monitor])
