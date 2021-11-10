@@ -63,3 +63,20 @@ model.add(Dense(4, activation='softmax'))
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
+
+# 2. Prepare the labels from the pandas DataFrame
+# Transform into a categorical variable
+darts.competitor = pd.Categorical(darts.competitor)
+
+# Assign a number to each category (label encoding)
+darts.competitor = darts.competitor.cat.codes 
+
+# Import to_categorical from keras utils module
+from keras.utils import to_categorical
+
+coordinates = darts.drop(['competitor'], axis=1)
+# Use to_categorical on your labels
+competitors = to_categorical(darts.competitor)
+
+# Now print the one-hot encoded labels
+print('One-hot encoded competitors: \n',competitors)
