@@ -90,3 +90,21 @@ accuracy = model.evaluate(coord_test, competitors_test)[1]
 
 # Print accuracy
 print('Accuracy:', accuracy)
+
+# 4. Softmax predictions. With the softmax activation method, the probabilities produced by the model for the labels required will sum up to 1
+# Predict on coords_small_test
+preds = model.predict(coords_small_test)
+
+# Print preds vs true values
+print("{:45} | {}".format('Raw Model Predictions','True labels'))
+for i,pred in enumerate(preds):
+  print("{} | {}".format(pred,competitors_small_test[i]))
+
+# Extract the position of highest probability from each pred vector
+# np.argmax(): selects the highest value from the vector array
+preds_chosen = [np.argmax(pred) for pred in preds]
+
+# Print preds vs true values
+print("{:10} | {}".format('Rounded Model Predictions','True labels'))
+for i,pred in enumerate(preds_chosen):
+  print("{:25} | {}".format(pred,competitors_small_test[i]))
