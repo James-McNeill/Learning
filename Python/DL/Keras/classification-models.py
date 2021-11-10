@@ -108,3 +108,26 @@ preds_chosen = [np.argmax(pred) for pred in preds]
 print("{:10} | {}".format('Rounded Model Predictions','True labels'))
 for i,pred in enumerate(preds_chosen):
   print("{:25} | {}".format(pred,competitors_small_test[i]))
+
+# C. Multi Label classification
+# Differs to multi class as multi labels can be assigned to the classifciation assessment e.g. predicting weather could provide labels of sun / rain / wind for one day and
+# just sun for another day. Therefore, being able to predict all of the label values for one day is required. Instead of the classic multi class challenge which would build
+# a model to predict either rain / sun / wind for the class label to be classified. Making use of the sigmoid activation function ensures that probability values between
+# 0 and 1 will be created for each prediction of the label. Whereas, the softmax activation function would return class labels that all sum up to 1.
+
+# 1. Model for an irrigation machine
+# Instantiate a Sequential model
+model = Sequential()
+
+# Add a hidden layer of 64 neurons and a 20 neuron's input
+model.add(Dense(64, input_shape=(20,), activation='relu'))
+
+# Add an output layer of 3 neurons with sigmoid activation
+model.add(Dense(3, activation='sigmoid'))
+
+# Compile your model with binary crossentropy loss
+model.compile(optimizer='adam',
+           loss = 'binary_crossentropy',
+           metrics=['accuracy'])
+
+model.summary()
