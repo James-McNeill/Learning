@@ -80,3 +80,13 @@ competitors = to_categorical(darts.competitor)
 
 # Now print the one-hot encoded labels
 print('One-hot encoded competitors: \n',competitors)
+
+# 3. Training and performance
+# Fit your model to the training data for 200 epochs
+model.fit(coord_train,competitors_train,epochs=200)
+
+# Evaluate your model accuracy on the test data
+accuracy = model.evaluate(coord_test, competitors_test)[1]
+
+# Print accuracy
+print('Accuracy:', accuracy)
