@@ -184,3 +184,16 @@ def plot_accuracy(acc,val_acc):
   plt.xlabel('Epoch')
   plt.legend(['Train', 'Test'], loc='upper left')
   plt.show()
+
+# 2. Early stopping your model
+# Import the early stopping callback
+from keras.callbacks import EarlyStopping
+
+# Define a callback to monitor val_acc
+monitor_val_acc = EarlyStopping(monitor='val_acc', 
+                       patience=5)
+
+# Train your model using the early stopping callback
+model.fit(X_train, y_train, 
+           epochs=1000, validation_data=(X_test, y_test),
+           callbacks= [monitor_val_acc])
