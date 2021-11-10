@@ -148,3 +148,39 @@ accuracy = model.evaluate(sensors_test, parcels_test)[1]
 
 # Print accuracy
 print('Accuracy:', accuracy)
+
+# D. Keras callbacks
+# Methods that can be used to help improve the automation of the keras model development
+# 1. History callback. By adding in the validation_data then we are able to extract the dictionary data which is being stored by the model
+# build variable 'h_callback' that is created. Can access the data using the history parameter from the dictionary
+# Train your model and save its history
+h_callback = model.fit(X_train, y_train, epochs = 50,
+               validation_data=(X_test, y_test))
+
+# Plot train vs test loss during training
+plot_loss(h_callback.history['loss'], h_callback.history['val_loss'])
+
+# Plot train vs test accuracy during training
+plot_accuracy(h_callback.history['acc'], h_callback.history['val_acc'])
+
+# Plot functions
+def plot_loss(loss,val_loss):
+  plt.figure()
+  plt.plot(loss)
+  plt.plot(val_loss)
+  plt.title('Model loss')
+  plt.ylabel('Loss')
+  plt.xlabel('Epoch')
+  plt.legend(['Train', 'Test'], loc='upper right')
+  plt.show()
+  
+def plot_accuracy(acc,val_acc):
+  # Plot training & validation accuracy values
+  plt.figure()
+  plt.plot(acc)
+  plt.plot(val_acc)
+  plt.title('Model accuracy')
+  plt.ylabel('Accuracy')
+  plt.xlabel('Epoch')
+  plt.legend(['Train', 'Test'], loc='upper left')
+  plt.show()
