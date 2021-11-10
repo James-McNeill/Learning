@@ -35,3 +35,13 @@ model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy'])
 
 # Display a summary of your model
 model.summary()
+
+# 3. Model performance
+# Train your model for 20 epochs
+model.fit(X_train, y_train, epochs = 20)
+
+# Evaluate your model accuracy on the test set
+accuracy = model.evaluate(X_test, y_test)[1]
+
+# Print accuracy. With a simple model it still displayed decent accuracy
+print('Accuracy:', accuracy)
