@@ -75,3 +75,18 @@ for act in activations:
   h_callback = model.fit(X_train, y_train, epochs=20, validation_data=(X_test, y_test), verbose=0)
   activation_results[act] = h_callback
 
+# 2. Comparing activation function results
+# For each h_callback created by the activation functions in the previous code the loss and accuracy scores have been stored across 100 epochs
+# Create a dataframe from val_loss_per_function
+val_loss= pd.DataFrame(val_loss_per_function)
+
+# Call plot on the dataframe
+val_loss.plot()
+plt.show()
+
+# Create a dataframe from val_acc_per_function
+val_acc = pd.DataFrame(val_acc_per_function)
+
+# Call plot on the dataframe
+val_acc.plot()
+plt.show()
