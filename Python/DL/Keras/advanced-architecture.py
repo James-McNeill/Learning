@@ -125,3 +125,13 @@ img_expanded = np.expand_dims(img_array, axis = 0)
 
 # Pre-process the img in the same way original images were
 img_ready = preprocess_input(img_expanded)
+
+# 4. Using a real world model to predict the dog breed
+# Instantiate a ResNet50 model with 'imagenet' weights
+model = ResNet50(weights='imagenet')
+
+# Predict with ResNet50 on your already processed img
+preds = model.predict(img_ready)
+
+# Decode the first 3 predictions
+print('Predicted:', decode_predictions(preds, top=3)[0])
