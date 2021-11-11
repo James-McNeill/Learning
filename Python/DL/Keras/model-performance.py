@@ -55,3 +55,23 @@ for size in training_sizes:
     
 # Plot train vs test accuracies
 plot_results(train_accs, test_accs)
+
+# B. Activation functions
+# sigmoid(),tanh(), ReLU(), and leaky_ReLU()
+
+# 1. Comparing activation functions
+# Using the irrigation model as a baseline
+
+# Activation functions to try
+activations = ['relu', 'leaky_relu', 'sigmoid', 'tanh']
+
+# Loop over the activation functions
+activation_results = {}
+
+for act in activations:
+  # Get a new model with the current activation
+  model = get_model(act)
+  # Fit the model and store the history results
+  h_callback = model.fit(X_train, y_train, epochs=20, validation_data=(X_test, y_test), verbose=0)
+  activation_results[act] = h_callback
+
