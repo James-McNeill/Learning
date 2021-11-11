@@ -178,3 +178,20 @@ random_search = RandomizedSearchCV(model, param_distributions = params, cv = KFo
 
 # Running random_search.fit(X,y) would start the search,but it takes too long! 
 show_results()
+
+# 3. Training with cross validation
+# Import KerasClassifier from keras wrappers
+from keras.wrappers.scikit_learn import KerasClassifier
+
+# Create a KerasClassifier
+model = KerasClassifier(build_fn = create_model(learning_rate = 0.001, activation = 'relu'), epochs = 50, 
+             batch_size = 128, verbose = 0)
+
+# Calculate the accuracy score for each fold
+kfolds = cross_val_score(model, X, y, cv = 3)
+
+# Print the mean accuracy
+print('The mean accuracy was:', kfolds.mean())
+
+# Print the accuracy standard deviation
+print('With a standard deviation of:', kfolds.std())
