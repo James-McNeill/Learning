@@ -72,3 +72,22 @@ decoded_imgs = autoencoder.predict(X_test_noise)
 
 # Plot noisy vs decoded images
 compare_plot(X_test_noise, decoded_imgs)
+
+# B. CNN (Convolutional Neural Network)
+# 1. Build CNN model
+# Import the Conv2D and Flatten layers and instantiate model
+from keras.layers import Conv2D,Flatten
+model = Sequential()
+
+# Add a convolutional layer of 32 filters of size 3x3. With the images they are three by three for input_shape. The final parameter relates to depth.
+# As the images where black and white they only had one layer of depth. For a color image there are 3 layers (RGB).
+model.add(Conv2D(32, kernel_size = 3, input_shape = (28, 28, 1), activation = 'relu'))
+
+# Add a convolutional layer of 16 filters of size 3x3
+model.add(Conv2D(16, kernel_size = 3, activation = 'relu'))
+
+# Flatten the previous layer output
+model.add(Flatten())
+
+# Add as many outputs as classes with softmax activation
+model.add(Dense(10, activation = 'softmax'))
