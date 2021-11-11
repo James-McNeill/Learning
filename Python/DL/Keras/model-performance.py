@@ -141,3 +141,23 @@ h2_callback = batchnorm_model.fit(X_train, y_train, validation_data=(X_test, y_t
 
 # Call compare_histories_acc passing in both model histories
 compare_histories_acc(h1_callback, h2_callback)
+
+# D. Hyperparameter tuning
+# Performing binary classification on the breast cancer dataset
+
+# 1. Prepare a model for tuning. This function can be used to experiement with the different learning_rate and activation optimizers
+# Creates a model given an activation and learning rate
+def create_model(learning_rate, activation):
+  
+  	# Create an Adam optimizer with the given learning rate
+  	opt = Adam(lr = learning_rate)
+  	
+  	# Create your binary classification model  
+  	model = Sequential()
+  	model.add(Dense(128, input_shape = (30,), activation = activation))
+  	model.add(Dense(256, activation = activation))
+  	model.add(Dense(1, activation = 'sigmoid'))
+  	
+  	# Compile your model with your optimizer, loss, and metrics
+  	model.compile(optimizer = opt, loss = 'binary_crossentropy', metrics = ['accuracy'])
+  	return model
