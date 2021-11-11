@@ -39,3 +39,21 @@ def plot():
   plt.scatter(layer_output[:, 0], layer_output[:, 1],c = y_test,edgecolors='none')
   plt.title('Epoch: {}, Test Accuracy: {:3.1f} %'.format(i+1, test_accuracy * 100.0))
   plt.show()
+
+# 3. Building an autoencoder
+# They aim at producing an output identical to its inputs. The input will be compressed into a lower dimensional space, encoded. 
+# The model then learns to decode it back to its original form.
+# Start with a sequential model
+autoencoder = Sequential()
+
+# Add a dense layer with input the original image pixels and neurons the encoded representation
+autoencoder.add(Dense(32, input_shape=(784, ), activation="relu"))
+
+# Add an output layer with as many neurons as the orginal image pixels
+autoencoder.add(Dense(784, activation = "sigmoid"))
+
+# Compile your model with adadelta
+autoencoder.compile(optimizer = 'adadelta', loss = 'binary_crossentropy')
+
+# Summarize your model structure
+autoencoder.summary()
