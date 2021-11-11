@@ -161,3 +161,20 @@ def create_model(learning_rate, activation):
   	# Compile your model with your optimizer, loss, and metrics
   	model.compile(optimizer = opt, loss = 'binary_crossentropy', metrics = ['accuracy'])
   	return model
+
+# 2. Tuning the model parameters to understand which combinations work best
+# Import KerasClassifier from keras scikit learn wrappers
+from keras.wrappers.scikit_learn import KerasClassifier
+
+# Create a KerasClassifier. Applies a wrapper to the Keras model in order to allow for the sklearn Randomized grid search to take place
+model = KerasClassifier(build_fn = create_model)
+
+# Define the parameters to try out
+params = {'activation': ['relu', 'tanh'], 'batch_size': [32, 128, 256], 
+          'epochs': [50, 100, 200], 'learning_rate': [0.1, 0.01, 0.001]}
+
+# Create a randomize search cv object passing in the parameters to try
+random_search = RandomizedSearchCV(model, param_distributions = params, cv = KFold(3))
+
+# Running random_search.fit(X,y) would start the search,but it takes too long! 
+show_results()
