@@ -113,7 +113,7 @@ print("\n The accuracy when using the whole training set as batch-size was: ",
       model.evaluate(X_test, y_test)[1])
 
 # 2. Adding batch normalization between each network layer. It helps to normalize the values being created and averaged at each layer. Also has additional
-# benefits to the model being built.
+# benefits to the model being built. Batch normalization tends to increase the learning speed of our models and make their learning curves more stable.
 
 # Import batch normalization from keras layers
 from keras.layers import BatchNormalization
@@ -130,3 +130,14 @@ batchnorm_model.add(Dense(10, activation='softmax', kernel_initializer='normal')
 
 # Compile your model with sgd
 batchnorm_model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
+
+# 3. Batch normalization effects
+# Comparing the two models showed that the batch normalization helped to stablise the results being produced and also aided better accuracy.
+# Train your standard model, storing its history callback
+h1_callback = standard_model.fit(X_train, y_train, validation_data=(X_test,y_test), epochs=10, verbose=0)
+
+# Train the batch normalized model you recently built, store its history callback
+h2_callback = batchnorm_model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=10, verbose=0)
+
+# Call compare_histories_acc passing in both model histories
+compare_histories_acc(h1_callback, h2_callback)
