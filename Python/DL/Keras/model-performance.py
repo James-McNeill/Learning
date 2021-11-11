@@ -90,3 +90,24 @@ val_acc = pd.DataFrame(val_acc_per_function)
 # Call plot on the dataframe
 val_acc.plot()
 plt.show()
+
+# C. Batch size and batch normalization
+
+# 1. Changing batch size. A default vlue of 32 is used within the model. Therefore for each training epoch batchs of 32 samples (rows) are taken and the average
+# weight is produced. When increasing the batch size to equal the training sample size, there will be less models run and therefore only one value created by
+# each epoch. To ensure that a more widespread accessment is completed then the number of epochs would have to be increased for this scenario.
+# Get a fresh new model with get_model
+model = get_model()
+
+# Train your model for 5 epochs with a batch size of 1
+model.fit(X_train, y_train, epochs=5, batch_size=1)
+print("\n The accuracy when using a batch of size 1 is: ",
+      model.evaluate(X_test, y_test)[1])
+
+# Get a fresh model
+model = get_model()
+
+# Fit your model for 5 epochs with a batch of size the training set
+model.fit(X_train, y_train, epochs=5, batch_size=X_train.shape[0])
+print("\n The accuracy when using the whole training set as batch-size was: ",
+      model.evaluate(X_test, y_test)[1])
