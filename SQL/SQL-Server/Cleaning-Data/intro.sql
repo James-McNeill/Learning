@@ -31,3 +31,15 @@ SELECT
 FROM flight_statistics
 -- Filter registers with more than 100 delays
 WHERE delayed > 100
+
+-- B. Trimming and unifying strings
+-- 1. Trimming strings 1
+-- TRIM(): has only been available since SQL Server 2017. Prior to this date LTRIM() and RTRIM() would be required to create the same result
+SELECT 
+	airport_code,
+	-- Use the appropriate function to remove the extra spaces
+    TRIM(airport_name) AS airport_name,
+	airport_city,
+    airport_state
+-- Select the source table
+FROM airports
