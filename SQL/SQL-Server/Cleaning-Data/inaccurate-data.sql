@@ -31,3 +31,17 @@ SELECT * FROM series
 WHERE is_adult = 1
 -- Exclude series with the minimum age greater or equals to 18
 AND min_age >= 18
+
+-- B. Converting data with different types
+-- 1. Using cast() and convert()
+-- Use CAST() to convert the num_ratings column
+SELECT AVG(CAST(num_ratings AS INT))
+FROM series
+-- Use CAST() to convert the num_ratings column
+WHERE CAST(num_ratings AS INT) BETWEEN 0 AND 5000
+
+-- Use CONVERT() to convert the num_ratings column
+SELECT AVG(CONVERT(INT, num_ratings))
+FROM series
+-- Use CONVERT() to convert the num_ratings column
+WHERE CONVERT(INT, num_ratings) BETWEEN 0 AND 5000
