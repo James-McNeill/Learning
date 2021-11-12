@@ -48,3 +48,13 @@ SELECT
     -- Extract the name of the state
     SUBSTRING(city_state, CHARINDEX(', ', city_state) + 1, LEN(city_state)) AS state
 FROM clients_split
+
+-- 2. left(), right() and reverse()
+SELECT
+	client_name,
+	client_surname,
+    -- Extract the name of the city
+	LEFT(city_state, CHARINDEX(', ', city_state) - 1) AS city,
+    -- Extract the name of the state
+    RIGHT(city_state, CHARINDEX(' ,', REVERSE(city_state)) - 1) AS state
+FROM clients_split
