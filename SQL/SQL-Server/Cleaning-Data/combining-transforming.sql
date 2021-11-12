@@ -37,3 +37,14 @@ SELECT
       	month_of_sale, 
       	day_of_sale) AS complete_date
 FROM paper_shop_daily_sales
+
+-- B. Splitting
+-- 1. substring() and charindex()
+SELECT 
+	client_name,
+	client_surname,
+    -- Extract the name of the city
+	SUBSTRING(city_state, 1, CHARINDEX(', ', city_state) - 1) AS city,
+    -- Extract the name of the state
+    SUBSTRING(city_state, CHARINDEX(', ', city_state) + 1, LEN(city_state)) AS state
+FROM clients_split
