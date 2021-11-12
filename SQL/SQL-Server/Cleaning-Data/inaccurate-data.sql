@@ -45,3 +45,14 @@ SELECT AVG(CONVERT(INT, num_ratings))
 FROM series
 -- Use CONVERT() to convert the num_ratings column
 WHERE CONVERT(INT, num_ratings) BETWEEN 0 AND 5000
+
+-- C. Pattern Matching
+SELECT 
+	name,
+    -- URL of the official site
+	official_site
+FROM series
+-- Get the URLs that don't match the pattern
+WHERE official_site NOT LIKE
+	-- Write the pattern. % represents wildcard of any number of values after this pattern
+	'www.%'
