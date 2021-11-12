@@ -56,3 +56,13 @@ FROM series
 WHERE official_site NOT LIKE
 	-- Write the pattern. % represents wildcard of any number of values after this pattern
 	'www.%'
+
+SELECT 
+	name, 
+    -- Contact number
+    contact_number
+FROM series
+-- Get the numbers that don't match the pattern
+WHERE contact_number NOT LIKE 
+	-- Write the pattern. An underscore relates to a single value to check for
+	'555-___-____'
