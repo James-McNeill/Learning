@@ -43,3 +43,59 @@ airport_name,
 -- Replace the missing values
 COALESCE(airport_city, airport_state, 'Unknown') AS location
 FROM airports
+
+-- B. Duplicate data
+-- 1. Create row_number() by partition to understand if duplicates exist
+SELECT *,
+	   -- Apply ROW_NUMBER()
+       ROW_NUMBER() OVER (
+         	-- Write the partition
+            PARTITION BY 
+                airport_code, 
+                carrier_code, 
+                registration_date
+			ORDER BY 
+                airport_code, 
+                carrier_code, 
+                registration_date
+        ) row_num
+FROM flight_statistics
+
+-- 2. Find duplicates
+-- Use the WITH clause
+WITH cte AS (
+    SELECT *, 
+        ROW_NUMBER() OVER (
+            PARTITION BY 
+                airport_code, 
+                carrier_code, 
+                registration_date
+			ORDER BY 
+                airport_code, 
+                carrier_code, 
+                registration_date
+        ) row_num
+    FROM flight_statistics
+)
+SELECT * FROM cte
+-- Get only duplicates
+WHERE row_num > 1;
+
+-- 3. Exclude duplicates
+WITH cte AS (
+    SELECT *, 
+        ROW_NUMBER() OVER (
+            PARTITION BY 
+                airport_code, 
+                carrier_code, 
+                registration_date
+			ORDER BY 
+                airport_code, 
+                carrier_code, 
+                registration_date
+        ) row_num
+    FROM flight_statistics
+)
+SELECT * FROM cte
+-- Exclude duplicates
+WHERE row_num = 1;
