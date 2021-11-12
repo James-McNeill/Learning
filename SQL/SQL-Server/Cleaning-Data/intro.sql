@@ -91,7 +91,7 @@ WHERE airport_code IN ('ORD', 'MDW')
 
 -- C. String similarity
 -- SOUNDEX(): performs phonetical comparison of strings to see how similar they are
--- DIFFERENCE()
+-- DIFFERENCE(): returns a number between 0 - 4. With 0 representing no similarity and 4 representing very similar
 -- 1. Soundex
 SELECT 
     -- First name and surname of the statisticians
@@ -101,6 +101,19 @@ FROM flight_statistics S1 INNER JOIN flight_statistics S2
 	-- The SOUNDEX result of the first name and surname have to be the same
 	ON SOUNDEX(S1.statistician_name) = SOUNDEX(S2.statistician_name) 
 	AND SOUNDEX(S1.statistician_surname) = SOUNDEX(S2.statistician_surname) 
+-- The texts of the first name or the texts of the surname have to be different
+WHERE S1.statistician_name <> S2.statistician_name
+	OR S1.statistician_surname <> S2.statistician_surname
+
+-- 2. Difference
+SELECT 
+    -- First name and surnames of the statisticians
+	DISTINCT S1.statistician_name, S1.statistician_surname
+-- Join flight_statistics with itself
+FROM flight_statistics S1 INNER JOIN flight_statistics S2 
+	-- The DIFFERENCE of the first name and surname has to be equals to 4
+	ON DIFFERENCE(S1.statistician_name, S2.statistician_name) = 4
+	AND DIFFERENCE(S1.statistician_surname, S2.statistician_surname) = 4
 -- The texts of the first name or the texts of the surname have to be different
 WHERE S1.statistician_name <> S2.statistician_name
 	OR S1.statistician_surname <> S2.statistician_surname
