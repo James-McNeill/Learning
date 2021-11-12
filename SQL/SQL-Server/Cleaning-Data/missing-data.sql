@@ -113,3 +113,13 @@ FROM flight_statistics
 WHERE CONVERT(VARCHAR(10), CAST(registration_date AS DATE), 101) 
 	-- Filter the first six months of 2014 in mm/dd/yyyy format 
 	BETWEEN '01/01/2014' AND '06/30/2014'
+
+-- 2. Using format
+SELECT 
+	pilot_code,
+	pilot_name,
+	pilot_surname,
+	carrier_code,
+    -- Convert the entry_date to a DATE and print it in dd/MM/yyyy format
+	FORMAT(CAST(entry_date AS DATE), 'dd/MM/yyyy') AS entry_date
+from pilots
