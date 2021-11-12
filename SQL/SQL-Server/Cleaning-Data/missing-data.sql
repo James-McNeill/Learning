@@ -35,3 +35,11 @@ SELECT
   -- Replace missing values for airport_state with 'Unknown'
   ISNULL(airport_state, 'Unknown') AS airport_state
 FROM airports
+
+-- 4. Fill missing values with coalesce()
+SELECT
+airport_code,
+airport_name,
+-- Replace the missing values
+COALESCE(airport_city, airport_state, 'Unknown') AS location
+FROM airports
