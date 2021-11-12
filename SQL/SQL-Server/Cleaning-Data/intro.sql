@@ -43,3 +43,13 @@ SELECT
     airport_state
 -- Select the source table
 FROM airports
+
+-- 2. Trimming strings 2
+SELECT 
+	airport_code,
+	-- Use the appropriate function to remove the extra spaces
+    LTRIM(RTRIM(airport_name)) AS airport_name,
+	airport_city,
+    airport_state
+-- Select the source table
+FROM airports
