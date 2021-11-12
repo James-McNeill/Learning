@@ -153,3 +153,20 @@ tokenizer.fit_on_texts(sentences)
 # Turn sentences into a sequence of numbers
 sequences = tokenizer.texts_to_sequences(sentences)
 print("Sentences: \n {} \n Sequences: \n {}".format(sentences[:5],sequences[:5]))
+
+# 2. Build your LSTM model
+# Import the Embedding, LSTM and Dense layer
+from keras.layers import Embedding, LSTM, Dense
+
+model = Sequential()
+
+# Add an Embedding layer with the right parameters
+model.add(Embedding(input_dim = vocab_size, input_length = 3, output_dim = 8, ))
+
+# Add a 32 unit LSTM layer
+model.add(LSTM(32))
+
+# Add a hidden Dense layer of 32 units and an output layer of vocab_size with softmax
+model.add(Dense(32, activation='relu'))
+model.add(Dense(vocab_size, activation='softmax'))
+model.summary()
