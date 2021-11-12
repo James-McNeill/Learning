@@ -53,3 +53,38 @@ SELECT
     airport_state
 -- Select the source table
 FROM airports
+
+-- 3. Unifying strings
+-- a. Applying replace method to all string values returns an error
+SELECT 
+	airport_code,
+	airport_name,
+    -- Use the appropriate function to unify the values
+    REPLACE(airport_city, 'ch', 'Chicago') AS airport_city,
+	airport_state
+FROM airports  
+WHERE airport_code IN ('ORD', 'MDW')
+
+-- b. Using the case statement helps to select only the values required to be changed
+SELECT airport_code, airport_name, 
+	-- Use the CASE statement
+	CASE
+    	-- Unify the values
+		WHEN airport_city <> 'Chicago' THEN REPLACE(airport_city, 'ch', 'Chicago')
+		ELSE airport_city 
+	END AS airport_city,
+    airport_state
+FROM airports
+WHERE airport_code IN ('ORD', 'MDW')
+
+-- c. Using the upper method ensures that the appropriate case sensitivity is being applied
+SELECT 
+	airport_code, airport_name,
+    	-- Convert to uppercase
+    	UPPER(
+            -- Replace 'Chicago' with 'ch'.
+          	REPLACE(airport_city, 'Chicago', 'ch')
+        ) AS airport_city,
+    airport_state
+FROM airports
+WHERE airport_code IN ('ORD', 'MDW')
