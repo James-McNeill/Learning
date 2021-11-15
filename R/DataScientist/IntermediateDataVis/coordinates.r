@@ -27,3 +27,18 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
 # Change the aspect ratio to 20:1
 sun_plot +
   coord_fixed(ratio = 20)
+
+# 4. Expand and clip
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(size = 2) +
+  # Add Cartesian coordinates with zero expansion. This setting will clip data points from the plot
+  coord_cartesian(expand = 0) +
+  theme_classic()
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(size = 2) +
+  # Turn clipping off
+  coord_cartesian(expand = 0, clip = "off") +
+  theme_classic() +
+  # Remove axis lines
+  theme(axis.line = element_blank())
