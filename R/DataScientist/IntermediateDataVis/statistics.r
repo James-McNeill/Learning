@@ -133,3 +133,11 @@ p_wt_vs_fcyl_by_fam +
 p_wt_vs_fcyl_by_fam_jit +
   # Add a summary stat of std deviation limits
   stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), position = posn_d)
+
+p_wt_vs_fcyl_by_fam_jit +
+  # Change the geom to be an errorbar
+  stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), position = posn_d, geom = "errorbar")
+
+p_wt_vs_fcyl_by_fam_jit +
+  # Add a summary stat of normal confidence limits
+  stat_summary(fun.data = mean_cl_normal, fun.args = list(mult = 1), position = posn_d)
