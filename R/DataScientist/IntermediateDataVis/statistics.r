@@ -81,3 +81,12 @@ ggplot(Vocab, aes(x = education, y = vocabulary, color = year_group)) +
   geom_jitter(alpha = 0.25) +
   stat_quantile(quantiles = c(0.05, 0.5, 0.95))
 
+# 2. Using stat_sum()
+# Replaces the overlapping data points with a size variable attribute e.g. if a large number of data points are given the same value then the
+# data point will be provided a larger size relative to other data points that might be less popular
+
+# Run this, look at the plot, then update it
+ggplot(Vocab, aes(x = education, y = vocabulary)) +
+  # Replace this with a sum stat
+  # geom_jitter(alpha = 0.25)
+  stat_sum()
