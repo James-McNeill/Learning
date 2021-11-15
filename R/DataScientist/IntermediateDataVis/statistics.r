@@ -90,3 +90,26 @@ ggplot(Vocab, aes(x = education, y = vocabulary)) +
   # Replace this with a sum stat
   # geom_jitter(alpha = 0.25)
   stat_sum()
+
+ggplot(Vocab, aes(x = education, y = vocabulary)) +
+  stat_sum() +
+  # Add a size scale, from 1 to 10
+  scale_size(range = c(1, 10))
+
+# Amend the plot to group by education
+ggplot(Vocab, aes(x = education, y = vocabulary, group = education)) +
+  stat_sum(aes(size = ..prop..)) # size value of proportion of the whole dataset
+
+# 3. stats outside geoms
+# 1. Preparations
+# From previous step
+posn_j <- position_jitter(width = 0.2)
+posn_d <- position_dodge(width = 0.1)
+posn_jd <- position_jitterdodge(jitter.width = 0.2, dodge.width = 0.1)
+
+# Create the plot base: wt vs. fcyl, colored by fam
+p_wt_vs_fcyl_by_fam <- ggplot(mtcars, aes(x = fcyl, y = wt, color = fam))
+
+# Add a point layer
+p_wt_vs_fcyl_by_fam +
+  geom_point()
