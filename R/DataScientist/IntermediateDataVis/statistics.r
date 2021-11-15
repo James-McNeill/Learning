@@ -68,3 +68,16 @@ ggplot(Vocab, aes(x = education, y = vocabulary, color = year_group)) +
   geom_jitter(alpha = 0.25) +
   # Map the fill color to year_group, set the line size to 2
   stat_smooth(method = "lm", aes(fill = year_group), size = 2)
+
+# B. stats sum and quantile
+# 1. Quantiles
+ggplot(Vocab, aes(x = education, y = vocabulary)) +
+  geom_jitter(alpha = 0.25) +
+  # Add a quantile stat, at 0.05, 0.5, and 0.95
+  stat_quantile(quantiles = c(0.05, 0.5, 0.95))
+
+# Amend the plot to color by year_group. Quantile regression helps to provide a high level overview of the data
+ggplot(Vocab, aes(x = education, y = vocabulary, color = year_group)) +
+  geom_jitter(alpha = 0.25) +
+  stat_quantile(quantiles = c(0.05, 0.5, 0.95))
+
