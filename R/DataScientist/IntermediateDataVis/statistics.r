@@ -113,3 +113,16 @@ p_wt_vs_fcyl_by_fam <- ggplot(mtcars, aes(x = fcyl, y = wt, color = fam))
 # Add a point layer
 p_wt_vs_fcyl_by_fam +
   geom_point()
+
+# 2. Using position objects from preparations step
+# Add jittering only
+p_wt_vs_fcyl_by_fam +
+  geom_point(position = posn_j)
+
+# Add dodging only
+p_wt_vs_fcyl_by_fam +
+  geom_point(position = posn_d)
+
+# Add jittering and dodging
+p_wt_vs_fcyl_by_fam +
+  geom_point(position = posn_jd)
