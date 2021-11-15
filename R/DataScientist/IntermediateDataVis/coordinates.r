@@ -15,3 +15,10 @@ ggplot(mtcars, aes(x = wt, y = hp, color = fam)) +
   geom_smooth() +
   # Add Cartesian coordinates with x limits from 3 to 6
   coord_cartesian(xlim = c(3, 6))
+
+# 2. Aspect ratio 1: 1:1 ratios
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_jitter() +
+  geom_smooth(method = "lm", se = FALSE) +
+  # Fix the coordinate ratio
+  coord_fixed(ratio = 1)
