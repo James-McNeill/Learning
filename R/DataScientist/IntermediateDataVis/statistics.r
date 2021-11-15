@@ -54,3 +54,17 @@ ggplot(mtcars, aes(x = wt, y = mpg, color = fcyl)) +
   # Map color to dummy variable "All"
   stat_smooth(se = FALSE, aes(color = "All")) +
   stat_smooth(method = "lm", se = FALSE)
+
+# 4. Modufying stat_smooth 2
+# Using Vocab, plot vocabulary vs. education, colored by year group
+ggplot(Vocab, aes(x = education, y = vocabulary, color = year_group)) +
+  # Add jittered points with transparency 0.25
+  geom_jitter(alpha = 0.25) +
+  # Add a smooth lin. reg. line (with ribbon)
+  stat_smooth(method = "lm")
+
+# Amend the plot
+ggplot(Vocab, aes(x = education, y = vocabulary, color = year_group)) +
+  geom_jitter(alpha = 0.25) +
+  # Map the fill color to year_group, set the line size to 2
+  stat_smooth(method = "lm", aes(fill = year_group), size = 2)
