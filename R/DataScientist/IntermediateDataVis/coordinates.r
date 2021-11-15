@@ -22,3 +22,8 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
   geom_smooth(method = "lm", se = FALSE) +
   # Fix the coordinate ratio
   coord_fixed(ratio = 1)
+
+# 3. Aspect ratio 2: setting ratios. Adjusting the ratio to increase the width of the plot is common for time series plots in order to understand the data movements better
+# Change the aspect ratio to 20:1
+sun_plot +
+  coord_fixed(ratio = 20)
