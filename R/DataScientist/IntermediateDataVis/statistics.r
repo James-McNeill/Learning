@@ -126,3 +126,10 @@ p_wt_vs_fcyl_by_fam +
 # Add jittering and dodging
 p_wt_vs_fcyl_by_fam +
   geom_point(position = posn_jd)
+
+# 3. Plotting variations
+# mean_sdl(), calculates multiples of the standard deviation and mean_cl_normal() calculates the t-corrected 95% CI
+# Arguments to the data function are passed to stat_summary()'s fun.args argument as a list.
+p_wt_vs_fcyl_by_fam_jit +
+  # Add a summary stat of std deviation limits
+  stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), position = posn_d)
