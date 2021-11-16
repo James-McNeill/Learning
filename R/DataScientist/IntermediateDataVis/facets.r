@@ -102,3 +102,9 @@ ggplot(mtcars, aes(wt, mpg)) +
   geom_point() + 
   # Swap cols for rows; free the y-axis scales
   facet_grid(rows = vars(cyl), scales = "free_y")
+
+# 2. Variable plotting spaces 2: categorical variables
+ggplot(mtcars, aes(x = mpg, y = car, color = fam)) +
+  geom_point() +
+  # Free the y scales and space. Works to clear blank spaces that have no value attached to them in the y axes labels
+  facet_grid(rows = vars(gear), scales = "free_y", space = "free_y")
