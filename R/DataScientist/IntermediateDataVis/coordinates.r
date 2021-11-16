@@ -94,3 +94,19 @@ ggplot(airquality, aes(Date, Temp)) +
   # Add the secondary y-axis 
   scale_y_continuous(sec.axis = secondary_y_axis) +
   labs(x = "Date (1973)", y = "Fahrenheit")
+
+# 2. Flipping axes
+# Plot fcyl bars, filled by fam
+ggplot(mtcars, aes(x = fcyl, fill = fam)) +
+  # Place bars side by side
+  geom_bar(position = "dodge")
+
+ggplot(mtcars, aes(fcyl, fill = fam)) +
+  geom_bar(position = "dodge") +
+  # Flip the x and y coordinates
+  coord_flip()
+
+ggplot(mtcars, aes(fcyl, fill = fam)) +
+  # Set a dodge width of 0.5 for partially overlapping bars
+  geom_bar(position = position_dodge(0.5)) +
+  coord_flip()
