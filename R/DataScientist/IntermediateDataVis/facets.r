@@ -108,3 +108,21 @@ ggplot(mtcars, aes(x = mpg, y = car, color = fam)) +
   geom_point() +
   # Free the y scales and space. Works to clear blank spaces that have no value attached to them in the y axes labels
   facet_grid(rows = vars(gear), scales = "free_y", space = "free_y")
+
+# D. Facet wraps and margins
+# 1. Wrapping for many levels. Addition levels that can't fit on the same row will move to the next row
+ggplot(Vocab, aes(x = education, y = vocabulary)) +
+  stat_smooth(method = "lm", se = FALSE) +
+  # Create facets, wrapping by year, using vars()
+  facet_wrap(vars(year))
+
+ggplot(Vocab, aes(x = education, y = vocabulary)) +
+  stat_smooth(method = "lm", se = FALSE) +
+  # Create facets, wrapping by year, using a formula
+  facet_wrap(~ year)
+
+ggplot(Vocab, aes(x = education, y = vocabulary)) +
+  stat_smooth(method = "lm", se = FALSE) +
+  # Update the facet layout, using 11 columns
+  facet_wrap(~ year, ncol = 11)
+
