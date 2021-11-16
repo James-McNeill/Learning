@@ -70,3 +70,23 @@ ggplot(mtcars, aes(wt, mpg)) +
   # Two variables. Both label values are added to avoid ambiguity
   facet_grid(cols = vars(vs, cyl), labeller = label_context)
 
+# 2. Setting order
+# Make factor, set proper labels explictly
+mtcars$fam <- factor(mtcars$am, labels = c(`0` = "automatic",
+                                           `1` = "manual"))
+
+# Default order is alphabetical
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  facet_grid(cols = vars(fam))
+
+# Make factor, set proper labels explictly, and
+# manually set the label order
+mtcars$fam <- factor(mtcars$am,
+                     levels = c(1, 0),
+                     labels = c("manual", "automatic"))
+
+# View again
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  facet_grid(cols = vars(fam))
