@@ -90,3 +90,15 @@ mtcars$fam <- factor(mtcars$am,
 ggplot(mtcars, aes(wt, mpg)) +
   geom_point() +
   facet_grid(cols = vars(fam))
+
+# C. Facets plotting spaces
+# 1. Variable plotting spaces 1: continuous variables
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() + 
+  # Update the faceting to free the x-axis scales
+  facet_grid(cols = vars(cyl), scales = "free_x")
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() + 
+  # Swap cols for rows; free the y-axis scales
+  facet_grid(rows = vars(cyl), scales = "free_y")
