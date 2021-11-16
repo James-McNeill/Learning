@@ -110,3 +110,10 @@ ggplot(mtcars, aes(fcyl, fill = fam)) +
   # Set a dodge width of 0.5 for partially overlapping bars
   geom_bar(position = position_dodge(0.5)) +
   coord_flip()
+
+# 3. Flip axes to make elements easier to interpret
+# Flip the axes to set car to the y axis. Provides the car names on the y axis to make things easier to read
+ggplot(mtcars, aes(car, wt)) +
+  geom_point() +
+  labs(x = "car", y = "weight") +
+  coord_flip()
