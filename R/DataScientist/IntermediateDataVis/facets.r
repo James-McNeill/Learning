@@ -126,3 +126,18 @@ ggplot(Vocab, aes(x = education, y = vocabulary)) +
   # Update the facet layout, using 11 columns
   facet_wrap(~ year, ncol = 11)
 
+# 2. Margin plots
+ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point() +
+  # Update the facets to add margins. Will add a column / row with (all) of the data points
+  facet_grid(rows = vars(fvs, fam), cols = vars(gear), margins = TRUE)
+
+ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point() +
+  # Update the facets to only show margins on fam
+  facet_grid(rows = vars(fvs, fam), cols = vars(gear), margins = "fam")
+
+ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point() +
+  # Update the facets to only show margins on gear and fvs
+  facet_grid(rows = vars(fvs, fam), cols = vars(gear), margins = c("gear", "fvs"))
