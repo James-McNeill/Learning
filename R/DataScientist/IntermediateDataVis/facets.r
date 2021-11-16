@@ -33,3 +33,19 @@ ggplot(mtcars, aes(x = wt, y = mpg, color = fcyl_fam, size = disp)) +
   scale_color_brewer(palette = "Paired") +
   # Grid facet on gear and vs
   facet_grid(rows = vars(gear), cols = vars(vs))
+
+# 3. Formula notation. This is the previous formula convention to create the facet grid plots. Making use of the vars() method is now preferred
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point() +
+  # Facet rows by am using formula notation
+  facet_grid(am ~ .)
+
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point() +
+  # Facet columns by cyl using formula notation
+  facet_grid(. ~ cyl)
+
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point() +
+  # Facet rows by am and columns by cyl using formula notation
+  facet_grid(am ~ cyl)
