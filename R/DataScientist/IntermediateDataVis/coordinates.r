@@ -75,3 +75,22 @@ ggplot(msleep, aes(bodywt, brainwt)) +
   geom_smooth(method = "lm", se = FALSE) +
   # Add a log10 coordinate transformation for x and y axes
   coord_trans(x = "log10", y = "log10")
+
+# C. Double and flipped axes
+# 1. Useful double axes
+# From previous step
+y_breaks <- c(59, 68, 77, 86, 95, 104)
+y_labels <- (y_breaks - 32) * 5 / 9
+secondary_y_axis <- sec_axis(
+  trans = identity,
+  name = "Celsius",
+  breaks = y_breaks,
+  labels = y_labels
+)
+
+# Update the plot. The plot now contains two y axis which help to show the two temperature measurements for the same chart
+ggplot(airquality, aes(Date, Temp)) +
+  geom_line() +
+  # Add the secondary y-axis 
+  scale_y_continuous(sec.axis = secondary_y_axis) +
+  labs(x = "Date (1973)", y = "Fahrenheit")
