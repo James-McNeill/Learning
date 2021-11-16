@@ -133,3 +133,13 @@ ggplot(mtcars, aes(x = 1, fill = fcyl)) +
   # Add a continuous x scale from 0.5 to 1.5
   scale_x_continuous(limits = c(0.5, 1.5))
 
+# 2. Wind rose plots. Reviewing hourly wind speed and direction data points from London during 2003
+# Using wind, plot wd filled by ws
+ggplot(wind, aes(x = wd, fill = ws)) +
+  # Add a bar layer with width 1
+  geom_bar(width = 1)
+
+# Convert to polar coordinates:
+ggplot(wind, aes(wd, fill = ws)) +
+  geom_bar(width = 1) +
+  coord_polar(start = -pi/16)
