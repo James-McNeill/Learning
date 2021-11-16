@@ -42,3 +42,18 @@ ggplot(mtcars, aes(wt, mpg)) +
   theme_classic() +
   # Remove axis lines
   theme(axis.line = element_blank())
+
+# B. Coordinates vs scales
+# 1. Log transforming scales
+# Add scale_*_*() functions
+ggplot(msleep, aes(bodywt, brainwt)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10() +
+  ggtitle("Scale_ functions")
+
+# This option applies the transformation but maintains the original axes scale instead of converting the scale to a log10 which is what the plot above does
+# Perform a log10 coordinate system transformation
+ggplot(msleep, aes(bodywt, brainwt)) +
+  geom_point() +
+  coord_trans(x = "log10", y = "log10")
