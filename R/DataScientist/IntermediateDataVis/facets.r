@@ -49,3 +49,24 @@ ggplot(mtcars, aes(wt, mpg)) +
   geom_point() +
   # Facet rows by am and columns by cyl using formula notation
   facet_grid(am ~ cyl)
+
+# B. Facets label and order
+# 1. Labelling facets
+# Plot wt by mpg
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  # Displaying both the values and the variables
+  facet_grid(cols = vars(cyl), labeller = label_both)
+
+# Plot wt by mpg
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  # Label context
+  facet_grid(cols = vars(cyl), labeller = label_context)
+
+# Plot wt by mpg
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  # Two variables. Both label values are added to avoid ambiguity
+  facet_grid(cols = vars(vs, cyl), labeller = label_context)
+
