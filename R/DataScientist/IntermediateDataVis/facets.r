@@ -17,3 +17,19 @@ ggplot(mtcars, aes(wt, mpg)) +
   # Facet rows by am and columns by cyl
   facet_grid(rows = vars(am), cols = vars(cyl))
 
+# 2. Many variables
+# See the interaction column. Interaction is how the variables combined iteract with each other
+mtcars$fcyl_fam
+
+# Color the points by fcyl_fam
+ggplot(mtcars, aes(x = wt, y = mpg, color = fcyl_fam)) +
+  geom_point() +
+  # Use a paired color palette
+  scale_color_brewer(palette = "Paired")
+
+# Update the plot. Final plot has seven variables from the original dataset included
+ggplot(mtcars, aes(x = wt, y = mpg, color = fcyl_fam, size = disp)) +
+  geom_point() +
+  scale_color_brewer(palette = "Paired") +
+  # Grid facet on gear and vs
+  facet_grid(rows = vars(gear), cols = vars(vs))
