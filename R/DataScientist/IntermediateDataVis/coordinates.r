@@ -57,3 +57,21 @@ ggplot(msleep, aes(bodywt, brainwt)) +
 ggplot(msleep, aes(bodywt, brainwt)) +
   geom_point() +
   coord_trans(x = "log10", y = "log10")
+
+# 2. Adding stats to transformed scales
+# Plot with a scale_*_*() function: performs the linear model regression fit with the scaled variable values
+ggplot(msleep, aes(bodywt, brainwt)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  # Add a log10 x scale
+  scale_x_log10() +
+  # Add a log10 y scale
+  scale_y_log10() +
+  ggtitle("Scale functions")
+
+# Plot with transformed coordinates. The smoothed line is trained after scaled changes but before coordinate transformations. So care is required
+ggplot(msleep, aes(bodywt, brainwt)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  # Add a log10 coordinate transformation for x and y axes
+  coord_trans(x = "log10", y = "log10")
