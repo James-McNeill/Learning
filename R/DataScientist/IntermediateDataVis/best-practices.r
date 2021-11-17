@@ -18,3 +18,18 @@ ggplot(mtcars, aes(x = fcyl, y = wt, color = fam, fill = fam)) +
   stat_summary(fun.y = mean, geom = "bar", position = posn_d, alpha = 0.5) +
   stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), width = 0.1, position = posn_d, geom = "errorbar")
 
+# 3. Using aggregate data. The dataframe has been developed as a summary of the initial mtcars dataframe using cyl as the group by column
+# Using mtcars_cyl, plot mean_wt vs. cyl
+ggplot(mtcars_by_cyl, aes(x = cyl, y = mean_wt)) +
+  # Add a bar layer with identity stat, filled skyblue
+  geom_bar(stat = "identity", fill = "skyblue")
+
+ggplot(mtcars_by_cyl, aes(x = cyl, y = mean_wt)) +
+  geom_col(aes(width = prop), fill = "skyblue") +
+  # Add an errorbar layer
+  geom_errorbar(
+    # ... at mean weight plus or minus 1 std dev
+    aes(ymin = mean_wt - sd_wt, ymax = mean_wt + sd_wt),
+    # with width 0.1
+    width = 0.1
+  )
