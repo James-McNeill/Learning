@@ -33,3 +33,29 @@ ggplot(mtcars_by_cyl, aes(x = cyl, y = mean_wt)) +
     # with width 0.1
     width = 0.1
   )
+
+# B. Heatmaps
+# 1. Heat maps
+# Using barley, plot variety vs. year, filled by yield
+ggplot(barley, aes(x = year, y = variety, fill = yield)) +
+  # Add a tile geom
+  geom_tile()
+
+# Previously defined
+ggplot(barley, aes(x = year, y = variety, fill = yield)) +
+  geom_tile() + 
+  # Facet, wrapping by site, with 1 column
+  facet_wrap(facets = vars(site), ncol = 1) +
+  # Add a fill scale using an 2-color gradient
+  scale_fill_gradient(low = "white", high = "red")
+
+# A palette of 9 reds
+red_brewer_palette <- brewer.pal(9, "Reds")
+
+# Update the plot
+ggplot(barley, aes(x = year, y = variety, fill = yield)) +
+  geom_tile() + 
+  facet_wrap(facets = vars(site), ncol = 1) +
+  # Update scale to use n-colors from red_brewer_palette
+  scale_fill_gradientn(colors = red_brewer_palette)
+
