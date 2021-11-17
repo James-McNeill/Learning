@@ -20,3 +20,14 @@ filter = {}
 n_prizes = client.nobel.prizes.count_documents(filter)
 n_laureates = client.nobel.laureates.count_documents(filter)
 
+# 2. Listing databases and collections
+# Every Mongo host has 'admin' and 'local' databases for internal bookkeeping, and every Mongo database has a
+# 'system.indexes' collection to store indexes that make searches faster.
+
+# Save a list of names of the databases managed by client
+db_names = client.list_database_names()
+print(db_names)
+
+# Save a list of names of the collections managed by the "nobel" database
+nobel_coll_names = client.nobel.list_collection_names()
+print(nobel_coll_names)
