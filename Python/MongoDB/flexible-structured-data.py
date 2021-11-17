@@ -102,3 +102,30 @@ criteria = { "diedCountry": "USA",
 # Count them
 count = db.laureates.count_documents(criteria)
 print(count)
+
+# C. Dot Notation
+# 1. Initial use case
+# Filter for laureates born in Austria with non-Austria prize affiliation
+criteria = {"bornCountry": "Austria", 
+              "prizes.affiliations.country": {"$ne": "Austria"}}
+
+# Count the number of such laureates
+count = db.laureates.count_documents(criteria)
+print(count)
+
+# 2. Special reviews
+# Filter for documents without a "born" field
+criteria = {"born": {"$exists": False}}
+
+# Save count
+count = db.laureates.count_documents(criteria)
+print(count)
+
+# Filter for laureates with at least three prizes. Have to remember that there is zero indexing present
+criteria = {"prizes.2": {"$exists": True}}
+
+# Find one laureate with at least three prizes
+doc = db.laureates.find_one(criteria)
+
+# Print the document
+print(doc)
