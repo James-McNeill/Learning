@@ -51,3 +51,35 @@ laureate_fields = list(laureate.keys())
 
 print(prize_fields)
 print(laureate_fields)
+
+# B. Finding documents
+# 1. Filtering for content
+# The filter is applied within the count_documents() method. The notation $ is used to highlight the keywords and/or symbols being applied.
+# Filters are applied using lexicographic formatting. This format will account for the ordering of data in the background, therefore alphabetic filtering
+# will take place automatically.
+db.laureates.count_documents({"born":{"$lt":"1800"}})
+
+# 2. Composing filters
+# Create a filter for laureates who died in the USA
+criteria = {"diedCountry": "USA"}
+
+# Save the count of these laureates
+count = db.laureates.count_documents(criteria)
+print(count)
+
+# Create a filter for laureates who died in the USA but were born in Germany
+criteria = {"diedCountry": "USA", 
+            "bornCountry": "Germany"}
+
+# Save the count
+count = db.laureates.count_documents(criteria)
+print(count)
+
+# Create a filter for Germany-born laureates who died in the USA and with the first name "Albert"
+criteria = {"diedCountry": "USA", 
+            "bornCountry": "Germany", 
+            "firstname": "Albert"}
+
+# Save the count
+count = db.laureates.count_documents(criteria)
+print(count)
