@@ -37,3 +37,6 @@ for prize in prizes:
         
     # Print the total share    
     print(total_share)    
+
+# B. Sorting
+# 1. 
