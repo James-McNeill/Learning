@@ -17,3 +17,13 @@ print(count)
 # the filter will work in the second parameter to create the list of filtered values that are then used to perform the distinct operation on the
 # first parameter. In this case the unique list of countries will be returned were the prizes were affiliated to
 db.laureates.distinct("prizes.affiliations.country", {"bornCountry":"USA"})
+
+# 2. Triple plays
+# Save a filter for prize documents with three or more laureates
+criteria = {"laureates.2": {"$exists": True}}
+
+# Save the set of distinct prize categories in documents satisfying the criteria
+triple_play_categories = set(db.prizes.distinct("category", criteria))
+
+# Confirm literature as the only category not satisfying the criteria.
+assert set(db.prizes.distinct("category")) - triple_play_categories == {"literature"}
