@@ -27,3 +27,12 @@ triple_play_categories = set(db.prizes.distinct("category", criteria))
 
 # Confirm literature as the only category not satisfying the criteria.
 assert set(db.prizes.distinct("category")) - triple_play_categories == {"literature"}
+
+# C. Filter arrays using distinct values
+# 1. Sharing of physics prizes
+# $elemMatch: method proveis the option to add multiple filter clauses
+db.laureates.count_documents({
+    "prizes": {"$elemMatch": {
+        "category": "physics",
+        "share": {"$ne": "1"},
+        "year": {"$lt": "1945"}}}})
