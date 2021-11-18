@@ -74,3 +74,19 @@ docs = db.prizes.find(
 # print the year and laureate names (from all_laureates)
 for doc in docs:
   print("{year}: {names}".format(year=doc["year"], names=all_laureates(doc)))
+
+# 3. Gap years. Review original list of award categories and check for awards by year
+# original categories from 1901
+original_categories = db.prizes.distinct("category", {"year": "1901"})
+print(original_categories)
+
+# project year and category, and sort
+docs = db.prizes.find(
+        filter={},
+        projection = {"year":1, "category":1, "_id":0},
+        sort=[("year",-1),("category",1)]
+)
+
+#print the documents
+for doc in docs:
+  print(doc)
