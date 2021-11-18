@@ -39,4 +39,10 @@ for prize in prizes:
     print(total_share)    
 
 # B. Sorting
-# 1. 
+# 1. Initial sorting. Using a 1 for sort represents ascending order, with a -1 showing descending
+docs = list(db.laureates.find(
+    {"born": {"$gte": "1900"}, "prizes.year": {"$gte": "1954"}},
+    {"born": 1, "prizes.year": 1, "_id": 0},
+    sort=[("prizes.year", 1), ("born", -1)]))
+for doc in docs[:5]:
+    print(doc)
