@@ -128,3 +128,11 @@ n_born_and_affiliated = {
 
 five_most_common = Counter(n_born_and_affiliated).most_common(5)
 print(five_most_common)
+
+# D. Limits
+# 1. Chaining methods. The use of two limits is similar to a variable update in Python, so the second limit will be applied 
+list(db.prizes.find({"category": "economics"},
+                    {"year": 1, "_id": 0})
+     .sort("year")
+     .limit(3)
+     .limit(5))
