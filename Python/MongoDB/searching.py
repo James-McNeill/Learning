@@ -63,4 +63,14 @@ def all_laureates(prize):
   return all_names
 
 # test the function on a sample doc
-print(all_laureates(sample_prize))
+# print(all_laureates(sample_prize))
+
+# find physics prizes, project year and name, and sort by year
+docs = db.prizes.find(
+           filter= {"category": "physics"}, 
+           projection= ["year", "laureates.firstname", "laureates.surname"], 
+           sort= [("year", 1)])
+
+# print the year and laureate names (from all_laureates)
+for doc in docs:
+  print("{year}: {names}".format(year=doc["year"], names=all_laureates(doc)))
