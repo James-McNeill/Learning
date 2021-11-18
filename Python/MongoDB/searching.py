@@ -90,3 +90,23 @@ docs = db.prizes.find(
 #print the documents
 for doc in docs:
   print(doc)
+
+# C. Indexes
+# 1. Recently single. Aiming to find the most recent time that a single prize was awarded for a category.
+# Creating the index helps to speed up the algorithm within the query. It also means that the query can perform
+# without having to always explicitly calling out the sorting
+
+# Specify an index model for compound sorting
+index_model = [("category", 1), ("year", -1)]
+db.prizes.create_index(index_model)
+
+# Collect the last single-laureate year for each category
+report = ""
+for category in sorted(db.prizes.distinct("category")):
+    doc = db.prizes.find_one(
+        {"category": category, "laureates.share": "1"},
+        sort=[("year", -1)]
+    )
+    report += "{category}: {year}\n".format(**doc)
+
+print(report)
