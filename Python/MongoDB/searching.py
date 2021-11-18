@@ -20,3 +20,20 @@ full_names = [doc["firstname"] + " " + doc["surname"]  for doc in docs]
 
 # Print the full names
 print(full_names)
+
+# 3. Data validation on the shares for each prize to ensure that they all add up to 1
+# Save documents, projecting out laureates share
+prizes = db.prizes.find({}, ["laureates.share"])
+
+# Iterate over prizes
+for prize in prizes:
+    # Initialize total share
+    total_share = 0
+    
+    # Iterate over laureates for the prize
+    for laureate in prize["laureates"]:
+        # add the share of the laureate to total_share. Had to convert share value to float as it was stored as a string
+        total_share += 1 / float(laureate["share"])
+        
+    # Print the total share    
+    print(total_share)    
