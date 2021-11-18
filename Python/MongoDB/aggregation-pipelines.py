@@ -37,3 +37,14 @@ for key, group in groupby(cursor, key=itemgetter("year")):
     missing = original_categories - {doc["category"] for doc in group}
     if missing:
         print("{year}: {missing}".format(year=key, missing=", ".join(sorted(missing))))
+
+# B. Aggregation operators and grouping
+# 1. Organizing prizes
+# Count prizes awarded (at least partly) to organizations as a sum over sizes of "prizes" arrays.
+pipeline = [
+    {"$match": {"gender": "org"}},
+    {"$project": {"n_prizes": {"$size": "$prizes"}}},
+    {"$group": {"_id": None, "n_prizes_total": {"$sum": "$n_prizes"}}}
+]
+
+print(list(db.laureates.aggregate(pipeline)))
