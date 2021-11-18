@@ -5,3 +5,8 @@
 # Countries recorded as countries of death but not as countries of birth. Distinct method will show the unique values in the document
 countries = set(db.laureates.distinct("diedCountry")) - set(db.laureates.distinct("bornCountry"))
 print(countries)
+
+# 2. Count countries of affiliation
+# The number of distinct countries of laureate affiliation for prizes
+count = len(db.laureates.distinct("prizes.affiliations.country"))
+print(count)
