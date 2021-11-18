@@ -74,3 +74,24 @@ n_before = db.laureates.count_documents(before)
 n_in_or_after = db.laureates.count_documents(in_or_after)
 ratio = n_in_or_after / (n_in_or_after + n_before)
 print(ratio)
+
+# D. Distinct as you like
+# 1. Searching for the regular expressions
+# ^G: This searches for the G at the beginning of the text
+db.laureates.count_documents({"firstname": Regex("^G"), "surname": Regex("^S")})
+
+# 2. Searching for strings
+from bson.regex import Regex
+
+# Filter for laureates with a "bornCountry" value starting with "Germany"
+criteria = {"bornCountry": Regex("^Germany")}
+print(set(db.laureates.distinct("bornCountry", criteria)))
+
+# Fill in a string value to be sandwiched between the strings "^Germany " and "now"
+criteria = {"bornCountry": Regex("^Germany " + "\\(" + "now")}
+print(set(db.laureates.distinct("bornCountry", criteria)))
+
+#Filter for currently-Germany countries of birth. Fill in a string value to be sandwiched between the strings "now" and "$"
+criteria = {"bornCountry": Regex("now" + " Germany\\)" + "$")}
+print(set(db.laureates.distinct("bornCountry", criteria)))
+
