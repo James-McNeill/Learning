@@ -18,6 +18,10 @@ class MergeData():
     """
     Example of how to run the code
     MergeData(df1, df2, df_12m_pd, 'account_no')
+    ---
+    A heatmap to display the missing values by each feature from the merged data
+    fig, ax = plt.subplots(figsize=(10,10))         # Sample figsize in inches
+    sns.heatmap(pd.isnull(mergeOut),ax=ax);         # Example DataFrame is variable mergeOut
     """
     # Constructor
     def __init__(self, df1, df2, df_12m_pd, pk):
