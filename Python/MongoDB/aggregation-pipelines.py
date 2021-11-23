@@ -117,3 +117,19 @@ pipeline = [
     {"$sort": {"nBornCountries": -1}},
 ]
 for doc in db.prizes.aggregate(pipeline): print(doc)
+
+# D. Add fields to array
+# 1. Use the addFields method to create new column
+pipeline = [
+    # Limit results to people; project needed fields; unwind prizes
+    {"$match": {"gender": {"$ne": "org"}}},
+    {"$project": {"bornCountry": 1, "prizes.affiliations.country": 1}},
+    {"$unwind": "$prizes"},
+  
+    # Count prizes with no country-of-birth affiliation
+    {"$addFields": {"bornCountryInAffiliations": {"$in": ["$bornCountry", "$prizes.affiliations.country"]}}},
+    {"$match": {"bornCountryInAffiliations": False}},
+    {"$count": "awardedElsewhere"},
+]
+
+print(list(db.laureates.aggregate(pipeline)))
