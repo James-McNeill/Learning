@@ -30,3 +30,30 @@ pop_list <- lapply(excel_sheets("urbanpop.xlsx"), read_excel, path = "urbanpop.x
 
 # Display the structure of pop_list
 str(pop_list)
+
+# B. readxl() additional arguments
+# 1. col_names
+# The readxl package is already loaded
+
+# Import the first Excel sheet of urbanpop_nonames.xlsx (R gives names): pop_a
+pop_a <- read_excel("urbanpop_nonames.xlsx", sheet = 1, col_names = FALSE)
+
+# Import the first Excel sheet of urbanpop_nonames.xlsx (specify col_names): pop_b
+cols <- c("country", paste0("year_", 1960:1966))
+pop_b <- read_excel("urbanpop_nonames.xlsx", sheet = 1, col_names = cols)
+
+# Print the summary of pop_a
+summary(pop_a)
+
+# Print the summary of pop_b
+summary(pop_b)
+
+# 2. Skip argument
+# The readxl package is already loaded
+
+# Import the second sheet of urbanpop.xlsx, skipping the first 21 rows: urbanpop_sel
+urbanpop_sel <- read_excel("urbanpop.xlsx", sheet = 2, col_names = FALSE, skip = 21)
+
+# Print out the first observation from urbanpop_sel
+head(urbanpop_sel, 1)
+
