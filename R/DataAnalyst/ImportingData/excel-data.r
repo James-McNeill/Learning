@@ -81,3 +81,19 @@ urban_pop <- read.xls("urbanpop.xls", sheet = 2,
 
 # Print first 10 observation of urban_pop
 head(urban_pop, 10)
+
+# 3. Importing data from each worksheet in the notebook and combining together
+# Add code to import data from all three sheets in urbanpop.xls
+path <- "urbanpop.xls"
+urban_sheet1 <- read.xls(path, sheet = 1, stringsAsFactors = FALSE)
+urban_sheet2 <- read.xls(path, sheet = 2, stringsAsFactors = FALSE)
+urban_sheet3 <- read.xls(path, sheet = 3, stringsAsFactors = FALSE)
+
+# Extend the cbind() call to include urban_sheet3: urban. By removing the first element from the variable (e.g. header row) it avoids duplicate data
+urban <- cbind(urban_sheet1, urban_sheet2[-1], urban_sheet3[-1])
+
+# Remove all rows with NAs from urban: urban_clean
+urban_clean <- na.omit(urban)
+
+# Print out a summary of urban_clean
+summary(urban_clean)
