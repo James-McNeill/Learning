@@ -86,6 +86,7 @@ hotdogs_factor <- read_tsv("hotdogs.txt",
 summary(hotdogs_factor)
 
 # C. data.table
+# 1. fread()
 # Similar to read.table() but only much faster
 # load the data.table package using library()
 library(data.table)
@@ -95,3 +96,14 @@ potatoes <- fread("potatoes.csv")
 
 # Print out potatoes
 potatoes
+
+# 2. fread: more advanced use
+# select: allows the user to select columns
+# drop: allows the user to drop columns
+# fread is already loaded
+
+# Import columns 6 and 8 of potatoes.csv: potatoes
+potatoes <- fread("potatoes.csv", select = c("texture", "moistness"))
+
+# Plot texture (x) and moistness (y) of potatoes
+plot(potatoes$texture, potatoes$moistness)
