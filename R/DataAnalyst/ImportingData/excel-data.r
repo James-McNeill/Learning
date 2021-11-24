@@ -21,3 +21,12 @@ pop_list <- list(pop_1, pop_2, pop_3)
 
 # Display the structure of pop_list
 str(pop_list)
+
+# 3. Reading an excel workbook
+# The readxl package is already loaded
+
+# Read all Excel sheets with lapply(): pop_list
+pop_list <- lapply(excel_sheets("urbanpop.xlsx"), read_excel, path = "urbanpop.xlsx")
+
+# Display the structure of pop_list
+str(pop_list)
