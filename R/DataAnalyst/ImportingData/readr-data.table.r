@@ -49,3 +49,17 @@ properties <- c("area", "temp", "size", "storage", "method",
 
 # Import 5 observations from potatoes.txt: potatoes_fragment. Have to ensure the col_names are included so that the columns are assigned correctly
 potatoes_fragment <- read_tsv("potatoes.txt", skip = 6, n_max = 5, col_names = properties)
+
+# 3. col_types()
+# readr is already loaded
+
+# Column names
+properties <- c("area", "temp", "size", "storage", "method",
+                "texture", "flavor", "moistness")
+
+# Import all data, but force all columns to be character: potatoes_char. Can include the col_types as: c = character, d = double, i = integer and l = logical.
+# If a NULL value is provided or col_types is not included then readr will aim to figure out the column type by itself
+potatoes_char <- read_tsv("potatoes.txt", col_types = "cccccccc", col_names = properties)
+
+# Print out structure of potatoes_char
+str(potatoes_char)
