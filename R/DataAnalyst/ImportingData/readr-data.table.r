@@ -22,3 +22,18 @@ potatoes <- read_tsv("potatoes.txt", col_names = properties)
 
 # Call head() on potatoes
 head(potatoes)
+
+# B. read_delim()
+# 1. read_delim()
+# Just as read.table() was the main utils function, read_delim() is the main readr function.
+# readr is already loaded
+
+# Column names
+properties <- c("area", "temp", "size", "storage", "method",
+                "texture", "flavor", "moistness")
+
+# Import potatoes.txt using read_delim(): potatoes
+potatoes <- read_delim("potatoes.txt", col_names = properties, delim = "\t")
+
+# Print out potatoes
+potatoes
