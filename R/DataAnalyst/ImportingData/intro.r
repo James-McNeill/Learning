@@ -22,8 +22,23 @@ str(pools)
 # B. read.delim() and read.table()
 # 1. read.delim()
 # header: by default set to TRUE, to show that the variable names are in the first row. Adjust if not the case
+# sep: separator is set to "/t" by default for tab delimited
 # Import hotdogs.txt: hotdogs
 hotdogs <- read.delim("hotdogs.txt", header = FALSE)
 
 # Summarize hotdogs. Display summary stats
 summary(hotdogs)
+
+# 2. read.table()
+# header: default to FALSE
+# sep: default to ""
+# Path to the hotdogs.txt file: path. Set this up as the file was stored within the data folder
+path <- file.path("data", "hotdogs.txt")
+
+# Import the hotdogs.txt file: hotdogs
+hotdogs <- read.table(path, 
+                      sep = "\t", 
+                      col.names = c("type", "calories", "sodium"))
+
+# Call head() on hotdogs
+head(hotdogs)
