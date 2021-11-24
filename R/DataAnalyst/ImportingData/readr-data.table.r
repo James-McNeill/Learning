@@ -63,3 +63,24 @@ potatoes_char <- read_tsv("potatoes.txt", col_types = "cccccccc", col_names = pr
 
 # Print out structure of potatoes_char
 str(potatoes_char)
+
+# 4. col_types() with collectors
+# readr is already loaded
+
+# Import without col_types
+hotdogs <- read_tsv("hotdogs.txt", col_names = c("type", "calories", "sodium"))
+
+# Display the summary of hotdogs
+summary(hotdogs)
+
+# The collectors you will need to import the data. collector values can be passed as a list to the col_types KW parameter
+fac <- col_factor(levels = c("Beef", "Meat", "Poultry"))
+int <- col_integer()
+
+# Edit the col_types argument to import the data correctly: hotdogs_factor
+hotdogs_factor <- read_tsv("hotdogs.txt",
+                           col_names = c("type", "calories", "sodium"),
+                           col_types = list(fac, int, int))
+
+# Display the summary of hotdogs_factor
+summary(hotdogs_factor)
