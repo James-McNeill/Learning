@@ -56,3 +56,19 @@ tom <- hotdogs[which.max(hotdogs$sodium), ]
 # Print lily and tom
 lily
 tom
+
+# 4. Column classes
+# Previous call to import hotdogs.txt
+hotdogs <- read.delim("hotdogs.txt", header = FALSE, col.names = c("type", "calories", "sodium"))
+
+# Display structure of hotdogs
+str(hotdogs)
+
+# Edit the colClasses argument to import the data correctly: hotdogs2. By using the argument "NULL" this means that the column will not be included
+hotdogs2 <- read.delim("hotdogs.txt", header = FALSE, 
+                       col.names = c("type", "calories", "sodium"),
+                       colClasses = c("factor", "NULL", "numeric"))
+
+
+# Display structure of hotdogs2
+str(hotdogs2)
