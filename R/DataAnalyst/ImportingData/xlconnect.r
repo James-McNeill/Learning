@@ -75,3 +75,16 @@ writeWorksheet(my_book, summ, sheet = "data_summary", )
 
 # Save workbook as summary.xlsx
 saveWorkbook(my_book, file = "summary.xlsx")
+
+# 3. Renaming sheets
+# Build connection to urbanpop.xlsx: my_book
+my_book <- loadWorkbook("urbanpop.xlsx")
+
+# Rename "data_summary" sheet to "summary"
+renameSheet(my_book, "data_summary", "summary")
+
+# Print out sheets of my_book
+getSheets(my_book)
+
+# Save workbook to "renamed.xlsx"
+saveWorkbook(my_book, "renamed.xlsx")
