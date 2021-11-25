@@ -66,3 +66,6 @@ short <- dbGetQuery(conn = con, "SELECT id, name FROM users WHERE CHAR_LENGTH(na
 
 # Print short
 short
+
+# 5. Making use of joins
+dbGetQuery(conn = con, "SELECT post, message FROM tweats INNER JOIN comments on tweats.id = tweat_id WHERE tweat_id = 77")
