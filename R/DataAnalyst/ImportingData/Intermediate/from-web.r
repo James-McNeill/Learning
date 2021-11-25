@@ -52,3 +52,16 @@ download.file(url_xls, "local_latitude.xls")
 # Import the local .xls file with readxl: excel_readxl. In order to get read_excel working, the work around is to use the download module from the utils package.
 # Then we are able to import the downloaded file
 excel_readxl <- read_excel("local_latitude.xls")
+
+# 2. Downloading any file, secure or not
+# https URL to the wine RData file. RData is an efficient way to store R Data
+url_rdata <- "https://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/wine.RData"
+
+# Download the wine file to your working directory
+download.file(url_rdata, "wine_local.RData")
+
+# Load the wine data into your workspace using load()
+load("wine_local.RData")
+
+# Print out the summary of the wine data
+summary(wine)
