@@ -20,3 +20,10 @@ tables <- dbListTables(con)
 
 # Display structure of tables
 str(tables)
+
+# 2. Import table
+# Import the users table from tweater: users
+users <- dbReadTable(con, "users")
+
+# Print users
+users
