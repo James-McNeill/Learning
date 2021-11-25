@@ -65,3 +65,20 @@ load("wine_local.RData")
 
 # Print out the summary of the wine data
 summary(wine)
+
+# 3. httr (1)
+# Load the httr package. Package allows for the GET, FETCH options
+library("httr")
+
+# Get the url, save response to resp
+url <- "http://www.example.com/"
+resp <- GET(url)
+
+# Print resp
+resp
+
+# Get the raw content of resp: raw_content
+raw_content <- content(resp, as = "raw")
+
+# Print the head of raw_content
+head(raw_content)
