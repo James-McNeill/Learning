@@ -7,7 +7,7 @@
 __author__ = "James Mc Neill"
 __version__ = "1.0"
 __maintainer__ = "James Mc Neill"
-__email__ = "james.mcneill@ulsterbank.com"
+__email__ = "jmcneill06@outlook.com"
 __status__ = "Test"
 
 # Import packages
@@ -28,21 +28,20 @@ pandas_cursor = create_cursor()
 # Create the AWS Glue connection
 client = boto3.client('glue')
 
-class proxy_dod:
+class build_dod:
     # Constructor values
     def __init__(self):
-        self.var_list = ", ".join(['mort_no','year_month','BASEL_DEFAULT'])       
+        self.var_list = ", ".join(['mort_no','year_month','DEFAULT'])       
     
     # Method - Create a dictionary of DataFrames
-    def proxy_dod_model(self):
+    def build_dod_model(self):
         # Extract the dataframe from AWS Athena
         df = pandas_cursor.execute(
             """
             SELECT account_no, 
                 month,
-                BASEL_DEFAULT,
-                IFRS9_DEFAULT
-            FROM u_sh_uulstarc.perm_ubi_2020_m_irb_dod_proxy_v6
+                DEFAULT
+            FROM DATABASE.default_table
             """
             , keep_default_na=True
             , na_values=[""]
@@ -51,8 +50,7 @@ class proxy_dod:
         df_out = df.copy()
         # Convert some of the variable data types
         convert_dict = {'account_no': 'int64',
-                        'BASEL_DEFAULT': 'int8',
-                        'IFRS9_DEFAULT': 'int8'
+                        'DEFAULT': 'int8'
                        }
         df_out = df_out.astype(convert_dict)
         # Sort the order of the loans by unique reference and time stamp
@@ -77,9 +75,9 @@ class proxy_dod:
         for t in tl:
             stringInput = f"""
                             (
-                            SELECT distinct mort_no, year_month, BASEL_DEFAULT
+                            SELECT distinct mort_no, year_month, DEFAULT
                             FROM {db}.{t}
-                            WHERE pipeline_capital_flag = 'N'
+                            WHERE filter_variable = 'N'
                             GROUP BY {self.var_list}
                             )
                             """
@@ -92,7 +90,7 @@ class proxy_dod:
     def combine_capital(self, SQL):
         df = None
         df = pandas_cursor.execute(f"""
-                                    select mort_no as account_no, year_month, BASEL_DEFAULT
+                                    select mort_no as account_no, year_month, DEFAULT
                                     from (
                                         {SQL}
                                         ) 
@@ -102,21 +100,21 @@ class proxy_dod:
                                   ).as_pandas()
         return df
     
-    # Method - concatentate the proxy DoD and capital tables
-    def proxy_dod_all(self, db, tb):
+    # Method - concatentate the DoD and latest tables
+    def build_dod_all(self, db, tb):
         df = None
         df_cap_comb = self.combine_capital(self.string_con(db, tb))
         # Add the month variable to dataframe
         df_cap_comb['month'] = pd.to_datetime(df_cap_comb['year_month'], format='%Y%m')
-        df_pdod = self.proxy_dod_model()
+        df_pdod = self.build_dod_model()
         
-        # Stack the 2020 data to the proxy DoD dataset
-        df = pd.concat([df_pdod.loc[:, ['account_no','month','BASEL_DEFAULT']]
-                        ,df_cap_comb.loc[:, ['account_no','month','BASEL_DEFAULT']]]
+        # Stack the 2020 data to the DoD dataset
+        df = pd.concat([df_pdod.loc[:, ['account_no','month','DEFAULT']]
+                        ,df_cap_comb.loc[:, ['account_no','month','DEFAULT']]]
                        )
         # Convert some of the variable data types
         convert_dict = {'account_no': 'int64',
-                        'BASEL_DEFAULT': 'int8'
+                        'DEFAULT': 'int8'
                        }
         df = df.astype(convert_dict)
         # Sort the order of the loans by unique reference and time stamp
@@ -132,7 +130,7 @@ class proxy_dod:
         # Check to make sure that the current loan and previous loan match
         df['acct_c'] = np.where(df.account_no.shift(1) == df.account_no, 1, 0)
         # Numpy condition to check for matching loan and flow into basel default
-        df_cond_np = np.array((df.acct_c == 1) & ((df.BASEL_DEFAULT.shift(1) == 0) &  (df.BASEL_DEFAULT == 1)))
+        df_cond_np = np.array((df.acct_c == 1) & ((df.DEFAULT.shift(1) == 0) &  (df.DEFAULT == 1)))
         # Apply the numpy array to create a default flow variable
         df['def_flow'] = np.where(df_cond_np, 1, 0)
         return df
