@@ -88,3 +88,13 @@ dbFetch(res)
 
 # Clear res
 dbClearResult(res)
+
+# 2. Remember to disconnect from DB connection
+# Create the data frame  long_tweats
+long_tweats <- dbGetQuery(conn = con, "SELECT post, date FROM tweats WHERE CHAR_LENGTH(post) > 40")
+
+# Print long_tweats
+print(long_tweats)
+
+# Disconnect from the database
+dbDisconnect(con)
