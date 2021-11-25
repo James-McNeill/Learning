@@ -12,3 +12,11 @@ con <- dbConnect(RMySQL::MySQL(),
                  port = 3306,
                  user = "student",
                  password = "datacamp")
+
+# B. Import data
+# 1. List the database tables
+# Build a vector of table names: tables
+tables <- dbListTables(con)
+
+# Display structure of tables
+str(tables)
