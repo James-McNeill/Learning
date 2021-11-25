@@ -114,3 +114,14 @@ wine <- fromJSON(wine_json)
 # Print structure of wine
 str(wine)
 
+# 2. Quandl API
+# jsonlite is preloaded
+
+# Definition of quandl_url
+quandl_url <- "https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json?auth_token=i83asDsiWUUyfoypkgMz"
+
+# Import Quandl data: quandl_data
+quandl_data <- fromJSON(quandl_url)
+
+# Print structure of quandl_data
+str(quandl_data)
