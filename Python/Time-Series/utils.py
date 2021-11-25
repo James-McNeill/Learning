@@ -18,7 +18,7 @@ __status__ = "Test"
 from ._awsathena import (create_cursor)
 from ._transformations import (transformations)
 from ._stationarity import (stationarity)
-# creating the dependent variable transformation python code
+from ._doddata import (build_dod)
 from ._correlation import (Correlation)
 from ._single_factor import (SingleFactor)
 from ._multi_factor import (MultiFactor)
