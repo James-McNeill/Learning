@@ -1,1 +1,0 @@
-Training within Pirple course
