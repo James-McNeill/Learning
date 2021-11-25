@@ -5,7 +5,7 @@
 # Load the DBI package
 library("DBI")
 
-# Edit dbConnect() call
+# Edit dbConnect() call. Note that when all actions have been completed the connection should be disabled
 con <- dbConnect(RMySQL::MySQL(), 
                  dbname = "tweater", 
                  host = "courses.csrrinzqubik.us-east-1.rds.amazonaws.com", 
