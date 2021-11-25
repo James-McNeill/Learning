@@ -27,3 +27,13 @@ users <- dbReadTable(con, "users")
 
 # Print users
 users
+
+# 3. Import all tables
+# Get table names
+table_names <- dbListTables(con)
+
+# Import all tables using the lapply function
+tables <- lapply(table_names, dbReadTable, conn = con)
+
+# Print out tables
+tables
