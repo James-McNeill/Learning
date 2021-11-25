@@ -37,3 +37,11 @@ tables <- lapply(table_names, dbReadTable, conn = con)
 
 # Print out tables
 tables
+
+# C. SQL queries from R
+# 1. Query tweater (1)
+# Import tweat_id column of comments where user_id is 1: elisabeth
+elisabeth <- dbGetQuery(conn = con, "SELECT tweat_id FROM comments WHERE user_id = 1")
+
+# Print elisabeth
+elisabeth
