@@ -59,3 +59,10 @@ specific <- dbGetQuery(conn = con, "SELECT message FROM comments WHERE tweat_id 
 
 # Print specific
 specific
+
+# 4. Query tweater (4). Using SQL functions, CHAR_LENGTH()
+# Create data frame short
+short <- dbGetQuery(conn = con, "SELECT id, name FROM users WHERE CHAR_LENGTH(name) < 5")
+
+# Print short
+short
