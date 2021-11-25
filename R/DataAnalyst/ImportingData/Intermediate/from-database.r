@@ -45,3 +45,10 @@ elisabeth <- dbGetQuery(conn = con, "SELECT tweat_id FROM comments WHERE user_id
 
 # Print elisabeth
 elisabeth
+
+# 2. Query tweater (2)
+# Import post column of tweats where date is higher than '2015-09-21': latest
+latest <- dbGetQuery(conn = con, "SELECT post FROM tweats WHERE date > '2015-09-21'")
+
+# Print latest
+latest
