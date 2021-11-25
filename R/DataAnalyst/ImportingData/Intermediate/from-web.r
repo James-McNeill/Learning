@@ -33,3 +33,22 @@ pools2 <- read_csv(url_csv)
 # Print the structure of pools1 and pools2
 str(pools1)
 str(pools2)
+
+# B. Downloading files
+# 1. Import Excel files from the web
+# Load the readxl and gdata package
+library("readxl")
+library("gdata")
+
+# Specification of url: url_xls
+url_xls <- "http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/latitude.xls"
+
+# Import the .xls file with gdata: excel_gdata
+excel_gdata <- read.xls(url_xls)
+
+# Download file behind URL, name it local_latitude.xls
+download.file(url_xls, "local_latitude.xls")
+
+# Import the local .xls file with readxl: excel_readxl. In order to get read_excel working, the work around is to use the download module from the utils package.
+# Then we are able to import the downloaded file
+excel_readxl <- read_excel("local_latitude.xls")
