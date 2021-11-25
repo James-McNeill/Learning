@@ -52,3 +52,10 @@ latest <- dbGetQuery(conn = con, "SELECT post FROM tweats WHERE date > '2015-09-
 
 # Print latest
 latest
+
+# 3. Query tweater (3)
+# Create data frame specific
+specific <- dbGetQuery(conn = con, "SELECT message FROM comments WHERE tweat_id = 77 AND user_id > 4")
+
+# Print specific
+specific
