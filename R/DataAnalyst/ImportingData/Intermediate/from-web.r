@@ -82,3 +82,20 @@ raw_content <- content(resp, as = "raw")
 
 # Print the head of raw_content
 head(raw_content)
+
+# 4. httr (2)
+# httr is already loaded
+
+# Get the url
+url <- "http://www.omdbapi.com/?apikey=72bc447a&t=Annie+Hall&y=&plot=short&r=json"
+resp <- GET(url)
+
+# Print resp
+resp
+
+# Print content of resp as text
+content(resp, as = "text")
+
+# Print content of resp. By not specifying a format to convert to, R will work this out for itself. With the data being in JSON the method converted
+# the resp content to an R list, which made it easier to use
+content(resp)
