@@ -99,3 +99,18 @@ content(resp, as = "text")
 # Print content of resp. By not specifying a format to convert to, R will work this out for itself. With the data being in JSON the method converted
 # the resp content to an R list, which made it easier to use
 content(resp)
+
+# C. APIs & JSON
+# 1. From JSON to R
+# Load the jsonlite package
+library("jsonlite")
+
+# wine_json is a JSON
+wine_json <- '{"name":"Chateau Migraine", "year":1997, "alcohol_pct":12.4, "color":"red", "awarded":false}'
+
+# Convert wine_json into a list: wine
+wine <- fromJSON(wine_json)
+
+# Print structure of wine
+str(wine)
+
