@@ -69,3 +69,22 @@ short
 
 # 5. Making use of joins
 dbGetQuery(conn = con, "SELECT post, message FROM tweats INNER JOIN comments on tweats.id = tweat_id WHERE tweat_id = 77")
+
+# D. DBI Internals
+# 1. Send - Fetch - Clear
+# Sending the specified query with dbSendQuery();
+# Fetching the result of executing the query on the database with dbFetch();
+# Clearing the result with dbClearResult().
+
+# Send query to the database
+res <- dbSendQuery(con, "SELECT * FROM comments WHERE user_id > 4")
+
+# Use dbFetch() twice. n: relates to the number (chunk) of records that are returned. If n is not specified then all records will be returned.
+# With the code implemented below, the first Fetch returns the first 2 records. Then the second Fetch returns the remainder of records.
+# This ability can come in handy when there are lots of records that are contained within the queried tables and memory has to be apportioned
+# efficiently in chunks to extract the data.
+dbFetch(res, n = 2)
+dbFetch(res)
+
+# Clear res
+dbClearResult(res)
