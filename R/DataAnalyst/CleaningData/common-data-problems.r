@@ -34,3 +34,5 @@ assert_is_numeric(bike_share_rides$duration_mins)
 
 # Calculate mean duration
 mean(bike_share_rides$duration_mins)
+
+# B. Range constraints
