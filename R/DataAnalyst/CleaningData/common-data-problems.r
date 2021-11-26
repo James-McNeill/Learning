@@ -95,3 +95,14 @@ bike_share_rides_unique %>%
   count(ride_id) %>%
   # Filter for rows with a count > 1
   filter(n > 1)
+
+# 3. Aggregating partial duplicates
+bike_share_rides %>%
+  # Group by ride_id and date
+  group_by(ride_id, date) %>%
+  # Add duration_min_avg column
+  mutate(duration_min_avg = mean(duration_min) ) %>%
+  # Remove duplicates based on ride_id and date, keep all cols
+  distinct(ride_id, date, .keep_all = TRUE) %>%
+  # Remove duration_min column
+  select(-duration_min)
