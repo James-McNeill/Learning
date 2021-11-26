@@ -36,3 +36,17 @@ assert_is_numeric(bike_share_rides$duration_mins)
 mean(bike_share_rides$duration_mins)
 
 # B. Range constraints
+# 1. Ride duration constraints
+# Create breaks
+breaks <- c(min(bike_share_rides$duration_min), 0, 1440, max(bike_share_rides$duration_min))
+
+# Create a histogram of duration_min
+ggplot(bike_share_rides, aes(duration_min)) +
+  geom_histogram(breaks = breaks)
+
+# duration_min_const: replace vals of duration_min > 1440 with 1440
+bike_share_rides <- bike_share_rides %>%
+  mutate(duration_min_const = replace(duration_min, duration_min > 1440, 1440))
+
+# Make sure all values of duration_min_const are between 0 and 1440. If no value is displayed then the assertion has worked correctly for all values
+assert_all_are_in_closed_range(bike_share_rides$duration_min_const, lower = 0, upper = 1440)
