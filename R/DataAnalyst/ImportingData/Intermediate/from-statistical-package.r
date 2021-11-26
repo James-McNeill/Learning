@@ -54,3 +54,32 @@ work$GENDER <- as_factor(work$GENDER)
 
 # Display summary of work$GENDER again
 summary(work$GENDER)
+
+# B. foreign
+# 1. Import STATA data
+# Load the foreign package
+library(foreign)
+
+# Import florida.dta and name the resulting data frame florida
+florida <- read.dta("florida.dta")
+
+# Check tail() of florida
+tail(florida)
+
+# 2. Import STATA data (2)
+# foreign is already loaded
+
+# Specify the file path using file.path(): path
+path <- file.path("worldbank/edequality.dta")
+
+# Create and print structure of edu_equal_1
+edu_equal_1 <- read.dta(path)
+str(edu_equal_1)
+
+# Create and print structure of edu_equal_2
+edu_equal_2 <- read.dta(path, convert.factors = FALSE)
+str(edu_equal_2)
+
+# Create and print structure of edu_equal_3
+edu_equal_3 <- read.dta(path, convert.underscore = TRUE)
+str(edu_equal_3)
