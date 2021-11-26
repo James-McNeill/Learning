@@ -29,3 +29,15 @@ sugar$Date <- as.Date(as_factor(sugar$Date))
 
 # Structure of sugar again
 str(sugar)
+
+# 3. Import SPSS data
+# haven is already loaded
+
+# Import person.sav: traits
+traits <- read_sav("person.sav")
+
+# Summarize traits
+summary(traits)
+
+# Print out a subset. Method allows us to pass filters to the second positional parameter (subset)
+subset(traits, traits$Extroversion > 40 & traits$Agreeableness > 40)
