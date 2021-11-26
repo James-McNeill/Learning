@@ -83,3 +83,6 @@ str(edu_equal_2)
 # Create and print structure of edu_equal_3
 edu_equal_3 <- read.dta(path, convert.underscore = TRUE)
 str(edu_equal_3)
+
+# Review the number of rows that match the subset filtering
+nrow(subset(edu_equal_1, ethnicity_head == "Bulgaria" & income > 1000))
