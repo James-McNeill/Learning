@@ -86,3 +86,12 @@ str(edu_equal_3)
 
 # Review the number of rows that match the subset filtering
 nrow(subset(edu_equal_1, ethnicity_head == "Bulgaria" & income > 1000))
+
+# 3. Import SPSS
+# foreign is already loaded
+
+# Import international.sav as a data frame: demo
+demo <- read.spss("international.sav", to.data.frame = TRUE)
+
+# Create boxplot of gdp variable of demo
+boxplot(demo$gdp)
