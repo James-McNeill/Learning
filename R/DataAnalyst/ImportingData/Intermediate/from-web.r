@@ -143,3 +143,41 @@ sw3$Title
 
 # Is the release year of sw4 later than sw3?
 sw4$Year > sw3$Year
+
+# D. JSON and jsonlite
+# 1. JSON practice
+# jsonlite is already loaded
+
+# Challenge 1
+json1 <- '[1, 2, 3, 4, 5, 6]'
+fromJSON(json1)
+
+# Challenge 2
+json2 <- '{"a": [1, 2, 3], "b": [4, 5, 6]}'
+fromJSON(json2)
+
+# 2. JSON practice (2)
+# jsonlite is already loaded
+
+# Challenge 1
+json1 <- '[[1, 2], [3, 4]]'
+fromJSON(json1)
+
+# Challenge 2
+json2 <- '[{"a": 1, "b": 2}, {"a": 3, "b": 4}, {"a": 5, "b": 6}]'
+fromJSON(json2)
+
+# 3. toJSON()
+# jsonlite is already loaded
+
+# URL pointing to the .csv file
+url_csv <- "http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/water.csv"
+
+# Import the .csv file located at url_csv
+water <- read.csv(url_csv, stringsAsFactors = FALSE)
+
+# Convert the data file according to the requirements
+water_json <- toJSON(water)
+
+# Print out water_json
+water_json
