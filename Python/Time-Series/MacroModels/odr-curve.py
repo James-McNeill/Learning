@@ -26,45 +26,43 @@ pd.options.display.float_format = '{:,.4f}'.format # Comma and four decimal plac
 pandas_cursor = stmd.create_cursor()
 
 # B. Input data creation
-# Running the proxy dod model dataset extraction only
-pdod = stmd.proxy_dod().proxy_dod_model()
-pdod.head()
+# Running the build dod model dataset extraction only
+dod = stmd.build_dod().build_dod_model()
+dod.head()
 
-# Running the proxy dod model dataset and including the additional capital mart datasets for 2020.
-# The proxy dod dataset was available until March 2020. Data mart team produced the capital
-# DoD rules from March 2020 onwards and stored within the capital mart datasets.
-df = stmd.proxy_dod().proxy_dod_all('u_sh_uulstarc', 'perm_ubdm_cap_mart_')
+# Running the build dod model dataset and including the additional datasets for 2020.
+df = stmd.build_dod().build_dod_all('DATABASE', 'INPUT_TABLE_')
 df.head()
 
 # After importing the combined default dataset, the default rules can be applied to create the 
 # binary def_flow variable highlighting when loans enter default.
 
 # Code retained to highlight how the method can be applied
-# df = stmd.proxy_dod().default_rules(df)
+# df = stmd.build_dod().default_rules(df)
 # df.head()
 
 # Extracting the default table can be performed using the default table method. The default rules
 # method is contained within this method, therefore the default_table method can be run individually
-# after the overall dataset (using prox_dod_all method) has been created
+# after the overall dataset (using build_dod_all method) has been created
 
 # Code retained to highlight how the method can be applied
-# default_table = stmd.proxy_dod().default_table(df)
+# default_table = stmd.build_dod().default_table(df)
 # default_table.shape
 
 # Create the default n12m column
 # Each of the methods that are mentioned above are combined into the method default_n12m_all. This
 # method is used to create the default flow and perform the operations required to develop the 
 # variable "def_n12m"
-df = stmd.proxy_dod().default_n12m_all(df)
-df.loc[(df['account_no'] == 59001561)].head(20)
+df = stmd.build_dod().default_n12m_all(df)
+df.loc[(df['account_no'] == 000000000)].head(20) # example account to show how the dataset has been created
 
 # C. Create the ODR curve
 # Create the variables used within the ODR calculation. Method allows for the 
 # aggregation of the two key variables within the ODR calculation (# perf and # default flow n12m)
 def summary(x):
     result = {
-                'perf': (np.where(x['BASEL_DEFAULT']==0,1,0)).sum()
-                ,'def': (np.where((x['BASEL_DEFAULT']==0) & (x['def_n12m']==1),1,0)).sum()
+                'perf': (np.where(x['DEFAULT']==0,1,0)).sum()
+                ,'def': (np.where((x['DEFAULT']==0) & (x['def_n12m']==1),1,0)).sum()
             }
     return pd.Series(result).round(4)
 
@@ -86,9 +84,9 @@ def output_file(filename: str, df):
         df.to_csv(filename)
 
 # NOTE : when creating the output file make sure not to over-write existing output file
-output_file('basel_odr_mth.csv', df_s1)
+output_file('odr_mth.csv', df_s1)
 
-# Create the final ODR values for the ST model
+# Create the final ODR values for the model
 # 1) Keep only the quarter end months
 # 2) Make the date a backward looking value i.e. add one year to each value
 df_s2 = df_s1.copy()
@@ -109,4 +107,4 @@ date_filt = df_s2.index <= '2020-12-01'
 df_s2 = df_s2.loc[df_s2.index[date_filt],['ODR']]
 
 # NOTE : when creating the final output file make sure not to over-write existing output file
-output_file('basel_odr.csv', df_s2)
+output_file('odr.csv', df_s2)
