@@ -46,3 +46,20 @@ sfo_survey %>%
 # Count values of cleanliness_lower
 sfo_survey %>%
   count(cleanliness_lower)
+
+# 3. Collapsing categories
+# dplyr and forcats are loaded and sfo_survey is available
+# Count categories of dest_region
+sfo_survey %>%
+  count(dest_region)
+
+# Categories to map to Europe
+europe_categories <- c('EU', 'Europ', 'eur')
+
+# Add a new col dest_region_collapsed
+sfo_survey %>%
+  # Map all categories in europe_categories to Europe
+  mutate(dest_region_collapsed = fct_collapse(dest_region, 
+                                     Europe = europe_categories)) %>%
+  # Count categories of dest_region_collapsed
+  count(dest_region_collapsed)
