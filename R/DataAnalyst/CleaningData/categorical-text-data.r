@@ -20,3 +20,6 @@ sfo_survey %>%
   semi_join(dest_sizes, sfo_survey, by = "dest_size") %>%
   # Count the number of each dest_size
   count(dest_size)
+
+# B. Categorical data problems
+# 1. Identifying inconsistency
