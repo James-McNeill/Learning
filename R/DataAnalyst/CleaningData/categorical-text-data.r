@@ -63,3 +63,36 @@ sfo_survey %>%
                                      Europe = europe_categories)) %>%
   # Count categories of dest_region_collapsed
   count(dest_region_collapsed)
+
+# C. Cleaning text data
+# 1. Detecting inconsistent text data
+# Filter for rows with "-" in the phone column
+sfo_survey %>%
+  filter(str_detect(phone, "-"))
+
+# Filter for rows with "(" or ")" in the phone column
+sfo_survey %>%
+  filter(str_detect(phone, fixed("(")) | str_detect(phone, fixed(")")))
+
+# 2. Replacing and removing
+# Remove parentheses from phone column
+phone_no_parens <- sfo_survey$phone %>%
+  # Remove "("s
+  str_remove_all(fixed("(")) %>%
+  # Remove ")"s
+  str_remove_all(fixed(")"))
+
+# Add phone_no_parens as column
+sfo_survey %>%
+  mutate(phone_no_parens = phone_no_parens,
+  # Replace all hyphens in phone_no_parens with spaces
+         phone_clean = str_replace_all(phone_no_parens, "-", " "))
+
+# 3. Checking for string length and filtering
+# Check out the invalid numbers
+sfo_survey %>%
+  filter(str_length(phone) != 12)
+
+# Remove rows with invalid numbers
+sfo_survey %>%
+  filter(str_length(phone) == 12)
