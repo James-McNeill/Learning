@@ -23,3 +23,9 @@ sfo_survey %>%
 
 # B. Categorical data problems
 # 1. Identifying inconsistency
+# Remove bad dest_size rows
+sfo_survey %>% 
+  # Join with dest_sizes
+  semi_join(dest_sizes, sfo_survey, by = "dest_size") %>%
+  # Count the number of each dest_size
+  count(dest_size)
