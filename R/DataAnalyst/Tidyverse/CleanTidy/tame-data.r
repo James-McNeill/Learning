@@ -91,3 +91,16 @@ ratings %>%
 # Make a filled bar chart
 ggplot(ratings, aes(x = series, y = viewer_growth, fill = bbc)) +
   geom_col()
+
+# 3. Select and reorder variables
+# Move channel to first column
+ratings %>% 
+  select(channel, everything())
+
+# Drop 7- and 28-day episode ratings
+ratings %>% 
+  select(-ends_with("day"))
+
+# Move channel to front and drop 7-/28-day episode ratings
+ratings %>% 
+  select(channel, everything(), -ends_with("day"))
