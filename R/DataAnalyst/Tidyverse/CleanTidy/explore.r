@@ -82,3 +82,8 @@ bakers_by_series %>%
 # Count again by baker
 bakers_by_series %>%
   count(baker, sort = TRUE)
+
+# 4. Plot counts
+ggplot(bakeoff, aes(episode)) + 
+    geom_bar() + 
+    facet_wrap(~series)
