@@ -28,3 +28,17 @@ desserts <- read_csv("desserts.csv",
 
 # View parsing problems
 problems(desserts)
+
+# 3. Cast a column as a factor
+# Cast result a factor
+desserts <- read_csv("desserts.csv", 
+                     na = c("", "NA", "N/A"),
+                     col_types = cols(
+                       uk_airdate = col_date(format = "%d %B %Y"),
+                       technical = col_number(),                       
+                       result = col_factor(levels = NULL)
+                     )
+                    )
+                    
+# Glimpse to view
+glimpse(desserts)
