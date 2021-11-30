@@ -42,3 +42,27 @@ bakeoff %>%
   filter(!is.na(us_season)) %>% 
   group_by(us_season)  %>% 
   skim()
+
+# C. Count with your data
+# 1. Distinct and count
+# View distinct results
+bakeoff %>%
+    distinct(result)
+
+# Count rows for each result
+bakeoff %>% 
+  count(result)
+
+# Count whether or not star baker
+bakeoff %>% 
+  count(result == "SB")
+
+# 2. Count episodes
+# Count the number of rows by series and episode
+bakeoff %>%
+    count(series, episode)
+
+# Add second count by series
+bakeoff %>% 
+  count(series, episode) %>%
+  count(series)
