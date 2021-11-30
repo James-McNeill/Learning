@@ -141,3 +141,14 @@ viewers_7day <- ratings %>%
 
 # Glimpse
 glimpse(viewers_7day)
+
+# 3. Rename and reorder variables
+# Adapt code to keep original order. Having the everything method in the first position ensures that the original column order is retained
+# even after creating the new variables and dropping variables
+viewers_7day <- ratings %>% 
+    select(everything(),
+            viewers_7day_ = ends_with("7day"), 
+           -ends_with("28day"))
+
+# Glimpse
+glimpse(viewers_7day)
