@@ -28,3 +28,14 @@ accounts %>%
   # Scatter plot of opening date vs total_usd
   ggplot(aes(x = date_opened, y = total_usd)) +
     geom_point()
+
+# B. Cross field validation
+# 1. Validating totals
+# dplyr is loaded and accounts is available
+# Find invalid totals
+accounts %>%
+  # theoretical_total: sum of the three funds
+  mutate(theoretical_total = fund_A + fund_B + fund_C) %>%
+  # Find accounts where total doesn't match theoretical_total
+  filter(theoretical_total != total)
+
