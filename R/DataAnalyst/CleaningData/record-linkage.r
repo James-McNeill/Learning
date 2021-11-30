@@ -10,3 +10,15 @@ stringdist("las angelos", "los angeles", method = "dl")
 stringdist("las angelos", "los angeles", method = "lcs")
 stringdist("las angelos", "los angeles", method = "jaccard")
 
+# 2. Fixing typos with string distance
+# dplyr and fuzzyjoin are loaded, and zagat and cities are available
+# Count the number of each city variation
+zagat %>%
+  count(city)
+
+# Join zagat and cities and look at results
+zagat %>%
+  # Left join based on stringdist using city and city_actual cols
+  stringdist_left_join(cities, by = c("city" = "city_actual")) %>%
+  # Select the name, city, and city_actual cols
+  select(c("name", "city", "city_actual"))
