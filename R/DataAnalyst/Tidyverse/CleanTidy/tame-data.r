@@ -42,3 +42,18 @@ desserts <- read_csv("desserts.csv",
                     
 # Glimpse to view
 glimpse(desserts)
+
+# B. Recode values
+# 1. Recode a character variable
+# Count rows grouping by nut variable
+desserts %>% 
+    count(nut, sort = TRUE)
+    
+# Edit code to recode "no nut" as missing
+desserts_2 <- desserts %>% 
+  mutate(nut = recode(nut, "filbert" = "hazelnut", 
+                           "no nut" = NA_character_))
+
+# Count rows again 
+desserts_2 %>% 
+    count(nut, sort = TRUE)
