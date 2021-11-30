@@ -57,3 +57,13 @@ desserts_2 <- desserts %>%
 # Count rows again 
 desserts_2 %>% 
     count(nut, sort = TRUE)
+
+# 2. Recode a numeric variable
+# Edit to recode tech_win as factor. The parameter .default can be used to assign other values
+desserts <- desserts %>% 
+  mutate(tech_win = recode_factor(technical, `1` = 1,
+                           .default = 0))
+
+# Count to compare values                      
+desserts %>% 
+  count(technical == 1, tech_win)
