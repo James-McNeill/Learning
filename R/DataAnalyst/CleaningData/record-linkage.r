@@ -46,3 +46,16 @@ pair_blocking(zagat, fodors, blocking_var = "city") %>%
   # Compare pairs by name, phone, addr
   compare_pairs(by = c("name", "phone", "addr"),
       default_comparator = jaro_winkler())
+
+# C. Scoring and linking
+# 1. Scoring and linking put together
+# Create pairs
+pair_blocking(zagat, fodors, blocking_var = "city") %>%
+  # Compare pairs
+  compare_pairs(by = "name", default_comparator = jaro_winkler()) %>%
+  # Score pairs. Performs a probalistic review of the paired scores. Assigns highest probability to most appropriate match
+  score_problink() %>%
+  # Select pairs. Creates binary column that relates to the pair which should be used to match
+  select_n_to_m() %>%
+  # Link data. Performs the match
+  link()
