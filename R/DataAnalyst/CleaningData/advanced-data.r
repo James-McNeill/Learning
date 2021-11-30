@@ -60,4 +60,9 @@ accounts %>%
   # Group by missing_inv
   group_by(missing_inv) %>%
   # Calculate mean age for each missing_inv group
-  summarize(avg_age = mean(age, na.rm = TRUE))
+  summarize(avg_age = mean(age))
+
+# Sort by age and visualize missing vals
+accounts %>%
+  arrange(age) %>%
+  vis_miss()
