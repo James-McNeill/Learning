@@ -66,3 +66,19 @@ bakeoff %>%
 bakeoff %>% 
   count(series, episode) %>%
   count(series)
+
+# 3. Count bakers
+# Count the number of rows by series and baker
+bakers_by_series <- bakeoff %>% 
+  count(series, baker)
+  
+# Print to view
+bakers_by_series
+  
+# Count again by series
+bakers_by_series %>% 
+  count(series)
+  
+# Count again by baker
+bakers_by_series %>%
+  count(baker, sort = TRUE)
