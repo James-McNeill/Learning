@@ -126,3 +126,18 @@ ratings <- messy_ratings %>%
 
 # Glimpse cleaned names
 glimpse(ratings)
+
+# 2. Rename and subset variables
+# Select 7-day viewer data by series
+viewers_7day <- ratings %>%
+	select(series, ends_with("7day"))
+	
+# Glimpse
+glimpse(viewers_7day)
+
+# Adapt code to also rename 7-day viewer data
+viewers_7day <- ratings %>% 
+    select(series, viewers_7day_ = ends_with("7day")) # The new variable name will have enumerated values for each variable
+
+# Glimpse
+glimpse(viewers_7day)
