@@ -22,3 +22,14 @@ zagat %>%
   stringdist_left_join(cities, by = c("city" = "city_actual")) %>%
   # Select the name, city, and city_actual cols
   select(c("name", "city", "city_actual"))
+
+# B. Generating and comparing pairs
+# 1. Pair blocking
+# Load reclin
+library(reclin)
+
+# Generate all possible pairs
+pair_blocking(zagat, fodors)
+
+# Generate pairs with same city. Ensures that some form of filtering is applied, otherwise all possible combinations are created
+pair_blocking(zagat, fodors, blocking_var = "city")
