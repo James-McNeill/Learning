@@ -76,3 +76,18 @@ ratings %>%
 	mutate(diff = e10_viewers - e1_viewers) %>% 
 	arrange(desc(diff)) %>% 
 	select(series, diff)
+
+# 2. Recode factor to plot
+# Recode channel as factor: bbc (1) or not (0)
+ratings <- ratings %>% 
+  mutate(bbc = recode_factor(channel, 
+                             "Channel 4" = 0,
+                             .default = 1))
+                            
+# Select to look at variables to plot next
+ratings %>% 
+  select(series, channel, bbc, viewer_growth)
+  
+# Make a filled bar chart
+ggplot(ratings, aes(x = series, y = viewer_growth, fill = bbc)) +
+  geom_col()
