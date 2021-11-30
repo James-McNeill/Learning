@@ -104,3 +104,25 @@ ratings %>%
 # Move channel to front and drop 7-/28-day episode ratings
 ratings %>% 
   select(channel, everything(), -ends_with("day"))
+
+# D. Tame variable names
+# 1. Reformat variables
+# Glimpse to see variable names
+glimpse(messy_ratings)
+
+# Load janitor
+library(janitor)
+
+# Reformat to lower camelcase
+ratings <- messy_ratings %>%
+  clean_names(case = "lower_camel")
+    
+# Glimpse new tibble
+glimpse(ratings)
+
+# Reformat to snake case
+ratings <- messy_ratings %>%  
+  clean_names()
+
+# Glimpse cleaned names
+glimpse(ratings)
