@@ -67,3 +67,12 @@ desserts <- desserts %>%
 # Count to compare values                      
 desserts %>% 
   count(technical == 1, tech_win)
+
+# C. Select variables
+# 1. Combine functions with select
+ratings %>% 
+	filter(episodes == 10) %>% 
+	group_by(series) %>% 
+	mutate(diff = e10_viewers - e1_viewers) %>% 
+	arrange(desc(diff)) %>% 
+	select(series, diff)
