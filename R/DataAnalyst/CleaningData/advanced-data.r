@@ -39,3 +39,11 @@ accounts %>%
   # Find accounts where total doesn't match theoretical_total
   filter(theoretical_total != total)
 
+# 2. Validating age
+# dplyr and lubridate are loaded, and accounts is available
+# Find invalid acct_age
+accounts %>%
+  # theoretical_age: age of acct based on date_opened
+  mutate(theoretical_age = floor(as.numeric(date_opened %--% today(), "years"))) %>%
+  # Filter for rows where acct_age is different from theoretical_age
+  filter(theoretical_age != acct_age)
