@@ -26,3 +26,9 @@ bakeoff <- read_csv("bakeoff.csv", skip = 1,
 # Filter rows where showstopper is NA 
 bakeoff %>%
     filter(is.na(showstopper))
+
+# B. Know your data
+# 1. Arrange and glimpse. 
+bakeoff %>% 
+    arrange(us_airdate) %>% 
+    glimpse()
