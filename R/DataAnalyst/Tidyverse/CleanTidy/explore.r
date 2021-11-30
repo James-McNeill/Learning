@@ -32,3 +32,13 @@ bakeoff %>%
 bakeoff %>% 
     arrange(us_airdate) %>% 
     glimpse()
+
+# 2. Summarize the data
+# Load skimr
+library(skimr)
+
+# Edit to filter, group by, and skim
+bakeoff %>% 
+  filter(!is.na(us_season)) %>% 
+  group_by(us_season)  %>% 
+  skim()
