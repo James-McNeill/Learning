@@ -40,3 +40,12 @@ bakers <- bakers %>%
 bakers %>%
   dplyr::pull(skill) %>%
   levels()
+
+# 2. Plot factor counts
+# Plot counts of bakers by skill, fill by winner
+ggplot(bakers, aes(x = skill, fill = series_winner)) +
+    geom_bar()
+
+# Edit to reverse x-axis order
+ggplot(bakers, aes(x = fct_rev(skill), fill = series_winner)) +
+  geom_bar()
