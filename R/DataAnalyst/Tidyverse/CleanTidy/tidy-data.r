@@ -34,3 +34,21 @@ ggplot(week_ratings, aes(x = episode,
                          group = series)) +
     geom_line() +
     facet_wrap(~series)
+
+# 3. Separate a column
+# tidyr, dplyr, and readr packages
+# Create week_ratings
+week_ratings <- ratings2 %>% 
+    select(series, ends_with("7day")) %>% 
+    gather(episode, viewers_7day, ends_with("7day"), 
+           na.rm = TRUE) %>% 
+    separate(episode, into = "episode", extra = "drop") %>% 
+    mutate(episode = parse_number(episode))
+    
+# Edit your code to color by series and add a theme
+ggplot(week_ratings, aes(x = episode, y = viewers_7day, 
+                         group = series, color = series)) +
+    geom_line() +
+    facet_wrap(~series) +
+    guides(color = FALSE) +
+    theme_minimal()
