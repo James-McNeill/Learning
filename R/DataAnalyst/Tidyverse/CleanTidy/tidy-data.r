@@ -63,3 +63,17 @@ ratings3 <- ratings2  %>%
 
 # Print to view
 ratings3
+
+# 3. Spread rows into columns
+# Create tidy data with 7- and 28-day viewers
+tidy_ratings_all <- ratings2 %>% 
+    gather(episode, viewers, ends_with("day"), na.rm = TRUE) %>% 
+    separate(episode, into = c("episode", "days")) %>%  
+    mutate(episode = parse_number(episode),
+           days = parse_number(days)) 
+
+tidy_ratings_all %>% 
+	# Count viewers by series and days
+    count(series, days, wt = viewers) %>%
+	# Adapt to spread counted values
+    spread(days, n, sep = "_")
