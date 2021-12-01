@@ -38,5 +38,5 @@ bakers <- bakers %>%
 
 # Examine levels
 bakers %>%
-  pull(skill) %>%
+  dplyr::pull(skill) %>%
   levels()
