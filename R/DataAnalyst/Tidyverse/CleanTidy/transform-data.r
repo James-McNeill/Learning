@@ -31,6 +31,7 @@ bakers_skill %>%
   count(skill)
 
 # B. Factors
+# library(forcats)
 # 1. Cast a factor and examine levels
 # Cast skill as a factor
 bakers <- bakers %>% 
@@ -48,4 +49,16 @@ ggplot(bakers, aes(x = skill, fill = series_winner)) +
 
 # Edit to reverse x-axis order
 ggplot(bakers, aes(x = fct_rev(skill), fill = series_winner)) +
+  geom_bar()
+
+# C. Dates
+# library(lubridate)
+# 1. Cast characters as dates
+# Add a line to extract labeled month
+baker_dates_cast <- baker_dates %>% 
+  mutate(last_date_appeared_us = dmy(last_date_appeared_us),
+         last_month_us = month(last_date_appeared_us, label = TRUE))
+         
+# Make bar chart by last month
+ggplot(baker_dates_cast, aes(x = last_month_us)) +
   geom_bar()
