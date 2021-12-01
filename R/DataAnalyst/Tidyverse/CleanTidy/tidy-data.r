@@ -103,3 +103,14 @@ ggplot(first_last, aes(x = series, y = viewers, color = episode)) +
   geom_point() + # keep
   geom_line(aes(group = series)) + # keep
   coord_flip() # keep
+
+# 3. Tidy 3
+# Calculate relative increase in viewers
+bump_by_series <- first_last %>% 
+  spread(episode, viewers) %>%   
+  mutate(bump = (last - first) / first)
+  
+# Fill in to make bar chart of bumps by series
+ggplot(bump_by_series, aes(x = series, y = bump)) +
+  geom_col() +
+  scale_y_continuous(labels = scales::percent) # converts to %
