@@ -83,3 +83,13 @@ bakers <- bakers %>%
 bakers %>%
   count(position_reached)
 
+# 2. Detect a string pattern
+# Add a line to create new variable called student
+bakers <- bakers %>% 
+    mutate(occupation = str_to_lower(occupation), 
+           student = str_detect(occupation, "student"))
+
+# Find all students and examine occupations
+bakers %>%
+    filter(student) %>%
+    select(baker, occupation, student)
