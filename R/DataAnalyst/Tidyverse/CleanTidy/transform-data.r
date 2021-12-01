@@ -69,3 +69,17 @@ baker_time <- baker_time  %>%
   mutate(time_on_air = interval(first_date_appeared_uk, last_date_appeared_uk),
          weeks_on_air = time_on_air / weeks(1),
          months_on_air = time_on_air %/% months(1))
+
+# D. Strings
+# library(stringr)
+# 1. Wrangle a character variable
+# Add another mutate to replace "THIRD PLACE" with "RUNNER UP"and count
+bakers <- bakers %>% 
+  mutate(position_reached = str_to_upper(position_reached),
+         position_reached = str_replace(position_reached, "-", " "),
+         position_reached = str_replace(position_reached, "THIRD PLACE", "RUNNER UP"))
+
+# Count rows
+bakers %>%
+  count(position_reached)
+
