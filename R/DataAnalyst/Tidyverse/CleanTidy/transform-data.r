@@ -62,3 +62,10 @@ baker_dates_cast <- baker_dates %>%
 # Make bar chart by last month
 ggplot(baker_dates_cast, aes(x = last_month_us)) +
   geom_bar()
+
+# 2. Calculate timespans
+# Add a line to create whole months on air variable
+baker_time <- baker_time  %>% 
+  mutate(time_on_air = interval(first_date_appeared_uk, last_date_appeared_uk),
+         weeks_on_air = time_on_air / weeks(1),
+         months_on_air = time_on_air %/% months(1))
