@@ -88,3 +88,18 @@ tidy_ratings <- ratings %>%
     filter(episode == 1 | episode == max(episode)) %>% 
     ungroup()
 
+# 2. Tidy 2
+# Recode first/last episodes
+first_last <- tidy_ratings %>% 
+  mutate(episode = recode(episode, `1` = "first", .default = "last")) 
+
+# Fill in to make slope chart
+ggplot(first_last, aes(x = episode, y = viewers, color = series)) +
+  geom_point() +
+  geom_line(aes(group = series))
+
+# Switch the variables mapping x-axis and color. This created a dumbell chart which was a better display of the data
+ggplot(first_last, aes(x = series, y = viewers, color = episode)) +
+  geom_point() + # keep
+  geom_line(aes(group = series)) + # keep
+  coord_flip() # keep
