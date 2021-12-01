@@ -20,3 +20,17 @@ ggplot(tidy_ratings, aes(x = episode_count,
                 y = viewers_7day, 
                 fill = series)) +
     geom_col()
+
+# 2. Gather & plot non-sequential columns
+week_ratings <- ratings2  %>% 
+	# Select 7-day viewer ratings
+    select(series, ends_with("7day")) %>% 
+	# Gather 7-day viewers by episode
+    gather(episode, viewers_7day, ends_with("7day"), na.rm = TRUE, factor_key = TRUE)
+    
+# Plot 7-day viewers by episode and series
+ggplot(week_ratings, aes(x = episode, 
+                         y = viewers_7day, 
+                         group = series)) +
+    geom_line() +
+    facet_wrap(~series)
