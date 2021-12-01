@@ -29,3 +29,14 @@ bakers_skill <- bakers %>%
 # Count bakers by skill
 bakers_skill %>%
   count(skill)
+
+# B. Factors
+# 1. Cast a factor and examine levels
+# Cast skill as a factor
+bakers <- bakers %>% 
+  mutate(skill = as.factor(skill))
+
+# Examine levels
+bakers %>%
+  pull(skill) %>%
+  levels()
