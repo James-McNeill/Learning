@@ -35,7 +35,8 @@ ggplot(week_ratings, aes(x = episode,
     geom_line() +
     facet_wrap(~series)
 
-# 3. Separate a column
+# B. Separate()
+# 1. Separate a column
 # tidyr, dplyr, and readr packages
 # Create week_ratings
 week_ratings <- ratings2 %>% 
@@ -52,3 +53,13 @@ ggplot(week_ratings, aes(x = episode, y = viewers_7day,
     facet_wrap(~series) +
     guides(color = FALSE) +
     theme_minimal()
+
+# 2. Unite columns
+ratings3 <- ratings2  %>% 
+	# Unite and change the separator
+	unite(viewers_7day, viewers_millions, viewers_decimal, sep = "") %>%
+	# Adapt to cast viewers as a number
+	mutate(viewers_7day = as.numeric(viewers_7day))
+
+# Print to view
+ratings3
