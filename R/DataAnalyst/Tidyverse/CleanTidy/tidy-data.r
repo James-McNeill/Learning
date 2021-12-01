@@ -77,3 +77,14 @@ tidy_ratings_all %>%
     count(series, days, wt = viewers) %>%
 	# Adapt to spread counted values
     spread(days, n, sep = "_")
+
+# C. Tidy mulitple sets of columns
+# 1. Tidy 1
+# Fill in blanks to get premiere/finale data
+tidy_ratings <- ratings %>%
+    gather(episode, viewers, -series, na.rm = TRUE) %>%
+    mutate(episode = parse_number(episode)) %>% 
+    group_by(series) %>% 
+    filter(episode == 1 | episode == max(episode)) %>% 
+    ungroup()
+
