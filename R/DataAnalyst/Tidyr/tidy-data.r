@@ -45,3 +45,12 @@ director_df %>%
   separate_rows(director, sep = ", ") %>% 
   # Count the number of movies per director
   count(director, sort = TRUE)
+
+# 2. Imputing sales data
+# fill(): can be used to back and forward fill missing values for variables
+sales_df %>% 
+  # Impute the year column
+  fill(year, .direction = "up") %>%
+  # Create a line plot with sales per quarter colored by year.
+  ggplot(aes(x = quarter, y = sales, color = year, group = year)) +
+  geom_line()
