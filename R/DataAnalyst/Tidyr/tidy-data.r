@@ -54,3 +54,17 @@ sales_df %>%
   # Create a line plot with sales per quarter colored by year.
   ggplot(aes(x = quarter, y = sales, color = year, group = year)) +
   geom_line()
+
+# 3. Working with replace_na
+# Method allows for missing values to be filled in for the DataFrame
+country_to_continent_df %>% 
+  left_join(nuke_df, by = "country_code") %>%  
+  # Impute the missing values in the n_bombs column with 0L
+  replace_na(list(n_bombs = 0L)) %>% 
+  # Group the dataset by continent
+  group_by(continent) %>% 
+  # Sum the number of bombs per continent
+  summarize(n_bombs_continent = sum(n_bombs)) %>% 
+  # Plot the number of bombs per continent
+  ggplot(aes(x = continent, y = n_bombs_continent)) +
+  geom_col()
