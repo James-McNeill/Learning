@@ -11,3 +11,11 @@ netflix_df %>%
 phone_nr_df %>%
   # Unite the country_code and national_number columns
   unite("international_number", country_code, national_number, sep = " ")
+
+# 2. Extracting observations from values
+tvshow_df %>% 
+  # Separate the actors in the cast column over multiple rows
+  separate_rows(cast, sep = ", ") %>% 
+  rename(actor = cast) %>% 
+  count(actor, sort = TRUE) %>% 
+  head()
