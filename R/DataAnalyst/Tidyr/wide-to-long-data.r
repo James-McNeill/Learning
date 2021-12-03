@@ -79,3 +79,16 @@ stock_df %>%
   ggplot(aes(x = week, y = price, color = company)) +
   geom_line() +
   facet_grid(. ~ year)
+
+# C. Deriving variables from complex column headers
+# 1. Space dogs
+space_dogs_df %>% 
+  pivot_longer(
+    # Add the columns to pivot
+    c(name_1, name_2, gender_1, gender_2),
+    names_sep = "_",
+    # Complete the names_to argument to re-use the first part of the column headers
+    names_to = c(".value",  "dog_id"),
+    # Make sure NA values are dropped
+    values_drop_na = TRUE
+  )
