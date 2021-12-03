@@ -68,3 +68,18 @@ medal_df %>%
   ggplot(aes(x = year, y = n_medals, color = team)) +
   geom_line() +
   scale_color_brewer(palette = "Paired")
+
+# 3. Creating a full_seq()
+# Generate all years from 2020 to 2030
+years <- full_seq(c(2020, 2030), period = 1)
+years
+
+# Generate all decades from 1980 to 2030
+decades <- full_seq(c(1980, 2030), period = 10)
+decades
+
+outer_dates <- c(as.Date("1980-01-01"), as.Date("1980-12-31"))
+
+# Generate the dates for all days in 1980
+full_seq(outer_dates, period = 1)
+
