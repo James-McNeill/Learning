@@ -112,3 +112,19 @@ medal_df %>%
   geom_line() +
   facet_grid(season ~ .)
 
+# 2. Tracking a virus outbreak
+patient_df %>% 
+  # Pivot the infected and recovered columns to long format
+  pivot_longer(-patient, names_to = "status", values_to = "date") %>% 
+  select(-status) %>% 
+  # Group by patient
+  group_by(patient) %>% 
+  # Complete the date range per patient using full_seq()
+  complete(date = full_seq(date, period = 1)) %>% 
+  # Ungroup the data
+  ungroup() %>% 
+  # Count the dates, the count goes in the n_sick variable
+  count(date, name = "n_sick") %>% 
+  ggplot(aes(x = date, y = n_sick))+
+  geom_line()
+
