@@ -89,3 +89,18 @@ ansur_df %>%
   # Group the data by branch and sex, then nest
   group_by(branch, sex) %>% 
   nest()
+
+# 3. Modelling on nested dataframes
+# The dplyr, broom, and purrr packages have been pre-loaded for you
+# In the provided code, the purrr package's map() function applies functions on each nested data frame
+ansur_df %>%
+  # Group the data by sex
+  group_by(sex) %>% 
+  # Nest the data
+  nest() %>% 
+  mutate(
+    fit = map(data, function(df) lm(weight_kg ~ waist_circum_m + stature_m, data = df)),
+    glanced = map(fit, glance)
+  ) %>% 
+  # Unnest the glanced column
+  unnest(glanced)
