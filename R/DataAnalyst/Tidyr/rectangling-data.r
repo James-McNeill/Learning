@@ -38,3 +38,16 @@ planet_df %>%
   unnest_wider(moon_data) %>% 
   # Get the top five largest moons by radius
   slice_max(radius, n = 5)
+
+# C. Selecting nested variables
+# 1. Hoisting Star Wars films
+# hoist(): can be used to select a specify element of the JSON dictionary
+character_df %>% 
+  # Unnest the metadata column
+  unnest_wider(metadata) %>% 
+  # Unnest the films column
+  unnest_longer(films)
+
+# Hoisting to find the same information. Selecting the first film for each film list by row of metadata layer
+character_df %>% 
+  hoist(metadata, first_film = list("films", 1))
