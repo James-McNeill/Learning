@@ -27,3 +27,14 @@ tibble(movie = movie_planets_list) %>%
   unnest_wider(movie) %>% 
   # Unnest the planets column in the correct direction
   unnest_longer(planets)
+
+# 2. The Solar System's biggest moons
+planet_df %>% 
+  # Unnest the moons list column over observations
+  unnest_longer(moons) %>% 
+  # Further unnest the moons column
+  unnest_wider(moons) %>% 
+  # Unnest the moon_data column
+  unnest_wider(moon_data) %>% 
+  # Get the top five largest moons by radius
+  slice_max(radius, n = 5)
