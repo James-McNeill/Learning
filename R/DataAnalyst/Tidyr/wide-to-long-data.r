@@ -92,3 +92,16 @@ space_dogs_df %>%
     # Make sure NA values are dropped
     values_drop_na = TRUE
   )
+
+# 2. WHO obesity Vs life expectancy
+who_df %>% 
+  # Put each variable in its own column
+  pivot_longer(
+    -country,
+    names_to = c("year", "sex", ".value"),
+    names_sep = "_", 
+    names_transform = list("year" = as.integer)
+  ) %>%
+  # Create a plot with life expectancy over obesity
+  ggplot(aes(x = pct.obese, y = life.exp, color = sex)) +
+  geom_point()
