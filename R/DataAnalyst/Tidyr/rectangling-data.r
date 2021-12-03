@@ -78,3 +78,14 @@ broom::glance(model)
 # Review the variable fit statistics with broom
 broom::tidy(model)
 
+# 2. Nesting tibbles
+# Tibble data is added to the DataFrame
+ansur_df %>% 
+  # Group the data by branch, then nest
+  group_by(branch) %>% 
+  nest()
+
+ansur_df %>% 
+  # Group the data by branch and sex, then nest
+  group_by(branch, sex) %>% 
+  nest()
