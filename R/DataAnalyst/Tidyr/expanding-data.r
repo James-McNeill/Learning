@@ -128,3 +128,16 @@ patient_df %>%
   ggplot(aes(x = date, y = n_sick))+
   geom_line()
 
+# 3. Counting office occupants
+sensor_df %>% 
+  # Complete the time column with a 20 minute interval
+  complete(time = seq(min(time), max(time), by = "20 min"),
+           fill = list(enter = 0L, exit = 0L)) %>%
+  # Calculate the total number of people inside
+  mutate(total_inside = cumsum(enter + exit)) %>% 
+  # Pivot the enter and exit columns to long format
+  pivot_longer(enter:exit, names_to = "direction", values_to = "n_people") %>% 
+  # Plot the number of people over time, fill by direction
+  ggplot(aes(x = time, y = n_people, fill = direction)) +
+  geom_area() +
+  geom_line(aes(y = total_inside))
