@@ -46,3 +46,19 @@ bond_df %>%
   ) %>% 
   ggplot(aes(x = decade + 5, y = n_movies, fill = Bond))+
   geom_col()
+
+# B. Deriving variables from column headers
+# 1. Bird of the year
+bird_df %>%
+  # Pivot the data to create a 2 column data frame
+  pivot_longer(
+    starts_with("points_"),
+    names_to = "points",
+    names_prefix = "points_",
+    names_transform = list(points = as.integer),
+    values_to = "species",
+    values_drop_na = TRUE
+  ) %>%
+  group_by(species) %>% 
+  summarize(total_points = sum(points)) %>% 
+  slice_max(total_points, n = 5)
