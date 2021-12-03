@@ -133,3 +133,17 @@ planet_df %>%
   labs(x = "Distance to sun (million km)", 
        y = "Mean temperature (°C)") +
   theme(legend.position = "none")
+
+# 3. Transposing planet data
+# In order to transpose the data the data has to be converted to the long format before converting to wide
+planet_df %>%
+  # Pivot all columns except metric to long format
+  pivot_longer(-metric, names_to = "planet") %>% 
+  # Put each metric in its own column
+  pivot_wider(names_from = metric, values_from = value) %>% 
+  # Plot the number of moons vs planet diameter
+  ggplot(aes(x = diameter, y = number_of_moons)) +
+  geom_point(aes(size = diameter)) +
+  geom_text(aes(label = planet), vjust = -1) +
+  labs(x = "Diameter (km)", y = "Number of moons") +
+  theme(legend.position = "none")
