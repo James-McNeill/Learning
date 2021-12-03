@@ -51,3 +51,20 @@ character_df %>%
 # Hoisting to find the same information. Selecting the first film for each film list by row of metadata layer
 character_df %>% 
   hoist(metadata, first_film = list("films", 1))
+
+# 2. Hoisting movie ratings
+movie_df %>% 
+  # Unnest the movie column
+  unnest_wider(movie) %>% 
+  select(Title, Year, Ratings) %>% 
+  # Unnest the Ratings column
+  unnest_wider(Ratings)
+
+# Hoisting method to extract the Rotten Tomatoes rating for each movie
+movie_df %>% 
+  hoist(
+    movie,
+    title = "Title",
+    year = "Year",
+    rating = list("Ratings", "Rotten Tomatoes")
+  )
