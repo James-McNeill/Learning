@@ -121,3 +121,15 @@ space_dogs_df %>%
   # Create a Boolean column on whether both dogs have the same gender
   mutate(same_gender = gender_1 == gender_2) %>% 
   summarize(pct_same_gender = mean(same_gender))
+
+# 2. Planet temperature and distance to sun
+planet_df %>% 
+  # Give each planet variable its own column
+  pivot_wider(names_from = "metric", values_from = "value") %>% 
+  # Plot planet temperature over distance to sun
+  ggplot(aes(x = distance_to_sun, y = temperature)) +
+  geom_point(aes(size = diameter)) +
+  geom_text(aes(label = planet), vjust = -1) +
+  labs(x = "Distance to sun (million km)", 
+       y = "Mean temperature (°C)") +
+  theme(legend.position = "none")
