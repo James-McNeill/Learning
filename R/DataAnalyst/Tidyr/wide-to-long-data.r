@@ -110,3 +110,14 @@ who_df %>%
 dog_df %>% 
   # Create one row for each participant and add the id
   uncount(n_participants, .id = "dog_id")
+
+# D. From long to wide
+# 1. pivot_wider()
+space_dogs_df %>% 
+  # Pivot the data to a wider format
+  pivot_wider(names_from = dog_id, values_from = gender, names_prefix = "gender_") %>% 
+  # Drop rows with NA values
+  drop_na() %>% 
+  # Create a Boolean column on whether both dogs have the same gender
+  mutate(same_gender = gender_1 == gender_2) %>% 
+  summarize(pct_same_gender = mean(same_gender))
