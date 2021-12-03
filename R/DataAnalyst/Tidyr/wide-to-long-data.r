@@ -62,3 +62,20 @@ bird_df %>%
   group_by(species) %>% 
   summarize(total_points = sum(points)) %>% 
   slice_max(total_points, n = 5)
+
+# 2. Big tech stock prices
+stock_df %>% 
+  # Pivot the data to create 3 new columns: year, week, price
+  pivot_longer(
+    -company,
+    names_to = c("year", "week"),
+    values_to = "price",
+    names_sep = "_week",
+    names_transform = list(
+      year = as.integer,
+      week = as.integer)
+  ) %>%
+  # Create a line plot with price per week, color by company
+  ggplot(aes(x = week, y = price, color = company)) +
+  geom_line() +
+  facet_grid(. ~ year)
