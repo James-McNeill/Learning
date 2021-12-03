@@ -68,3 +68,13 @@ movie_df %>%
     year = "Year",
     rating = list("Ratings", "Rotten Tomatoes")
   )
+
+# D. Nesting data for modelling
+# 1. Tidy model outputs with broom
+# Linear model
+model <- lm(weight_kg ~ waist_circum_m + stature_m, data = ansur_df)
+# Review the model Statistics using broom
+broom::glance(model)
+# Review the variable fit statistics with broom
+broom::tidy(model)
+
