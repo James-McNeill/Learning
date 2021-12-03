@@ -43,3 +43,15 @@ full_df %>%
   anti_join(
     reactor_df, by = c("date", "reactor")
   )
+
+# B. Completing data with all value combinations
+# 1. Completing the solar system
+planets = c("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune")
+
+planet_df %>% 
+  complete(
+    # Complete the planet variable
+    planet = planets,
+    # Overwrite NA values for n_moons with 0L
+    fill = list(n_moons = 0L)
+  )
