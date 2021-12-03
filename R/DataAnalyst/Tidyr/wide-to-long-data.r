@@ -30,3 +30,19 @@ obesity_df %>%
                               "Pakistan", "Gabon", "Italy", "Oman",
                               "China", "United States of America")) +
   labs(x = "% Obese", y = "Country")
+
+# 3. Bond movies by actor
+bond_df %>% 
+  # Pivot the data to long format
+  pivot_longer(
+    -Bond, 
+    # Overwrite the names of the two newly created columns
+    names_to = "decade", 
+    values_to = "n_movies", 
+    # Drop na values
+    values_drop_na = TRUE, 
+    # Transform the decade column data type to integer
+    names_transform = list(decade = as.integer)
+  ) %>% 
+  ggplot(aes(x = decade + 5, y = n_movies, fill = Bond))+
+  geom_col()
