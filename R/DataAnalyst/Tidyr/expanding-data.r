@@ -98,3 +98,17 @@ cumul_nukes_1962_df %>%
   geom_text(x = as.Date("1962-10-22"), y = 15, label = "Cuban Missile Crisis", angle = 90, color = "white")+
   geom_line()
 
+# D. Advanced completions
+# 1. Olympic medals per continent. Comparison across summer and winter games
+medal_df %>% 
+  # Give each continent an observation at each Olympic event. nesting: maintains relationship to avoid non-sensical connections
+  complete(
+    continent, 
+    nesting(season, year), 
+    fill = list(medals_per_participant = 0L)
+  ) %>%
+  # Plot the medals_per_participant over time, colored by continent
+  ggplot(aes(x = year, y = medals_per_participant, color = continent)) +
+  geom_line() +
+  facet_grid(season ~ .)
+
