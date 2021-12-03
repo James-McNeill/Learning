@@ -83,3 +83,18 @@ outer_dates <- c(as.Date("1980-01-01"), as.Date("1980-12-31"))
 # Generate the dates for all days in 1980
 full_seq(outer_dates, period = 1)
 
+# 4. The Cold War's hottest year
+cumul_nukes_1962_df %>% 
+  # Complete the dataset
+  complete(country, date = full_seq(date, period = 1)) %>% 
+  # Group the data by country
+  group_by(country) %>% 
+  # Impute missing values with the last known observation. Default is "down"
+  fill(total_bombs) %>% 
+  # Plot the number of bombs over time, color by country
+  ggplot(aes(x = date, y = total_bombs, color = country)) +
+  # These two lines will mark the Cuban Missile Crisis 
+  geom_rect(xmin = as.Date("1962-10-16"), xmax = as.Date("1962-10-29"), ymin = -Inf, ymax = Inf, color = NA)+ 
+  geom_text(x = as.Date("1962-10-22"), y = 15, label = "Cuban Missile Crisis", angle = 90, color = "white")+
+  geom_line()
+
