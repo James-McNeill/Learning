@@ -18,3 +18,15 @@ system.time(read.csv("movies.csv"))
 
 # How long does it take to read movies from RDS? RDS is R's native format for storing single objects
 system.time(readRDS("movies.rds"))
+
+# 2. Elapsed time
+# Load the microbenchmark package. Enables the user to compare time taken for multiple functions efficiently
+library(microbenchmark)
+
+# Compare the two functions
+compare <- microbenchmark(read.csv("movies.csv"), 
+                          readRDS("movies.rds"), 
+                          times = 10)
+
+# Print compare
+compare
