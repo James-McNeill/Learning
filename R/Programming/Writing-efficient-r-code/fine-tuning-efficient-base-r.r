@@ -56,3 +56,7 @@ log_sum <- sum(log(x))
 # Which is faster, mat[, 1] or df[, 1]? As all values in a matrix have to contain the same data type, the matrix processing is much quicker.
 # If either option can be picked, the matrix process will always be faster
 microbenchmark(mat[, 1], df[, 1])
+
+# 2. Row timings
+# Which is faster, mat[1, ] or df[1, ]? As multiple data types can exist for a Data Frame with each column, this process will take longer
+microbenchmark(mat[1, ], df[1, ])
