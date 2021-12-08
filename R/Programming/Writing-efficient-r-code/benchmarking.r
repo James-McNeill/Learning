@@ -44,3 +44,9 @@ ram
 cpu <- get_cpu()
 cpu
 
+# 2. Benchmark DataCamp's machine
+# Run the io benchmark. Provides a comparison of the time taken to create a 5Mb file
+res <- benchmark_io(runs = 1, size = 5)
+
+# Plot the results
+plot(res)
