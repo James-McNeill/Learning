@@ -27,3 +27,15 @@ pre_allocate <- function(n) {
 # Use <- with system.time() to store the result as res_allocate
 n <- 30000
 system.time(res_allocate <- pre_allocate(n))
+
+# B. Importance of vectorizing the code
+# 1. Vectorized code: multiplication
+# Slower for loop code
+x <- rnorm(10)
+x2 <- numeric(length(x))
+for(i in 1:10)
+    x2[i] <- x[i] * x[i]
+
+# Vectorized version
+# Store your answer as x2_imp
+x2_imp <- x * x
