@@ -10,3 +10,11 @@ major <- version$major
 
 # Assign the variable minor to the minor component
 minor <- version$minor
+
+# B. Benchmarking
+# 1. Comparing read times of CSV and RDS files
+# How long does it take to read movies from CSV?
+system.time(read.csv("movies.csv"))
+
+# How long does it take to read movies from RDS? RDS is R's native format for storing single objects
+system.time(readRDS("movies.rds"))
