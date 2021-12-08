@@ -50,3 +50,9 @@ for(i in 1:n)
 
 # Rewrite in a single line. Store the result in log_sum
 log_sum <- sum(log(x))
+
+# C. DataFrames and matrices
+# 1. Column selection
+# Which is faster, mat[, 1] or df[, 1]? As all values in a matrix have to contain the same data type, the matrix processing is much quicker.
+# If either option can be picked, the matrix process will always be faster
+microbenchmark(mat[, 1], df[, 1])
