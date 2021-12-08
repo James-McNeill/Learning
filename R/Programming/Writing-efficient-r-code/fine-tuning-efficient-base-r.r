@@ -29,7 +29,7 @@ n <- 30000
 system.time(res_allocate <- pre_allocate(n))
 
 # B. Importance of vectorizing the code
-# 1. Vectorized code: multiplication
+# 1. multiplication
 # Slower for loop code
 x <- rnorm(10)
 x2 <- numeric(length(x))
@@ -39,3 +39,14 @@ for(i in 1:10)
 # Vectorized version
 # Store your answer as x2_imp
 x2_imp <- x * x
+
+# 2. calculating a log-sum
+# Initial code
+n <- 100
+total <- 0
+x <- runif(n)
+for(i in 1:n) 
+    total <- total + log(x[i])
+
+# Rewrite in a single line. Store the result in log_sum
+log_sum <- sum(log(x))
