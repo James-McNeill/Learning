@@ -50,3 +50,17 @@ fig.show()
 # CSV file = dep_var.csv, created in the notebook Dependent Variable
 df_dep = pd.read_csv('dep_var.csv', index_col='month', parse_dates=True)
 df_dep.head()
+
+# C. Independent variable
+# Working with an excel file that contains multiple macro-economic variables across an historic time series
+# Import the independent variable excel file
+df_ind = pd.read_excel('INDEPENDENT_VARIABLES.xlsx',engine='openpyxl', index_col='Date', parse_dates=True).rename_axis('macro', axis=1)
+# Adjust the month end dates to month begin dates. Allows for joining dataframes
+df_ind.index = df_ind.index - pd.offsets.MonthBegin()
+df_ind.head()
+
+# Only need to keep the date values that relate to the dependent variable dataset
+date_filt = np.array(df_ind.index <= '2019-12-01')
+df_ind.index.max()
+df_ind = df_ind[date_filt]
+df_ind.index.max()
