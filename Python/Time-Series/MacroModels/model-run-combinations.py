@@ -22,3 +22,26 @@ for index, tuples in enumerate(combs2):
     var1 = tuples[0]
     var2 = tuples[1]
     print(f'Index : {index}, variable 1 : {var1} & variable 2 : {var2}')
+
+# Review all three factor combinations
+combs3 = list(itertools.combinations(df_indep_list, r=3))
+# print(combs3)
+print(f'Number of three factor combinations = {len(combs3)}')
+for index, tuples in enumerate(combs3):
+    var1 = tuples[0]
+    var2 = tuples[1]
+    var3 = tuples[2]
+    print(f'Index : {index}, variable 1 : {var1} & variable 2 : {var2} & variable 3 : {var3}')
+
+# C. Multi Factor analysis
+# Multi Factor model outputs - two factors
+# df_ind2: relates to the transformed independent variables
+# df_dep: relates to the transformed dependent variables
+# var_combs: default value of 2
+dep = 'ODR_X'
+df_mfa2 = stmd.MultiFactor(df_ind2, df_indep_list, df_dep, dep).main()
+df_mfa2
+
+# Multi Factor model outputs - three factors
+df_mfa3 = stmd.MultiFactor(df_ind2, df_indep_list, df_dep, dep, var_combs=3).main()
+df_mfa3
