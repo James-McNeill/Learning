@@ -82,3 +82,19 @@ std_and_poor500 %>%
   group_by(sector) %>% 
   # Summarize, calculating harmonic mean of P/E ratio
   summarize(hmean_pe_ratio = calc_harmonic_mean(pe_ratio))
+
+# 2. Dealing with missing values
+# From previous step. Can adjust the function signature and then update the detail argument within the mean function
+calc_harmonic_mean <- function(x, na.rm = FALSE) {
+  x %>%
+    get_reciprocal() %>%
+    mean(na.rm = na.rm) %>%
+    get_reciprocal()
+}
+
+std_and_poor500 %>% 
+  # Group by sector
+  group_by(sector) %>% 
+  # Summarize, calculating harmonic mean of P/E ratio
+  summarize(hmean_pe_ratio = calc_harmonic_mean(pe_ratio, na.rm = TRUE))
+
