@@ -48,3 +48,16 @@ toss_coin <- function(n_flips) {
 
 # Generate 10 coin tosses
 toss_coin(10)
+
+# 3. Multiple inputs to functions
+# Update the function so heads have probability p_head. Additional elements added to function signature are separated by comma
+toss_coin <- function(n_flips, p_head) {
+  coin_sides <- c("head", "tail")
+  # Define a vector of weights
+  weights <- c(p_head, 1 - p_head)
+  # Modify the sampling to be weighted
+  sample(coin_sides, n_flips, replace = TRUE, prob = weights)
+}
+
+# Generate 10 coin tosses
+toss_coin(10, 0.8)
