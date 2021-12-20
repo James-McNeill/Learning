@@ -63,3 +63,22 @@ cut_by_quantile <- function(x, n = 5, na.rm = FALSE, labels = NULL,
 
 # Remove the interval_type argument from the call
 cut_by_quantile(n_visits)
+
+# B. Passing arguments between functions
+# 1. Harmonic mean
+# From previous steps
+get_reciprocal <- function(x) {
+  1 / x
+}
+calc_harmonic_mean <- function(x) {
+  x %>%
+    get_reciprocal() %>%
+    mean() %>%
+    get_reciprocal()
+}
+
+std_and_poor500 %>% 
+  # Group by sector
+  group_by(sector) %>% 
+  # Summarize, calculating harmonic mean of P/E ratio
+  summarize(hmean_pe_ratio = calc_harmonic_mean(pe_ratio))
