@@ -98,3 +98,16 @@ std_and_poor500 %>%
   # Summarize, calculating harmonic mean of P/E ratio
   summarize(hmean_pe_ratio = calc_harmonic_mean(pe_ratio, na.rm = TRUE))
 
+# 3. Passing arguments with ..., helps to provide more flexibility. Caution should be used here incase an explicit detail argument should be put in place
+calc_harmonic_mean <- function(x, ...) {
+  x %>%
+    get_reciprocal() %>%
+    mean(...) %>%
+    get_reciprocal()
+}
+
+std_and_poor500 %>% 
+  # Group by sector
+  group_by(sector) %>% 
+  # Summarize, calculating harmonic mean of P/E ratio
+  summarize(hmean_pe_ratio = calc_harmonic_mean(pe_ratio, na.rm = TRUE))
