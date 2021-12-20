@@ -111,3 +111,35 @@ std_and_poor500 %>%
   group_by(sector) %>% 
   # Summarize, calculating harmonic mean of P/E ratio
   summarize(hmean_pe_ratio = calc_harmonic_mean(pe_ratio, na.rm = TRUE))
+
+# C. Checking arguments
+# Always makes logical sense to check for errors before running the function method to attempt and return a result
+# 1. Throwing errors with bad arguments
+calc_harmonic_mean <- function(x, na.rm = FALSE) {
+  # Assert that x is numeric
+  assert_is_numeric(x)
+  x %>%
+    get_reciprocal() %>%
+    mean(na.rm = na.rm) %>%
+    get_reciprocal()
+}
+
+# See what happens when you pass it strings
+calc_harmonic_mean(std_and_poor500$sector)
+
+# 2. Custom error logic
+calc_harmonic_mean <- function(x, na.rm = FALSE) {
+  assert_is_numeric(x)
+  # Check if any values of x are non-positive
+  if(any(is_non_positive(x), na.rm = TRUE)) {
+    # Throw an error
+    stop("x contains non-positive values, so the harmonic mean makes no sense.")
+  }
+  x %>%
+    get_reciprocal() %>%
+    mean(na.rm = na.rm) %>%
+    get_reciprocal()
+}
+
+# See what happens when you pass it negative numbers
+calc_harmonic_mean(std_and_poor500$pe_ratio - 20)
