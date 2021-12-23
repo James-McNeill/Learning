@@ -114,3 +114,15 @@ fortify_with_metric_units <- function(data, crop) {
 
 # Try it on the wheat dataset
 fortify_with_metric_units(wheat, "wheat")
+
+# B. Visualizing grain yields
+# 1. Plotting yields over time
+# Wrap this plotting code into a function
+plot_yield_vs_year <- function(data) {
+  ggplot(data, aes(x = year, y = yield_kg_per_ha)) +
+    geom_line(aes(group = state)) +
+    geom_smooth()
+}
+
+# Test it on the wheat dataset
+plot_yield_vs_year(wheat)
