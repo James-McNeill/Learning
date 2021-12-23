@@ -20,3 +20,19 @@ is_leap_year <- function(year) {
   # Otherwise return FALSE
   return(FALSE)
 }
+
+# 2. Return invisibly
+# Define a pipeable plot fn with data and formula args
+pipeable_plot <- function(data, formula) {
+  # Call plot() with the formula interface
+  plot(formula, data = data)
+  # Invisibly return the input dataset
+  invisible(data)
+}
+
+# Draw the scatter plot of dist vs. speed again
+plt_dist_vs_speed <- cars %>% 
+  pipeable_plot(dist ~ speed)
+
+# Now the plot object has a value
+plt_dist_vs_speed
