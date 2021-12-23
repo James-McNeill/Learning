@@ -82,3 +82,26 @@ plt_dist_vs_speed <- cars %>%
 
 # Examine the structure of the result
 plt_dist_vs_speed
+
+# C. Environments
+# Environments are used to store other variables. Environments interact similar to family structures, whereby, if the parent does not have the answer
+# then the grandparent will be asked and so forth.
+# 1. Creating and exploring environments
+# Add capitals, national_parks, & population to a named list
+rsa_lst <- list(
+  capitals = capitals,
+  national_parks = national_parks,
+  population = population
+)
+
+# List the structure of each element of rsa_lst
+ls.str(rsa_lst)
+
+# convert list to environment
+rsa_env <- list2env(rsa_lst)
+
+# Find the parent environment of rsa_env
+parent <- parent.env(rsa_env)
+
+# Print its name
+environmentName(parent)
