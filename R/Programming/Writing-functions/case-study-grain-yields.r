@@ -56,3 +56,10 @@ harmonic_acres_to_hectares <- function(acres) {
     # Get the reciprocal again
     get_reciprocal()
 }
+
+# 3. Converting yields to metric
+# Write a function to convert lb to kg
+lbs_to_kgs <- function(lbs) {
+    lbs * 0.45359237
+}
+
