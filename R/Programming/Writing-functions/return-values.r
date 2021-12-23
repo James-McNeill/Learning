@@ -67,3 +67,18 @@ c(mdl, cff, obs) %<-% groom_model(model)
 
 # See these individual variables
 mdl; cff; obs
+
+# 2. Returning metadata
+pipeable_plot <- function(data, formula) {
+  plot(formula, data)
+  # Add a "formula" attribute to data. Syntax to assign attributes; attr(object, "attribute_name") <- attribute_value
+  attr(data, "formula") <- formula
+  invisible(data)
+}
+
+# From previous exercise
+plt_dist_vs_speed <- cars %>% 
+  pipeable_plot(dist ~ speed)
+
+# Examine the structure of the result
+plt_dist_vs_speed
