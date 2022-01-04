@@ -165,3 +165,19 @@ run_gam_yield_vs_year_by_region <- function(data) {
 
 # Try it on the wheat dataset
 run_gam_yield_vs_year_by_region(wheat)
+
+# 2. Making yield predictions
+# predict(model, cases_to_predict, type = "response")
+# Wrap this prediction code into a function
+predict_yields <- function(model, year) {
+  predict_this <- data.frame(
+    year = year,
+    census_region = census_regions
+  ) 
+  pred_yield_kg_per_ha <- predict(model, predict_this, type = "response")
+  predict_this %>%
+    mutate(pred_yield_kg_per_ha = pred_yield_kg_per_ha)
+}
+
+# Try it on the wheat dataset
+predict_yields(wheat_model, 2050)
