@@ -1,4 +1,5 @@
 # Working with OOP
+# S3 and R6 are OOP frameworks related to R. Each of them relate to historic programming concepts for R
 
 # A. What is it?
 # 1. Dealing with objects
