@@ -181,3 +181,19 @@ predict_yields <- function(model, year) {
 
 # Try it on the wheat dataset
 predict_yields(wheat_model, 2050)
+
+# 3. Bringing it all together for barley crop
+# From previous step
+fortified_barley <- barley %>% 
+  fortify_with_metric_units() %>%
+  fortify_with_census_region()
+
+# Plot yield vs. year by region
+plot_yield_vs_year_by_region(fortified_barley)
+
+# Create the model parameters and make predictions
+fortified_barley %>% 
+  # Run a GAM of yield vs. year by region
+  run_gam_yield_vs_year_by_region()  %>% 
+  # Make predictions of yields in 2050
+  predict_yields(2050)
