@@ -20,7 +20,7 @@ get_n_elements <- function(x, ...)
 # View get_n_elements
 get_n_elements
 
-# Create a data.frame method for get_n_elements
+# Create a data.frame method for get_n_elements. This method will only work for data.frame objects that are passed to the function
 get_n_elements.data.frame <- function(x, ...)
 {
     nrow(x) * ncol(x)
@@ -31,3 +31,16 @@ n_elements_sleep <- get_n_elements(sleep)
 
 # View the result
 n_elements_sleep
+
+# 3. Creating an S3 method (2)
+# View predefined objects within the workspace
+ls.str()
+
+# Create a default method for get_n_elements. Applies a default method that is used when a data.frame object is not passed to the method
+get_n_elements.default <- function(x, ...)
+{
+    length(unlist(x))
+}
+
+# Call the method on the ability.cov dataset
+n_elements_ability.cov <- get_n_elements(ability.cov)
