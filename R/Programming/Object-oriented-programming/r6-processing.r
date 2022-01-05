@@ -77,3 +77,39 @@ microwave_oven_factory <- R6Class(
     }
   )
 )
+
+# 3. First thing's first
+# One special public method called initialize()
+# initialize() lets you set the values of the private fields when you create an R6 object
+# Add an initialize method
+microwave_oven_factory <- R6Class(
+  "MicrowaveOven",
+  private = list(
+    power_rating_watts = 800,
+    door_is_open = FALSE
+  ),
+  public = list(
+    cook = function(time_seconds) {
+      Sys.sleep(time_seconds)
+      print("Your food is cooked!")
+    },
+    open_door = function() {
+      private$door_is_open <- TRUE
+    },
+    close_door = function() {
+      private$door_is_open <- FALSE
+    },
+    # Add initialize() method here
+    initialize = function(power_rating_watts, door_is_open) {
+      if(!missing(power_rating_watts)) {
+        private$power_rating_watts <- power_rating_watts
+      }
+      if(!missing(door_is_open)) {
+        private$door_is_open <- door_is_open
+      }
+    }
+  )
+)
+
+# Make a microwave
+a_microwave_oven <- microwave_oven_factory$new(650, TRUE)
