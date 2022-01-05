@@ -91,3 +91,32 @@ is.character(kitty)
 
 # Does kitty inherit from dog?
 inherits(kitty, "dog")
+
+# 2. Writing the Next method
+# Inspect your workspace
+ls.str()
+
+# cat method
+what_am_i.cat <- function(x, ...)
+{
+  # Write a message
+  message("I'm a cat")
+  # Call NextMethod
+  NextMethod("what_am_i")
+}
+
+# mammal method
+what_am_i.mammal <- function(x, ...)
+{
+  message("I'm a mammal")
+  NextMethod("what_am_i")
+}
+
+# character method
+what_am_i.character <- function(x, ...)
+{
+  message("I'm a character vector")
+}
+
+# Call what_am_i()
+what_am_i(kitty)
