@@ -44,3 +44,15 @@ get_n_elements.default <- function(x, ...)
 
 # Call the method on the ability.cov dataset
 n_elements_ability.cov <- get_n_elements(ability.cov)
+
+# B. Methodical thinking
+# 1. Finding available methods
+# Find methods for print. Note that the preferred syntax is to use a string for the function name when checking for methods
+methods("print")
+# Methods for a class. Note that this contains both S3 and S4 methods
+methods(class="glm")
+# Return only S3 methods
+.S3methods(class="glm")
+# Return only S4 methods
+.S4methods(class="glm")
+
