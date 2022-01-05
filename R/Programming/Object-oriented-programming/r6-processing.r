@@ -170,11 +170,11 @@ a_microwave_oven <- microwave_oven_factory$new()
 # Get the power level
 a_microwave_oven$power_level_watts
 
-# Try to set the power level to "400"
+# Try to set the power level to "400". Returns error as value is not a number
 a_microwave_oven$power_level_watts <- "400"
 
-# Try to set the power level to 1600 watts
+# Try to set the power level to 1600 watts. Returns error as value is out of range
 a_microwave_oven$power_level_watts <- 1600
 
-# Set the power level to 400 watts
+# Set the power level to 400 watts. Updates value
 a_microwave_oven$power_level_watts <- 400
