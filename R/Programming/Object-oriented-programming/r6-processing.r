@@ -23,3 +23,10 @@ microwave_oven_factory <- R6Class(
     power_rating_watts = 800
   )
 )
+
+# 2. Making microwave ovens
+# View the microwave_oven_factory
+microwave_oven_factory
+
+# Make a new microwave oven. The new method doesn't need to be defined when it is being created
+microwave_oven <- microwave_oven_factory$new()
