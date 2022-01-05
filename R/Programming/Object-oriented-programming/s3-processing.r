@@ -56,3 +56,19 @@ methods(class="glm")
 # Return only S4 methods
 .S4methods(class="glm")
 
+# C. Method lookup for Primitive generics
+# 1. Primitive generic functions
+# Some core functionality of R is defined using primitive functions, which use a special technique for accessing C-code, for performance reasons.
+# R will look for methods using the class, as normal, but if nothing is found, the internal C-code function will be called.
+
+# View the structure of hair. A list object, with the class overridden to be "hairstylist" has been assigned in your workspace to the variable hair
+str(hair)
+
+# What primitive generics are available?
+.S3PrimitiveGenerics
+
+# Does length.hairstylist exist?
+exists("length.hairstylist")
+
+# What is the length of hair?
+length(hair)
