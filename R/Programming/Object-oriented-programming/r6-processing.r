@@ -57,6 +57,7 @@ a_microwave_oven$cook(1)
 
 # 2. Close the door
 # prefix private$ allows us to use the items within the private list
+# prefix self$ allows us to use the items within the public list
 # Add a close_door() method
 microwave_oven_factory <- R6Class(
   "MicrowaveOven",
@@ -113,3 +114,25 @@ microwave_oven_factory <- R6Class(
 
 # Make a microwave
 a_microwave_oven <- microwave_oven_factory$new(650, TRUE)
+
+# C. Getting and setting with active bindings
+# 1. Read the rating
+# Add a binding for power rating
+microwave_oven_factory <- R6Class(
+  "MicrowaveOven",
+  private = list(
+    ..power_rating_watts = 800
+  ),
+  active = list(
+    # Add the binding here. Allows the user to read the rating value
+    power_rating_watts = function() {
+      private$..power_rating_watts
+    }
+  )
+)
+
+# Make a microwave 
+a_microwave_oven <- microwave_oven_factory$new()
+
+# Get the power rating
+a_microwave_oven$power_rating_watts
