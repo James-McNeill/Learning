@@ -72,3 +72,22 @@ exists("length.hairstylist")
 
 # What is the length of hair?
 length(hair)
+
+# D. Too much class
+# 1. Very classy
+# View the kitty
+kitty
+
+# Assign classes
+class(kitty) <- c("cat", "mammal", "character")
+
+# Does kitty inherit from cat/mammal/character? Can check for classes by using inherits() method
+inherits(kitty, "cat")
+inherits(kitty, "mammal")
+inherits(kitty, "character")
+
+# Is kitty a character vector?
+is.character(kitty)
+
+# Does kitty inherit from dog?
+inherits(kitty, "dog")
