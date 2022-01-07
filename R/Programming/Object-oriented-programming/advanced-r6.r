@@ -44,3 +44,39 @@ env$bases <- c("A", "C", "G", "U")
   
 # Test env and env2 identical
 identical(env$bases, env2$bases)
+
+# 3. Static Electricity
+# Complete the class definition
+microwave_oven_factory <- R6Class(
+  "MicrowaveOven",
+  private = list(
+    shared = {
+      # Create a new environment named e
+      e <- new.env()
+      # Assign safety_warning into e
+      e$safety_warning <- "Warning. Do not try to cook metal objects."
+      # Return e
+      e
+    }
+  ),
+  active = list(
+    # Add the safety_warning binding
+    safety_warning = function(value) {
+      if(missing(value)) {
+        private$shared$safety_warning
+      } else {
+        private$shared$safety_warning <- value
+      }
+    }
+  )
+)
+
+# Create two microwave ovens
+a_microwave_oven <- microwave_oven_factory$new()
+another_microwave_oven <- microwave_oven_factory$new()
+  
+# Change the safety warning for a_microwave_oven
+a_microwave_oven$safety_warning <- "Warning. If the food is too hot you may scald yourself."
+  
+# Verify that the warning has change for another_microwave
+another_microwave_oven$safety_warning
