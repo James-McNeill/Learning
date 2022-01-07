@@ -80,3 +80,23 @@ a_microwave_oven$safety_warning <- "Warning. If the food is too hot you may scal
   
 # Verify that the warning has change for another_microwave
 another_microwave_oven$safety_warning
+
+# B. Cloning R6 objects
+# 1. Attack of the clones
+# Create a microwave oven
+a_microwave_oven <- microwave_oven_factory$new()
+
+# Copy a_microwave_oven using <-
+assigned_microwave_oven <- a_microwave_oven
+  
+# Copy a_microwave_oven using clone()
+cloned_microwave_oven <- a_microwave_oven$clone()
+  
+# Change a_microwave_oven's power level  
+a_microwave_oven$power_level_watts <- 400
+  
+# Check a_microwave_oven & assigned_microwave_oven same. Returns true, as there was a copy by reference
+identical(a_microwave_oven, assigned_microwave_oven)
+
+# Check a_microwave_oven & cloned_microwave_oven different. Returns false, as the clone insured copy by value for the cloned object
+identical(a_microwave_oven, cloned_microwave_oven)  
