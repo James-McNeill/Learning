@@ -78,3 +78,37 @@ a_fancy_microwave <- fancy_microwave_oven_factory$new()
 
 # Call the cook() method
 a_fancy_microwave$cook(1)
+
+# C. Multiple levels of inheritance
+# 1. Exposing your parent
+# By default, R6 classes only have access to the functionality of their direct parent. To allow access across multiple generations, 
+# the intermediate classes need to define an active binding that exposes their parent. This takes the form
+active = list(
+  super_ = function() super
+)
+
+# Expose the parent functionality
+fancy_microwave_oven_factory <- R6Class(
+  "FancyMicrowaveOven",
+  inherit = microwave_oven_factory,
+  public = list(
+    cook_baked_potato = function() {
+      self$cook(3)
+    },
+    cook = function(time_seconds) {
+      super$cook(time_seconds)
+      message("Enjoy your dinner!")
+    }
+  ),
+  # Add an active element with a super_ binding
+  active = list(
+    super_ = function() super
+  )
+)
+
+# Instantiate a fancy microwave
+a_fancy_microwave <- fancy_microwave_oven_factory$new()
+
+# Call the super_ binding. This active binding will expose the parent functionality
+a_fancy_microwave$super_
+
