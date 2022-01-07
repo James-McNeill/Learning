@@ -55,3 +55,26 @@ a_fancy_microwave <- fancy_microwave_oven_factory$new()
 
 # Call the cook_baked_potato() method
 a_fancy_microwave$cook_baked_potato()
+
+# 2. Override the cooking
+# Explore microwave oven class
+microwave_oven_factory
+
+# Update the class definition
+fancy_microwave_oven_factory <- R6Class(
+  "FancyMicrowaveOven",
+  inherit = microwave_oven_factory,
+  # Add a public list with a cook method. By assigning the method the same name we are overriding the inherited method from the parent class
+  public = list(
+    cook = function(time_seconds) {
+      super$cook(time_seconds)
+      message("Enjoy your dinner!")
+    }
+  )
+)
+
+# Instantiate a fancy microwave
+a_fancy_microwave <- fancy_microwave_oven_factory$new()
+
+# Call the cook() method
+a_fancy_microwave$cook(1)
