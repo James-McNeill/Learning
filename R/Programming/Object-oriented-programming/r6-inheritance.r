@@ -112,3 +112,26 @@ a_fancy_microwave <- fancy_microwave_oven_factory$new()
 # Call the super_ binding. This active binding will expose the parent functionality
 a_fancy_microwave$super_
 
+# 2. Over-Overriding the cooking
+# Able to work across multiple generations due to the active binding exposing the parent class within fancy_microwave_oven_factory
+# Explore other microwaves
+microwave_oven_factory
+fancy_microwave_oven_factory
+
+# Define a high-end microwave oven class
+high_end_microwave_oven_factory <- R6Class(
+ "HighEndMicrowaveOven",
+  inherit = fancy_microwave_oven_factory,
+  public = list(
+    cook = function(time_seconds) {
+      super$super_$cook(time_seconds)
+      message(ascii_pizza_slice) # showed a pizza slice when printed
+    }
+  )
+)
+
+# Instantiate a high-end microwave oven
+a_high_end_microwave <- high_end_microwave_oven_factory$new()
+
+# Use it to cook for one second
+a_high_end_microwave$cook(1)
