@@ -12,3 +12,23 @@ fancy_microwave_oven_factory <- R6Class(
     "FancyMicrowaveOven",
     inherit = microwave_oven_factory
 )
+
+# 2. Making a fancy microwave oven
+# Explore microwave oven classes
+microwave_oven_factory
+fancy_microwave_oven_factory
+
+# Instantiate both types of microwave
+a_microwave_oven <- microwave_oven_factory$new()
+a_fancy_microwave <- fancy_microwave_oven_factory$new()
+
+# Get power rating for each microwave
+microwave_power_rating <- a_microwave_oven$power_rating_watts
+fancy_microwave_power_rating <-a_fancy_microwave$power_rating_watts
+
+# Verify that these are the same. Returns TRUE
+identical(microwave_power_rating, fancy_microwave_power_rating)
+
+# Cook with each microwave. Return the same output as the method was inherited
+a_microwave_oven$cook(1)
+a_fancy_microwave$cook(1)
