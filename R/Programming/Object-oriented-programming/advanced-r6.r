@@ -124,3 +124,49 @@ identical(a_microwave_oven$power_plug$type, cloned_microwave_oven$power_plug$typ
 
 # Check a_microwave_oven & deep_cloned_microwave_oven different 
 identical(a_microwave_oven$power_plug$type, deep_cloned_microwave_oven$power_plug$type)  
+
+# C. Shutting down connections
+# 1. Closing the R6 object correctly
+library(RSQLite) # Enables connection to SQLite databases within R
+# Microwave_factory is predefined
+microwave_oven_factory
+
+# Complete the class definition
+smart_microwave_oven_factory <- R6Class(
+  "SmartMicrowaveOven",
+  inherit = microwave_oven_factory, # Specify inheritance
+  private = list(
+    # Add a field to store connection
+    conn = NULL
+  ),
+  public = list(
+    initialize = function() {
+      # Connect to the database
+      private$conn = dbConnect(SQLite(), "cooking-times.sqlite")
+    },
+    get_cooking_time = function(food) {
+      dbGetQuery(
+        private$conn,
+        sprintf("SELECT time_seconds FROM cooking_times WHERE food = '%s'", food)
+      )
+    },
+    finalize = function() {
+      # Print a message
+      message("Disconnecting from the cooking times database.")
+      # Disconnect from the database
+      dbDisconnect(private$conn)
+    }
+  )
+)
+
+# Create a smart microwave object
+a_smart_microwave <- smart_microwave_oven_factory$new()
+  
+# Call the get_cooking_time() method
+a_smart_microwave$get_cooking_time("soup")
+
+# Remove the smart microwave
+rm(a_smart_microwave) 
+
+# Force garbage collection
+gc()
