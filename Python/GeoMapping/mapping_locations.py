@@ -22,3 +22,7 @@ import sys
 # check_and_install_python_mod("geopandas")
 # check_and_install_python_mod("folium")
 
+# Bring in the additional libraries
+import geopandas as gpd
+import folium
+
