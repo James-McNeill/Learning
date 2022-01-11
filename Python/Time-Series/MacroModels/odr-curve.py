@@ -108,3 +108,39 @@ df_s2 = df_s2.loc[df_s2.index[date_filt],['ODR']]
 
 # NOTE : when creating the final output file make sure not to over-write existing output file
 output_file('odr.csv', df_s2)
+
+
+# Additional data visualizations
+# Display a rolling window. Input data contains the date and ODR curve value
+fig, ax = plt.subplots()
+
+ax.plot(df, marker='o', markersize=8, linestyle='-'
+       ,label='Orig', linewidth=3, color='k')
+ax.plot(df.rolling(window=2,center=True).mean(), 
+        marker='o', markersize=8, linestyle='--'
+       ,label='RollWind2', linewidth=3, color='g')
+ax.plot(df.rolling(window=4,center=True).mean(), 
+        marker='o', markersize=8, linestyle='--'
+       ,label='RollWind4', linewidth=3, color='y')
+ax.plot(df.rolling(window=8,center=True).mean(), 
+        marker='o', markersize=8, linestyle='--'
+       ,label='RollWind8', linewidth=3, color='r')
+ax.set_ylabel('ODR')
+ax.legend();
+
+# Display a rolling window - change the window type
+fig, ax = plt.subplots()
+
+ax.plot(df, marker='o', markersize=8, linestyle='-'
+       ,label='Orig', linewidth=3, color='k')
+ax.plot(df.rolling(window=4,win_type='gaussian',center=True).mean(std=1), 
+        marker='o', markersize=8, linestyle='--'
+       ,label='Gaussian', linewidth=3, color='g')
+ax.plot(df.rolling(window=4,win_type='triang',center=True).mean(), 
+        marker='o', markersize=8, linestyle='--'
+       ,label='Triang', linewidth=3, color='y')
+ax.plot(df.rolling(window=4,win_type='hamming',center=True).mean(), 
+        marker='o', markersize=8, linestyle='--'
+       ,label='Hamming', linewidth=3, color='r')
+ax.set_ylabel('ODR')
+ax.legend();
