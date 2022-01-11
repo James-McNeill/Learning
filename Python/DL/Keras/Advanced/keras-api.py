@@ -35,3 +35,18 @@ input_tensor = Input(shape=(1,))
 # Note that we did this in 2 steps in the previous exercise, but are doing it in one step now
 output_tensor = Dense(1)(input_tensor)
 
+# B. Build and compile a model
+# 1. Build a model
+# Input/dense/output layers
+from keras.layers import Input, Dense
+input_tensor = Input(shape=(1,))
+output_tensor = Dense(1)(input_tensor)
+
+# Build the model
+from keras.models import Model
+model = Model(input_tensor, output_tensor)
+
+# 2. Compile a model
+# Ensures that the settings are locked in
+# Compile the model
+model.compile(optimizer="adam", loss="mean_absolute_error")
