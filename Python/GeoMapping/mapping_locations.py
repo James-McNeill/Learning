@@ -61,3 +61,17 @@ for p in range(0, len(locations)):
 
 # Display the map
 map1
+
+# Alternative approach if we wanted to add some colour to the popups based on a boolean filter
+for p in range(0, len(locations)):
+    if df['Filter'][p] == 'Open':
+        folium.Marker(locations[p] 
+                      ,popup=df['name'][p]
+                      ,icon=folium.Icon(color="green")
+                     ).add_to(markerCluster)
+    else:
+        folium.Marker(locations[p] 
+                  ,popup=df['name'][p]
+                  ,icon=folium.Icon(color="red")
+                 ).add_to(markerCluster)
+map1
