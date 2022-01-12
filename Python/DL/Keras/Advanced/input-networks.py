@@ -45,3 +45,12 @@ team_in_1 = Input(shape=(1,), name="Team-1-In")
 # Separate input layer for team 2
 team_in_2 = Input(shape=(1,), name="Team-2-In")
 
+# 2. Lookup both inputs in the same model
+# You want to learn a strength rating for each team, such that if any pair of teams plays each other, 
+# you can predict the score, even if those two teams have never played before. 
+# Furthermore, you want the strength rating to be the same, regardless of whether the team is the home team or the away team
+# Lookup team 1 in the team strength model
+team_1_strength = team_strength_model(team_in_1)
+
+# Lookup team 2 in the team strength model
+team_2_strength = team_strength_model(team_in_2)
