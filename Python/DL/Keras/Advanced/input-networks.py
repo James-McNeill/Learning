@@ -34,3 +34,14 @@ strength_lookup_flat = Flatten()(strength_lookup)
 # Combine the operations into a single, re-usable model
 team_strength_model = Model(teamid_in, strength_lookup_flat, name='Team-Strength-Model')
 
+# B. Shared layers
+# 1. Defining two inputs
+# Load the input layer from keras.layers
+from keras.layers import Input
+
+# Input layer for team 1. Providing a name makes it easier to visualize the elements of the model
+team_in_1 = Input(shape=(1,), name="Team-1-In")
+
+# Separate input layer for team 2
+team_in_2 = Input(shape=(1,), name="Team-2-In")
+
