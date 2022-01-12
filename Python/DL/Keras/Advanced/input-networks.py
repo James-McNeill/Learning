@@ -63,3 +63,16 @@ from keras.layers import Subtract
 # Create a subtract layer using the inputs from the previous exercise. Subtracts the team strength rating to determine a winner
 score_diff = Subtract()([team_1_strength, team_2_strength])
 
+# 2. Model using two inputs and one output
+# Imports
+from keras.layers import Subtract
+from keras.models import Model
+
+# Subtraction layer from previous exercise
+score_diff = Subtract()([team_1_strength, team_2_strength])
+
+# Create the model
+model = Model([team_in_1, team_in_2], score_diff)
+
+# Compile the model
+model.compile(optimizer="adam", loss="mean_absolute_error")
