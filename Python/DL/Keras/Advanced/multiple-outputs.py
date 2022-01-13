@@ -15,3 +15,12 @@ model = Model(input_tensor, output_tensor)
 # Compile the model
 model.compile(optimizer="adam", loss="mean_absolute_error")
 
+# 2. Fit a model with two outputs
+# Fit the model. Including more epochs allows provides more time for the model to converge
+model.fit(games_tourney_train[['seed_diff', 'pred']],
+  		  games_tourney_train[['score_1', 'score_2']],
+  		  verbose=True,
+  		  epochs=100,
+  		  batch_size=16384)
+
+# 3. 
