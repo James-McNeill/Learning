@@ -53,3 +53,7 @@ data = plt.imread('model.png')
 plt.imshow(data)
 plt.show()
 
+# C. Stacking models
+# 1. Add the model predictions to the tournament data. This is a form of model stacking
+# Predict
+games_tourney['pred'] = model.predict([games_tourney['team_1'], games_tourney['team_2'], games_tourney['home']])
