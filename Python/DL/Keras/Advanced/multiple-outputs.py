@@ -31,3 +31,7 @@ print(model.get_weights())
 # Print the column means of the training data
 print(games_tourney_train.mean())
 
+# 4. Evaluate the model on the test set
+# Evaluate the model on the tournament test data
+print(model.evaluate(games_tourney_test[['seed_diff', 'pred']], 
+        games_tourney_test[['score_1', 'score_2']], verbose=False))
