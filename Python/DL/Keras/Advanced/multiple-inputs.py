@@ -73,8 +73,13 @@ model = Model(input_tensor, output_tensor)
 model.compile(optimizer="adam", loss="mean_absolute_error")
 
 # 3. Fit the model
-# Fit the model
+# Fit the model. Train data is for games before 2010
 model.fit(games_tourney_train[['home', 'seed_diff', 'pred']],
           games_tourney_train['score_diff'],
           epochs=1,
           verbose=True)
+
+# 4. Evaluate the model. Test data is for games after 2010
+# Evaluate the model on the games_tourney_test dataset
+print(model.evaluate(games_tourney_test[['home', 'seed_diff', 'prediction']],
+               games_tourney_test['score_diff'], verbose=False))
