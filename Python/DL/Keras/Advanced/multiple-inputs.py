@@ -38,3 +38,18 @@ model.fit([games_season['team_1'], games_season['team_2'], games_season['home']]
 
 # Evaluate the model on the games_tourney dataset
 print(model.evaluate([games_tourney['team_1'], games_tourney['team_2'], games_tourney['home']], games_tourney['score_diff'], verbose=False))
+
+# B. Summarizing and plotting models
+# 1. Plotting models
+# Imports
+import matplotlib.pyplot as plt
+from keras.utils import plot_model
+
+# Plot the model
+plot_model(model, to_file='model.png')
+
+# Display the image
+data = plt.imread('model.png')
+plt.imshow(data)
+plt.show()
+
