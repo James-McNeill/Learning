@@ -23,4 +23,11 @@ model.fit(games_tourney_train[['seed_diff', 'pred']],
   		  epochs=100,
   		  batch_size=16384)
 
-# 3. 
+# 3. Inspect the model
+# The output weights were ~ 72. This is because, on average, a team will score about 72 points in a tournament game
+# Print the model's weights
+print(model.get_weights())
+
+# Print the column means of the training data
+print(games_tourney_train.mean())
+
