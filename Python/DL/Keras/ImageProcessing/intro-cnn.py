@@ -57,3 +57,22 @@ print(number_correct)
 # Calculate the proportion of correct predictions
 proportion_correct = number_correct / len(predictions)
 print(proportion_correct)
+
+# C. Classification with keras
+# 1. Build a neural network
+# Creating a neural network with Dense layers, means that each unit in each layer is connected to all of the units in the previous layer
+# Imports components from Keras
+from keras.models import Sequential
+from keras.layers import Dense
+
+# Initializes a sequential model
+model = Sequential()
+
+# First layer. Input shape is the product of the pixel image size (28, 28) 
+model.add(Dense(10, activation="relu", input_shape=(784,)))
+
+# Second layer
+model.add(Dense(10, activation="relu"))
+
+# Output layer
+model.add(Dense(3, activation="softmax"))
