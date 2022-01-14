@@ -67,4 +67,15 @@ model.add(Flatten())
 # Add an output layer for the 3 categories
 model.add(Dense(3, activation='softmax'))
 
-# 2. 
+# 2. Training a CNN to classify clothing
+# Compile the model 
+model.compile(optimizer='adam', 
+              loss='categorical_crossentropy', 
+              metrics=['accuracy'])
+
+# Fit the model on a training set
+model.fit(train_data, train_labels, 
+          validation_split=0.20, 
+          epochs=3, batch_size=10)
+
+# 3. 
