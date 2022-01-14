@@ -68,3 +68,20 @@ result = np.zeros((im.shape[0]//2, im.shape[1]//2))
 for ii in range(result.shape[0]):
     for jj in range(result.shape[1]):
         result[ii, jj] = np.max(im[ii*2:ii*2+2,jj*2:jj*2+2])
+
+# 2. Keras pooling layers
+# Note the model is deeper than before but has fewer parameters
+# Add a convolutional layer
+model.add(Conv2D(15, kernel_size=2, activation='relu', 
+                 input_shape=(img_rows, img_cols, 1)))
+
+# Add a pooling operation
+model.add(MaxPool2D(2))
+
+# Add another convolutional layer
+model.add(Conv2D(5, kernel_size=2, activation='relu'))
+
+# Flatten and feed to output layer
+model.add(Flatten())
+model.add(Dense(3, activation='softmax'))
+model.summary()
