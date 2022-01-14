@@ -86,3 +86,16 @@ weights1 = c1.get_weights()
 # Pull out the first channel of the first kernel in the first layer
 kernel = weights1[0][...,0, 0]
 print(kernel)
+
+# 2. Visualizing kernel responses
+# One of the ways to interpret the weights of a neural network is to see how the kernels stored in these weights "see" the world.
+# Given images in the test_data variable, a function called extract_kernel() that extracts a kernel from the provided network, 
+# and the function called convolution() that we defined in the first chapter, extract the kernel, load the data from a file and visualize it with matplotlib
+import matplotlib.pyplot as plt
+
+# Convolve with the fourth image in test_data
+out = convolution(test_data[3, :, :, 0], kernel)
+
+# Visualize the result
+plt.imshow(out)
+plt.show()
