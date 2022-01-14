@@ -26,3 +26,24 @@ for ii in range(im.shape[0] - 3):
 
 # Print result
 print(result)
+
+# 3. Defining image convolution kernels
+# Searching for a vertical line in images
+kernel = np.array([[-1, 1, -1], 
+                  [-1, 1, -1], 
+                  [-1, 1, -1]])
+
+# Searching for a horizontal line in images
+kernel = np.array([[-1, -1, -1], 
+                   [1, 1, 1],
+                   [-1, -1, -1]])
+
+# Finds a light spot surrounded by dark pixels
+kernel = np.array([[-1, -1, -1], 
+                   [-1, 1, -1],
+                   [-1, -1, -1]])
+
+# Finds a dark spot surrounded by bright pixels
+kernel = np.array([[1, 1, 1], 
+                   [1, -1, 1],
+                   [1, 1, 1]])
