@@ -78,4 +78,6 @@ model.fit(train_data, train_labels,
           validation_split=0.20, 
           epochs=3, batch_size=10)
 
-# 3. 
+# 3. Evaluate CNN
+# Evaluate the model on separate test data
+model.evaluate(test_data, test_labels, batch_size=10)
