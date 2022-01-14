@@ -53,3 +53,18 @@ model.add(Dense(3, activation='softmax'))
 
 # Summarize the model 
 model.summary()
+
+# C. Pooling operations
+# Pooling layers are often added between the convolutional layers of a neural network to summarize
+# their outputs in a condensed manner, and reduce the number of parameters in the next layer in the network
+# 1. Write a pooling operation
+# Aim is to reduce the number of pixels that need to be processed from the image. This can help when training the model.
+# The idea is to understand what level of reduction in pixel quality can take place but still retain the key elements
+# from the image.
+# Result placeholder
+result = np.zeros((im.shape[0]//2, im.shape[1]//2))
+
+# Pooling operation
+for ii in range(result.shape[0]):
+    for jj in range(result.shape[1]):
+        result[ii, jj] = np.max(im[ii*2:ii*2+2,jj*2:jj*2+2])
