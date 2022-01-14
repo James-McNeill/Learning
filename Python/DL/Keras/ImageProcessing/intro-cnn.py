@@ -76,3 +76,10 @@ model.add(Dense(10, activation="relu"))
 
 # Output layer
 model.add(Dense(3, activation="softmax"))
+
+# 2. Compile a NN
+# Compile the model
+model.compile(optimizer='adam', 
+           loss='categorical_crossentropy', 
+           metrics=['accuracy'])
+
