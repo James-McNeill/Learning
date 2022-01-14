@@ -81,3 +81,18 @@ model.fit(train_data, train_labels,
 # 3. Evaluate CNN
 # Evaluate the model on separate test data
 model.evaluate(test_data, test_labels, batch_size=10)
+
+# C. Tweaking the convultions
+# 1. Add padding to a CNN
+# This is done by adding zeros around the edges of the input image, so that the convolution kernel can overlap with the pixels on the edge of the image
+# Initialize the model
+model = Sequential()
+
+# Add the convolutional layer
+model.add(Conv2D(10, kernel_size=3, activation='relu', 
+                 input_shape=(img_rows, img_cols, 1), 
+                 padding='same')) # insures that the size is the same as the input layer
+
+# Feed into output layer
+model.add(Flatten())
+model.add(Dense(3, activation='softmax'))
