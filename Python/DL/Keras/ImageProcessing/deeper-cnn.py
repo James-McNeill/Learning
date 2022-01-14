@@ -5,6 +5,9 @@
 # element of the image. Similar to drawing an image, different sections require a different process to complete and are processed in a multi-layered
 # order. This is now the aim of building a deeper network to help follow different aspects with each layer
 
+# Remember that as more layers are added to make the network deeper, more data is required to ensure that a broad range of data points (images) are
+# classified to avoid overfitting.
+
 # A. Going deeper
 # 1. Creating a deep learning network
 from keras.models import Sequential
@@ -23,3 +26,17 @@ model.add(Conv2D(5, kernel_size=2, activation='relu'))
 # Flatten and feed to output layer
 model.add(Flatten())
 model.add(Dense(3, activation='softmax'))
+
+# 2. Train a deep learning model
+# Compile model
+model.compile(optimizer='adam', 
+              loss='categorical_crossentropy', 
+              metrics=['accuracy'])
+
+# Fit the model to training data 
+model.fit(train_data, train_labels, 
+          validation_split=0.2, 
+          epochs=3, batch_size=10)
+
+# Evaluate the model on test data
+model.evaluate(test_data, test_labels, batch_size=10)
