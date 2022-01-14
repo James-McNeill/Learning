@@ -83,3 +83,9 @@ model.compile(optimizer='adam',
            loss='categorical_crossentropy', 
            metrics=['accuracy'])
 
+# 3. Fitting an NN model to the clothing data
+# Reshape the data to two-dimensional array. There were 50 images and then the pixel size of the images
+train_data = train_data.reshape((50, 784))
+
+# Fit the model
+model.fit(train_data, train_labels, validation_split=0.2, epochs=3)
