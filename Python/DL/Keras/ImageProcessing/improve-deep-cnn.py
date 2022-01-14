@@ -19,3 +19,10 @@ plt.plot(history['val_loss'])
 
 # Show the figure
 plt.show()
+
+# 2. Using stored weights to predict
+# Load the weights from file
+model.load_weights('weights.hdf5')
+
+# Predict from the first three images in the test data
+model.predict(test_data[:3])
