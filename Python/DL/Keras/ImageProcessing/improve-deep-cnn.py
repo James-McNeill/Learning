@@ -71,3 +71,18 @@ model.add(Conv2D(5, kernel_size=2, activation='relu'))
 # Flatten and feed to output layer
 model.add(Flatten())
 model.add(Dense(3, activation='softmax'))
+
+# C. Interpreting the model
+# 1. Extracting a kernel from a trained network
+# Load the weights into the model
+model.load_weights('weights.hdf5')
+
+# Get the first convolutional layer from the model
+c1 = model.layers[0]
+
+# Get the weights of the first convolutional layer
+weights1 = c1.get_weights()
+
+# Pull out the first channel of the first kernel in the first layer
+kernel = weights1[0][...,0, 0]
+print(kernel)
