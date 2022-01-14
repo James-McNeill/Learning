@@ -89,3 +89,10 @@ train_data = train_data.reshape((50, 784))
 
 # Fit the model
 model.fit(train_data, train_labels, validation_split=0.2, epochs=3)
+
+# 4. Cross validation of the NN
+# Reshape test data
+test_data = test_data.reshape(10, 784)
+
+# Evaluate the model
+model.evaluate(test_data, test_labels)
