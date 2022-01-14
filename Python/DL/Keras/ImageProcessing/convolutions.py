@@ -1,6 +1,7 @@
 # Using convolutions
 
-# Convolutions are the fundamental building blocks of convolutional neural networks. Will work to understand
+# Convolutions are the fundamental building blocks of convolutional neural networks. 
+# Will work to understand how convolutions can search for changes in elements of the image.
 
 # A. Convolutions
 # 1. One dimensional convolutions
