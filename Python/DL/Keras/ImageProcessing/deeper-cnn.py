@@ -85,3 +85,17 @@ model.add(Conv2D(5, kernel_size=2, activation='relu'))
 model.add(Flatten())
 model.add(Dense(3, activation='softmax'))
 model.summary()
+
+# 3. Train the deep learning model
+# Compile the model
+model.compile(
+    optimizer='adam',
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+# Fit to training data
+model.fit(train_data, train_labels, epochs=3, batch_size=10, validation_split=0.20)
+
+# Evaluate on test data 
+model.evaluate(test_data, test_labels, batch_size=10)
