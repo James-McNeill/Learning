@@ -47,3 +47,13 @@ for ii in range(len(labels)):
     jj = np.where(categories == labels[ii])
     # Set the corresponding zero to one
     ohe_labels[ii, jj] = 1
+
+# 2. Evaluating a classifier
+# Model was used to predict labels for the test dataset
+# Calculate the number of correct predictions
+number_correct = np.sum(test_labels * predictions)
+print(number_correct)
+
+# Calculate the proportion of correct predictions
+proportion_correct = number_correct / len(predictions)
+print(proportion_correct)
