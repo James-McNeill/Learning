@@ -40,3 +40,16 @@ model.fit(train_data, train_labels,
 
 # Evaluate the model on test data
 model.evaluate(test_data, test_labels, batch_size=10)
+
+# B. How many parameters
+# 1. How many parameters in a deep CNN
+# CNN model
+model = Sequential()
+model.add(Conv2D(10, kernel_size=2, activation='relu', 
+                 input_shape=(28, 28, 1)))
+model.add(Conv2D(10, kernel_size=2, activation='relu'))
+model.add(Flatten())
+model.add(Dense(3, activation='softmax'))
+
+# Summarize the model 
+model.summary()
