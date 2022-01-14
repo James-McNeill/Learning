@@ -96,3 +96,17 @@ model.add(Conv2D(10, kernel_size=3, activation='relu',
 # Feed into output layer
 model.add(Flatten())
 model.add(Dense(3, activation='softmax'))
+
+# 2. Add strides to CNN
+# Size of the strides determines the size of the jump taken between each pixel as the kernel slides along
+# Initialize the model
+model = Sequential()
+
+# Add the convolutional layer
+model.add(Conv2D(10, kernel_size=3, activation='relu', 
+              input_shape=(img_rows, img_cols, 1), 
+              strides=2)) # the network skips every other pixel
+
+# Feed into output layer
+model.add(Flatten())
+model.add(Dense(3, activation='softmax'))
