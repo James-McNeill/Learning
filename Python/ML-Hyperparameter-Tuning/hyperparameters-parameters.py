@@ -87,3 +87,20 @@ for lr in learning_rates:
 # Gather everything into a DataFrame. Appears that a value of 0.05 worked the best
 results_df = pd.DataFrame(results_list, columns=['learning_rate', 'accuracy'])
 print(results_df)
+
+# 2. Building learning curves
+# Set the learning rates & accuracies list
+learn_rates = np.linspace(0.01, 2, num=30)
+accuracies = []
+
+# Create the for loop
+for learn_rate in learn_rates:
+  	# Create the model, predictions & save the accuracies as before
+    model = GradientBoostingClassifier(learning_rate=learn_rate)
+    predictions = model.fit(X_train, y_train).predict(X_test)
+    accuracies.append(accuracy_score(y_test, predictions))
+
+# Plot results    
+plt.plot(learn_rates, accuracies)
+plt.gca().set(xlabel='learning_rate', ylabel='Accuracy', title='Accuracy for different learning_rates')
+plt.show()
