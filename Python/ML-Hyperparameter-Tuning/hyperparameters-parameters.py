@@ -16,3 +16,18 @@ print(coefficient_df)
 top_three_df = coefficient_df.sort_values(by=["Coefficient"], axis=0, ascending=False)[0:3]
 print(top_three_df)
 
+# 2. Extracting a random forest parameter
+# Extract the 7th (index 6) tree from the random forest
+chosen_tree = rf_clf.estimators_[6]
+
+# Visualize the graph using the provided image. Note that this image was already provided in the directory
+imgplot = plt.imshow(tree_viz_image)
+plt.show()
+
+# Extract the parameters and level of the top (index 0) node
+split_column = chosen_tree.tree_.feature[0]
+split_column_name = X_train.columns[split_column]
+split_value = chosen_tree.tree_.threshold[0]
+
+# Print out the feature and level
+print("This node split on feature {}, at a value of {}".format(split_column_name, split_value))
