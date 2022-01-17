@@ -74,3 +74,6 @@ grid_rf_class = GridSearchCV(
     cv=5,
     refit=True, return_train_score=True)
 print(grid_rf_class)
+
+# C. Understanding a grid search output
+# 1. 
