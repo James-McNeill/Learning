@@ -76,4 +76,15 @@ grid_rf_class = GridSearchCV(
 print(grid_rf_class)
 
 # C. Understanding a grid search output
-# 1. 
+# 1. Exploring the grid search results
+# Read the cv_results property into a dataframe & print it out
+cv_results_df = pd.DataFrame(grid_rf_class.cv_results_)
+print(cv_results_df)
+
+# Extract and print the column with a dictionary of hyperparameters used
+column = cv_results_df.loc[:, ["params"]]
+print(column)
+
+# Extract and print the row that had the best mean test score
+best_row = cv_results_df[cv_results_df["rank_test_score"] == 1 ]
+print(best_row)
