@@ -70,3 +70,20 @@ knn_5_accuracy = accuracy_score(y_test, knn_5_predictions)
 knn_10_accuracy = accuracy_score(y_test, knn_10_predictions)
 knn_20_accuracy = accuracy_score(y_test, knn_20_predictions)
 print("The accuracy of 5, 10, 20 neighbours was {}, {}, {}".format(knn_5_accuracy, knn_10_accuracy, knn_20_accuracy))
+
+# C. Setting and analyzing hyperparameter values
+# 1. Automating hyperparameter choice
+# Set the learning rates & results storage
+learning_rates = [0.001, 0.01, 0.05, 0.1, 0.2, 0.5]
+results_list = []
+
+# Create the for loop to evaluate model predictions for each learning rate
+for lr in learning_rates:
+    model = GradientBoostingClassifier(learning_rate=lr)
+    predictions = model.fit(X_train, y_train).predict(X_test)
+    # Save the learning rate and accuracy score
+    results_list.append([lr, accuracy_score(y_test, predictions)])
+
+# Gather everything into a DataFrame. Appears that a value of 0.05 worked the best
+results_df = pd.DataFrame(results_list, columns=['learning_rate', 'accuracy'])
+print(results_df)
