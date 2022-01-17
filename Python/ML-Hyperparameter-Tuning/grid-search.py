@@ -53,3 +53,24 @@ for learn_rate in learn_rate_list:
             
 # Print results
 print(results_list)   
+
+# B. Grid search with Scikit learn
+# 1. GridSearchCV with Scikit Learn
+# Create a Random Forest Classifier with specified criterion
+rf_class = RandomForestClassifier(criterion='entropy')
+
+# Create the parameter grid
+param_grid = {'max_depth': [2, 4, 8, 15], 'max_features': ['auto', 'sqrt']} 
+
+# Create a GridSearchCV object
+# n_jobs: the number of CPU cores that are available to use. Can be used for parallel computing
+# refit: keeps the best model for refitting. Can use the output from the GridSearchCV() results with this option to make predictions
+# return_train_score: keeps all of the grid search results for each param_grid combination that was tested
+grid_rf_class = GridSearchCV(
+    estimator=rf_class,
+    param_grid=param_grid,
+    scoring='roc_auc',
+    n_jobs=4,
+    cv=5,
+    refit=True, return_train_score=True)
+print(grid_rf_class)
