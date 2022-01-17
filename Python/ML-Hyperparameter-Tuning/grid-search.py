@@ -38,3 +38,18 @@ def gbm_grid_search_extended(learn_rate, max_depth, subsample):
     
     # Extend the return part
     return([learn_rate, max_depth, subsample, accuracy_score(y_test, predictions)]) 
+
+# Create the new list to test
+subsample_list = [0.4, 0.6]
+
+for learn_rate in learn_rate_list:
+    for max_depth in max_depth_list:
+    
+    	# Extend the for loop
+        for subsample in subsample_list:
+        	
+            # Extend the results to include the new hyperparameter
+            results_list.append(gbm_grid_search_extended(learn_rate, max_depth, subsample))
+            
+# Print results
+print(results_list)   
