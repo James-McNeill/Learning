@@ -35,3 +35,14 @@ combinations_random_chosen = random.sample(combinations_list, 150)
 # Print the result
 print(combinations_random_chosen)
 
+# 3. Visualizing a Random Search
+# Confirm how many hyperparameter combinations & print
+number_combs = len(combinations_list)
+print(number_combs)
+
+# Sample and visualise specified combinations. As this number increases the output looks closer to the full grid search algorithm
+for x in [50, 500, 1500]:
+    sample_and_visualize_hyperparameters(x)
+    
+# Sample all the hyperparameter combinations & visualise
+sample_and_visualize_hyperparameters(number_combs)
