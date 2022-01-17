@@ -24,3 +24,9 @@ def sample_and_visualize_hyperparameters(n_samples):
   plt.gca().set_xlim(x_lims)
   plt.gca().set_ylim(y_lims)
   plt.show()
+
+# Code used to set the limits for x and y axis
+# Setting limits from the potential range of values for a data visualization
+# Make sure we set the limits of Y and X appriately
+x_lims = [np.min(learn_rate_list), np.max(learn_rate_list)]
+y_lims = [np.min(min_samples_leaf_list), np.max(min_samples_leaf_list)]
