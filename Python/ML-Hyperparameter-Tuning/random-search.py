@@ -46,3 +46,22 @@ for x in [50, 500, 1500]:
     
 # Sample all the hyperparameter combinations & visualise
 sample_and_visualize_hyperparameters(number_combs)
+
+# B. Randomized search in scikit learn
+# 1. The Randomized Search CV Object
+# Create the parameter grid
+param_grid = {'learning_rate': np.linspace(0.1,2,150), 'min_samples_leaf': list(range(20,65))} 
+
+# Create a random search object
+random_GBM_class = RandomizedSearchCV(
+    estimator = GradientBoostingClassifier(),
+    param_distributions = param_grid,
+    n_iter = 10,
+    scoring='accuracy', n_jobs=4, cv = 5, refit=True, return_train_score = True)
+
+# Fit to the training data
+random_GBM_class.fit(X_train, y_train)
+
+# Print the values used for both hyperparameters
+print(random_GBM_class.cv_results_['param_learning_rate'])
+print(random_GBM_class.cv_results_['param_min_samples_leaf'])
