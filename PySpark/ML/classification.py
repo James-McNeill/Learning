@@ -29,3 +29,20 @@ flights_km = flights_km.withColumn('label', (flights.delay >= 15).cast('integer'
 
 # Check first five records
 flights_km.show(5)
+
+# 3. Categorical columns
+from pyspark.ml.feature import StringIndexer
+
+# Create an indexer
+indexer = StringIndexer(inputCol='carrier', outputCol='carrier_idx')
+
+# Indexer identifies categories in the data
+indexer_model = indexer.fit(flights)
+
+# Indexer creates a new column with numeric index values. By default, the indexer will order the string by frequency of category values, with most frequent
+# receiving 0 and working in order to the max number of category values
+flights_indexed = indexer_model.transform(flights)
+
+# Repeat the process for the other categorical feature
+flights_indexed = StringIndexer(inputCol='org', outputCol='org_idx').fit(flights_indexed).transform(flights_indexed)
+flights_indexed.show(5)
