@@ -46,3 +46,27 @@ flights_indexed = indexer_model.transform(flights)
 # Repeat the process for the other categorical feature
 flights_indexed = StringIndexer(inputCol='org', outputCol='org_idx').fit(flights_indexed).transform(flights_indexed)
 flights_indexed.show(5)
+
+# 4. Assembling columns
+# The final stage of data preparation is to consolidate all of the predictor columns into a single column. The ML methods in PySpark require only one vector column
+# as a feature input
+# Import the necessary class
+from pyspark.ml.feature import VectorAssembler
+
+# Create an assembler object
+assembler = VectorAssembler(inputCols=[
+    'mon',
+    'dom',
+    'dow',
+    'carrier_idx',
+    'org_idx',
+    'km',
+    'depart',
+    'duration'    
+], outputCol='features')
+
+# Consolidate predictor columns
+flights_assembled = assembler.transform(flights)
+
+# Check the resulting column
+flights_assembled.select('features', 'delay').show(5, truncate=False)
