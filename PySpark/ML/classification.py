@@ -70,3 +70,12 @@ flights_assembled = assembler.transform(flights)
 
 # Check the resulting column
 flights_assembled.select('features', 'delay').show(5, truncate=False)
+
+# B. Decision Tree
+# 1. Train/Test split
+# Split into training and testing sets in a 80:20 ratio
+flights_train, flights_test = flights.randomSplit([0.8, 0.2], seed=17)
+
+# Check that training set has around 80% of records
+training_ratio = flights_train.count() / flights.count()
+print(training_ratio)
