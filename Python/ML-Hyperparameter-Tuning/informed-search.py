@@ -64,3 +64,19 @@ p_close = 0.07
 p_close_unhappy = (p_unhappy_close * p_close) / p_unhappy
 print(p_close_unhappy)
 
+# 2. Bayesian Hyperparameter tuning
+# Bayesian hyperparameter optimization process using the package Hyperopt (already imported as hp for you)
+# Set up space dictionary with specified hyperparameters
+space = {'max_depth': hp.quniform('max_depth', 2, 10, 2),'learning_rate': hp.uniform('learning_rate', 0.001,0.9)}
+
+# Set up objective function
+def objective(params):
+    params = {'max_depth': int(params['max_depth']),'learning_rate': params['learning_rate']}
+    gbm_clf = GradientBoostingClassifier(n_estimators=100, **params) 
+    best_score = cross_val_score(gbm_clf, X_train, y_train, scoring='accuracy', cv=2, n_jobs=4).mean()
+    loss = 1 - best_score
+    return loss
+
+# Run the algorithm
+best = fmin(fn=objective,space=space, max_evals=20, rstate=np.random.RandomState(42), algo=tpe.suggest)
+print(best)
