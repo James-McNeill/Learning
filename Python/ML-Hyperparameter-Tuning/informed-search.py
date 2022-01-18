@@ -99,3 +99,16 @@ tpot_clf.fit(X_train, y_train)
 
 # Score on the test set
 print(tpot_clf.score(X_test, y_test))
+
+# 2. Analysing TPOT's stability
+# You will now see the random nature of TPOT by constructing the classifier with different random states and seeing what model is found to be best by the algorithm. 
+# This assists to see that TPOT is quite unstable when not run for a reasonable amount of time
+# Create the tpot classifier 
+tpot_clf = TPOTClassifier(generations=2, population_size=4, offspring_size=3, scoring='accuracy', cv=2,
+                          verbosity=2, random_state=99)
+
+# Fit the classifier to the training data
+tpot_clf.fit(X_train, y_train)
+
+# Score on the test set
+print(tpot_clf.score(X_test, y_test))
