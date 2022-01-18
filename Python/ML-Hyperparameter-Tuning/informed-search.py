@@ -50,3 +50,17 @@ learn_rate_list = np.linspace(0.001,1,50)
 
 # Call the function to visualize the second results. For this function the results_df was updated with the new list's above to see the difference in model accuracy
 visualize_second()
+
+# B. Bayesian Statistics
+# 1. Bayes Rule in Python
+# Assign probabilities to variables 
+p_unhappy = 0.15
+p_unhappy_close = 0.35
+
+# Probabiliy someone will close
+p_close = 0.07
+
+# Probability unhappy person will close
+p_close_unhappy = (p_unhappy_close * p_close) / p_unhappy
+print(p_close_unhappy)
+
