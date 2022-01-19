@@ -76,3 +76,19 @@ predictions = regression.transform(flights_test)
 # Calculate the RMSE on testing data
 RegressionEvaluator(labelCol='duration').evaluate(predictions)
 
+# 4. Interpreting coefficients
+# Average speed in km per hour
+avg_speed_hour = 60 / regression.coefficients[0]
+print(avg_speed_hour)
+
+# Average minutes on ground at OGG
+inter = regression.intercept
+print(inter)
+
+# Average minutes on ground at JFK
+avg_ground_jfk = inter + regression.coefficients[3]
+print(avg_ground_jfk)
+
+# Average minutes on ground at LGA
+avg_ground_lga = inter + regression.coefficients[4]
+print(avg_ground_lga)
