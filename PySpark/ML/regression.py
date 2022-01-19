@@ -16,3 +16,19 @@ flights_onehot = onehot.transform(flights)
 
 # Check the results. Note that the final category doesn't receive a value as it will be the remaining group if no other dummy value has been assigned
 flights_onehot.select('org', 'org_idx', 'org_dummy').distinct().sort('org_idx').show()
+
+# 2. Dense versus sparse vectors
+
+from pyspark.mllib.linalg import DenseVector, SparseVector
+# Store this vector:[1,0,0,0,0,7,0,0]
+# All of the values will be stored. This will consume a lot of memory particularly as most values are zero. A sparse vector can help.
+DenseVector([1, 0, 0, 0, 0, 7, 0, 0])
+# Result
+DenseVector([1.0, 0.0, 0.0, 0.0, 0.0, 7.0, 0.0, 0.0])
+
+# Sparse vector parameters are; 1) the length of the vector, 2) list of index values were a value > 0 is present, and 3) values in the index positions
+SparseVector(8, [0, 5], [1, 7])
+# Result
+SparseVector(8, {0: 1.0, 5: 7.0})
+
+# B.
