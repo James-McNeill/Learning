@@ -80,3 +80,19 @@ cv = CrossValidator(estimator=pipeline,
           estimatorParamMaps=params,
           evaluator=evaluator)
 
+# C. Grid search
+# 1. Optimizing flights linear regression
+# Create parameter grid
+params = ParamGridBuilder()
+
+# Add grids for two parameters
+params = params.addGrid(regression.regParam, [0.01, 0.1, 1, 10]) \
+               .addGrid(regression.elasticNetParam, [0, 0.5, 1])
+
+# Build the parameter grid
+params = params.build()
+print('Number of models to be tested: ', len(params))
+
+# Create cross-validator
+cv = CrossValidator(estimator=pipeline, estimatorParamMaps=params, evaluator=evaluator, numFolds=5)
+
