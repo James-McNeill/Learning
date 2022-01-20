@@ -110,3 +110,18 @@ best_model.stages[3].extractParamMap()
 predictions = best_model.transform(flights_test)
 evaluator.evaluate(predictions)
 
+# 3. SMS spam optimised
+# Create parameter grid
+params = ParamGridBuilder()
+
+# Add grid for hashing trick parameters
+params = params.addGrid(hasher.numFeatures, [1024, 4096, 16384]) \
+               .addGrid(hasher.binary, [True, False])
+
+# Add grid for logistic regression parameters
+params = params.addGrid(logistic.regParam, [0.01, 0.1, 1, 10]) \
+               .addGrid(logistic.elasticNetParam, [0, 0.5, 1])
+
+# Build parameter grid
+params = params.build()
+
