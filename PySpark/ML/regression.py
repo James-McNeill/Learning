@@ -111,3 +111,20 @@ onehot = OneHotEncoderEstimator(inputCols=['depart_bucket'], outputCols=['depart
 flights_onehot = onehot.fit(bucketed).transform(bucketed)
 flights_onehot.select('depart', 'depart_bucket', 'depart_dummy').show(5)
 
+# 2. Flight duration model: Adding departure time
+# Find the RMSE on testing data
+from pyspark.ml.evaluation import RegressionEvaluator
+RegressionEvaluator(labelCol='duration').evaluate(predictions)
+
+# Average minutes on ground at OGG for flights departing between 21:00 and 24:00
+avg_eve_ogg = regression.intercept
+print(avg_eve_ogg)
+
+# Average minutes on ground at OGG for flights departing between 00:00 and 03:00
+avg_night_ogg = regression.intercept + regression.coefficients[8]
+print(avg_night_ogg)
+
+# Average minutes on ground at JFK for flights departing between 00:00 and 03:00
+avg_night_jfk = regression.intercept + regression.coefficients[3] + regression.coefficients[8]
+print(avg_night_jfk)
+
