@@ -128,7 +128,7 @@ print(avg_night_ogg)
 avg_night_jfk = regression.intercept + regression.coefficients[3] + regression.coefficients[8]
 print(avg_night_jfk)
 
-# D. Regularization
+# D. Regularisation
 # 1. Flight duration model: More features
 from pyspark.ml.regression import LinearRegression
 from pyspark.ml.evaluation import RegressionEvaluator
@@ -147,4 +147,22 @@ print("The test RMSE is", rmse)
 coeffs = regression.coefficients
 print(coeffs)
 
-# 2. 
+# 2. Flight duration model: Regularisation
+# Helps to simplify the model by reducing the number of model coefficients used but still maintaining or improving the strength of the model
+from pyspark.ml.regression import LinearRegression
+from pyspark.ml.evaluation import RegressionEvaluator
+
+# Fit Lasso model (α = 1) to training data. Ridge regression is created using elasticNetParam = 0
+regression = LinearRegression(labelCol='duration', regParam=1, elasticNetParam=1).fit(flights_train)
+
+# Calculate the RMSE on testing data
+rmse = RegressionEvaluator(labelCol='duration').evaluate(regression.transform(flights_test))
+print("The test RMSE is", rmse)
+
+# Look at the model coefficients
+coeffs = regression.coefficients
+print(coeffs)
+
+# Number of zero coefficients
+zero_coeff = sum([beta == 0 for beta in regression.coefficients])
+print("Number of coefficients equal to 0:", zero_coeff)
