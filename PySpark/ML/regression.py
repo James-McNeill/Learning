@@ -92,3 +92,22 @@ print(avg_ground_jfk)
 # Average minutes on ground at LGA
 avg_ground_lga = inter + regression.coefficients[4]
 print(avg_ground_lga)
+
+# C. Bucketing and Engineering
+# 1. Bucketing departure time
+from pyspark.ml.feature import Bucketizer, OneHotEncoderEstimator
+
+# Create buckets at 3 hour intervals through the day
+buckets = Bucketizer(splits=[0, 3, 6, 9, 12, 15, 18, 21, 24], inputCol='depart', outputCol='depart_bucket')
+
+# Bucket the departure times
+bucketed = buckets.transform(flights)
+bucketed.select('depart', 'depart_bucket').show(5)
+
+# Create a one-hot encoder
+onehot = OneHotEncoderEstimator(inputCols=['depart_bucket'], outputCols=['depart_dummy'])
+
+# One-hot encode the bucketed departure times. Now the dummy variable can be used within the Regression model.
+flights_onehot = onehot.fit(bucketed).transform(bucketed)
+flights_onehot.select('depart', 'depart_bucket', 'depart_dummy').show(5)
+
