@@ -14,7 +14,7 @@ onehot = OneHotEncoderEstimator(
 )
 
 # Assemble predictors into a single column
-assembler = VectorAssembler(inputCols=['km', 'org_dummy', 'dow_dummy'], outputCol=['features'])
+assembler = VectorAssembler(inputCols=['km', 'org_dummy', 'dow_dummy'], outputCol='features')
 
 # A linear regression object
 regression = LinearRegression(labelCol='duration')
