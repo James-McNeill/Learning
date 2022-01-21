@@ -39,3 +39,48 @@ def own_logloss(y_true, prob_pred):
 
 print('Sklearn LogLoss: {:.5f}'.format(log_loss(y_classification_true, y_classification_pred)))
 print('Your LogLoss: {:.5f}'.format(own_logloss(y_classification_true, y_classification_pred)))
+
+# B. Initial EDA
+# 1. EDA Statistics
+# Shapes of train and test data
+print('Train shape:', train.shape)
+print('Test shape:', test.shape)
+
+# Train head()
+print(train.head())
+
+# Describe the target variable
+print(train.fare_amount.describe())
+
+# Train distribution of passengers within rides
+print(train.passenger_count.value_counts())
+
+# 2. EDA plots I
+# Calculate the ride distance
+train['distance_km'] = haversine_distance(train)
+
+# Draw a scatterplot
+plt.scatter(x=train['fare_amount'], y=train['distance_km'], alpha=0.5)
+plt.xlabel('Fare amount')
+plt.ylabel('Distance, km')
+plt.title('Fare amount based on the distance')
+
+# Limit on the distance
+plt.ylim(0, 50)
+plt.show()
+
+# 3. EDA plots II
+# Create hour feature
+train['pickup_datetime'] = pd.to_datetime(train.pickup_datetime)
+train['hour'] = train.pickup_datetime.dt.hour
+
+# Find median fare_amount for each hour
+hour_price = train.groupby('hour', as_index=False)['fare_amount'].median()
+
+# Plot the line plot
+plt.plot(hour_price['hour'], hour_price['fare_amount'], marker='o')
+plt.xlabel('Hour of the day')
+plt.ylabel('Median fare amount')
+plt.title('Fare amount based on day time')
+plt.xticks(range(24))
+plt.show()
