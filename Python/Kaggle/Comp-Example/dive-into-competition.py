@@ -140,4 +140,40 @@ for train_index, test_index in time_kfold.split(train):
     print('Test date range: from {} to {}\n'.format(cv_test.date.min(), cv_test.date.max()))
     fold += 1
 
-# 2. 
+# 2. Overall validation score
+def get_fold_mse(train, kf):
+    mse_scores = []
+    
+    for train_index, test_index in kf.split(train):
+        fold_train, fold_test = train.loc[train_index], train.loc[test_index]
+
+        # Fit the data and make predictions
+        # Create a Random Forest object
+        rf = RandomForestRegressor(n_estimators=10, random_state=123)
+
+        # Train a model
+        rf.fit(X=fold_train[['store', 'item']], y=fold_train['sales'])
+
+        # Get predictions for the test set
+        pred = rf.predict(fold_test[['store', 'item']])
+    
+        fold_score = round(mean_squared_error(fold_test['sales'], pred), 5)
+        mse_scores.append(fold_score)
+        
+    return mse_scores
+
+from sklearn.model_selection import TimeSeriesSplit
+import numpy as np
+
+# Sort train data by date
+train = train.sort_values('date')
+
+# Initialize 3-fold time cross-validation
+kf = TimeSeriesSplit(n_splits=3)
+
+# Get MSE scores for each cross-validation split
+mse_scores = get_fold_mse(train, kf)
+
+print('Mean validation MSE: {:.5f}'.format(np.mean(mse_scores)))
+print('MSE by fold: {}'.format(mse_scores))
+print('Overall validation MSE: {:.5f}'.format(np.mean(mse_scores) + np.std(mse_scores)))
