@@ -103,4 +103,59 @@ for max_depth_candidate, subsample_candidate in itertools.product(max_depth_grid
     results[(max_depth_candidate, subsample_candidate)] = validation_score   
 print(results)
 
-# C. 
+# C. Model ensembling
+# 1. Model blending
+from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
+
+# Train a Gradient Boosting model
+gb = GradientBoostingRegressor().fit(train[features], train.fare_amount)
+
+# Train a Random Forest model
+rf = RandomForestRegressor().fit(train[features], train.fare_amount)
+
+# Make predictions on the test data
+test['gb_pred'] = gb.predict(test[features])
+test['rf_pred'] = rf.predict(test[features])
+
+# Find mean of model predictions
+test['blend'] = (test['gb_pred'] + test['rf_pred']) / 2
+print(test[['gb_pred', 'rf_pred', 'blend']].head(3))
+
+# 2. Model stacking I
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
+
+# Split train data into two parts
+part_1, part_2 = train_test_split(train, test_size=0.5, random_state=123)
+
+# Train a Gradient Boosting model on Part 1
+gb = GradientBoostingRegressor().fit(part_1[features], part_1.fare_amount)
+
+# Train a Random Forest model on Part 1
+rf = RandomForestRegressor().fit(part_1[features], part_1.fare_amount)
+
+# Make predictions on the Part 2 data
+part_2['gb_pred'] = gb.predict(part_2[features])
+part_2['rf_pred'] = rf.predict(part_2[features])
+
+# Make predictions on the test data
+test['gb_pred'] = gb.predict(test[features])
+test['rf_pred'] = rf.predict(test[features])
+
+# 3. Model stacking II
+# Usually, the 2nd level model is some simple model like Linear or Logistic Regressions. 
+# Also, note that you were not using intercept in the Linear Regression just to combine pure model predictions. 
+# Looking at the coefficients, it's clear that 2nd level model has more trust to the Gradient Boosting: 0.7 versus 0.3 for the Random Forest model.
+from sklearn.linear_model import LinearRegression
+
+# Create linear regression model without the intercept
+lr = LinearRegression(fit_intercept=False)
+
+# Train 2nd level model on the Part 2 data
+lr.fit(part_2[['gb_pred', 'rf_pred']], part_2.fare_amount)
+
+# Make stacking predictions on the test data
+test['stacking'] = lr.predict(test[['gb_pred', 'rf_pred']])
+
+# Look at the model coefficients
+print(lr.coef_)
