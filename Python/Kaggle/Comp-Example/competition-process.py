@@ -46,4 +46,21 @@ params = {'objective': 'reg:linear',
 # Train xgboost model
 xg_depth_15 = xgb.train(params=params, dtrain=dtrain)
 
-# 2. 
+# 2. Explore overfitting XGBoost
+from sklearn.metrics import mean_squared_error
+
+dtrain = xgb.DMatrix(data=train[['store', 'item']])
+dtest = xgb.DMatrix(data=test[['store', 'item']])
+
+# For each of 3 trained models
+for model in [xg_depth_2, xg_depth_8, xg_depth_15]:
+    # Make predictions
+    train_pred = model.predict(dtrain)     
+    test_pred = model.predict(dtest)          
+    
+    # Calculate metrics
+    mse_train = mean_squared_error(train['sales'], train_pred)                  
+    mse_test = mean_squared_error(test['sales'], test_pred)
+    print('MSE Train: {:.3f}. MSE Test: {:.3f}'.format(mse_train, mse_test))
+
+# The deeper the tree (max_depth increases) the more overfitted the training MSE became relative to the testing
