@@ -165,4 +165,32 @@ train['RoofStyle_enc'], test['RoofStyle_enc'] = mean_target_encoding(train=train
 # Look at the encoding
 print(test[['RoofStyle', 'RoofStyle_enc']].drop_duplicates())
 
-# D. 
+# D. Missing data
+# 1. Find missing data
+# Read DataFrame
+twosigma = pd.read_csv('twosigma_train.csv')
+
+# Find the number of missing values in each column
+print(twosigma.isnull().sum())
+
+# Look at the columns with the missing values
+print(twosigma[['building_id', 'price']].head())
+
+# 2. Impute missing data
+# Import SimpleImputer
+from sklearn.impute import SimpleImputer
+
+# Create mean imputer
+mean_imputer = SimpleImputer(strategy='mean')
+
+# Price imputation
+rental_listings[['price']] = mean_imputer.fit_transform(rental_listings[['price']])
+
+# Import SimpleImputer
+from sklearn.impute import SimpleImputer
+
+# Create constant imputer
+constant_imputer = SimpleImputer(strategy='constant', fill_value='MISSING')
+
+# building_id imputation
+rental_listings[['building_id']] = constant_imputer.fit_transform(rental_listings[['building_id']])
