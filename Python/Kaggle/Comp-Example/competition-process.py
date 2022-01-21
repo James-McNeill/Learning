@@ -28,3 +28,22 @@ test['sales'] = rf.predict(test[['store', 'item']])
 # Write test predictions using the sample_submission format
 test[['id', 'sales']].to_csv('kaggle_submission.csv', index=False)
 
+# B. Public vs private leaderboard
+# Potential for overfitting the data. If you do really well on the public leaderboard but poorly on the final shake-up for the private leaderboard
+# then the model overfitted the data.
+# 1. Train XGBoost models
+import xgboost as xgb
+
+# Create DMatrix on train data
+dtrain = xgb.DMatrix(data=train[['store', 'item']],
+                     label=train['sales'])
+
+# Define xgboost parameters
+params = {'objective': 'reg:linear',
+          'max_depth': 15,
+          'silent': 1}
+
+# Train xgboost model
+xg_depth_15 = xgb.train(params=params, dtrain=dtrain)
+
+# 2. 
