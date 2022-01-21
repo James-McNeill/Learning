@@ -121,4 +121,23 @@ for train_index, test_index in str_kf.split(train, train['interest_level']):
     print('Medium interest listings in CV train: {}\n'.format(sum(cv_train.interest_level == 'medium')))
     fold += 1
 
-# C. 
+# C. Validation usage
+# 1. Time K-fold
+# Note that the train DataFrame is already available in your workspace, and that TimeSeriesSplit has been imported from sklearn.model_selection
+# Create TimeSeriesSplit object
+time_kfold = TimeSeriesSplit(n_splits=3)
+
+# Sort train data by date
+train = train.sort_values('date')
+
+# Iterate through each split
+fold = 0
+for train_index, test_index in time_kfold.split(train):
+    cv_train, cv_test = train.iloc[train_index], train.iloc[test_index]
+    
+    print('Fold :', fold)
+    print('Train date range: from {} to {}'.format(cv_train.date.min(), cv_train.date.max()))
+    print('Test date range: from {} to {}\n'.format(cv_test.date.min(), cv_test.date.max()))
+    fold += 1
+
+# 2. 
