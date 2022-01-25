@@ -67,3 +67,18 @@ every_two_weeks <- 1:26 * weeks(2)
 
 # Create datetime for every two weeks for a year
 today_8am + every_two_weeks
+
+# 4. The tricky thing about months
+# If you'd prefer that the date was rolled forward check out add_with_rollback() which has roll_to_first argument.
+# A sequence of 1 to 12 periods of 1 month
+month_seq <- 1:12 * months(1)
+
+# Add 1 to 12 months to jan_31. If the 31st is missing for a month then no month will be displayed
+jan_31 + month_seq
+
+# Replace + with %m+%. Provides the end of each month going forward 12 months
+jan_31 %m+% month_seq
+
+# Replace + with %m-%. Provides the end of each month going back 12 months
+jan_31 %m-% month_seq
+
