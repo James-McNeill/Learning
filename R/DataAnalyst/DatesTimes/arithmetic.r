@@ -82,3 +82,40 @@ jan_31 %m+% month_seq
 # Replace + with %m-%. Provides the end of each month going back 12 months
 jan_31 %m-% month_seq
 
+# C. Intervals
+# 1. Examining intervals. Reigns of kings and queens
+# Print monarchs
+ print(monarchs)
+
+# Create an interval for reign
+# Properties available to use
+# int_start(), int_end() and int_length()
+monarchs <- monarchs %>%
+  mutate(reign = from %--% to) 
+
+# Find the length of reign, and arrange
+monarchs %>%
+  mutate(length = int_length(reign)) %>% 
+  arrange(desc(length)) %>%
+  select(name, length, dominion)
+
+# 2. Comparing intervals and datetimes
+# Print halleys
+halleys
+
+# New column for interval from start to end date
+halleys <- halleys %>% 
+  mutate(visible = start_date %--% end_date)
+
+# The visitation of 1066
+halleys_1066 <- halleys[14, ] 
+
+# Monarchs in power on perihelion date
+monarchs %>% 
+  filter(halleys_1066$perihelion_date %within% reign) %>%
+  select(name, from, to, dominion)
+
+# Monarchs whose reign overlaps visible time
+monarchs %>% 
+  filter(int_overlaps(halleys_1066$visible, reign)) %>%
+  select(name, from, to, dominion)
