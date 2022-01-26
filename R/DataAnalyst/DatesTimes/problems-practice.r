@@ -61,3 +61,56 @@ head(akl_hourly$time)
 # A plot using just time
 ggplot(akl_hourly, aes(x = time, y = temperature)) +
   geom_line(aes(group = make_date(year, month, mday)), alpha = 0.2)
+
+# B. More on importing and exporting datetimes
+# The fasttime package provides a single function fastPOSIXct(), designed to read in datetimes formatted according to ISO 8601. 
+# Because it only reads in one format, and doesn't have to guess a format, it is really fast!
+# 1. Fast parsing with fasttime
+library(microbenchmark)
+library(fasttime)
+
+# Examine structure of dates
+str(dates)
+
+# Use fastPOSIXct() to parse dates
+fastPOSIXct(dates) %>% str()
+
+# Compare speed of fastPOSIXct() to ymd_hms()
+microbenchmark(
+  ymd_hms = ymd_hms(dates),
+  fasttime = fastPOSIXct(dates),
+  times = 20)
+
+# 2. Fast parsing with lubridate::fast_strptime
+# Head of dates
+head(dates)
+
+# Parse dates with fast_strptime
+fast_strptime(dates, 
+    format = "%Y-%m-%dT%H:%M:%SZ") %>% str()
+
+# Comparse speed to ymd_hms() and fasttime
+microbenchmark(
+  ymd_hms = ymd_hms(dates),
+  fasttime = fastPOSIXct(dates),
+  fast_strptime = fast_strptime(dates, 
+    format = "%Y-%m-%dT%H:%M:%SZ"),
+  times = 20)
+
+# 3. Outputting pretty dates and times
+# An easy way to output dates is to use the stamp() function in lubridate. stamp() takes a string which should 
+# be an example of how the date should be formatted, and returns a function that can be used to format dates.
+# Create a stamp based on "Saturday, Jan 1, 2000"
+date_stamp <- stamp("Saturday, Jan 1, 2000")
+
+# Print date_stamp
+print(date_stamp)
+
+# Call date_stamp on today()
+date_stamp(today())
+
+# Create and call a stamp based on "12/31/1999"
+stamp("12/31/1999")(today())
+
+# Use string finished for stamp()
+stamp(finished)(today())
