@@ -25,5 +25,14 @@ if "Brazil" in CountrySet:
 Dictionary = {
   "Key":"Value",
   "Key2":"Value2",
-  
+  "Key3":"Value3"
 }
+
+CountryDict = {} # Create empty dictionary
+for Country in CountryList:
+  if Country in CountryDict: # checks if the country key already exists
+    CountryDict[Country] += 1
+  else:
+    CountryDict[Country] = 1 # if the country key doesn't exist, add the new key and increment
+
+print(CountryDict)
