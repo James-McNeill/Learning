@@ -36,3 +36,19 @@ for Country in CountryList:
     CountryDict[Country] = 1 # if the country key doesn't exist, add the new key and increment
 
 print(CountryDict)
+
+# Examples
+BlackShoes = {42:2, 41:3, 40:4, 39:1, 38:0}
+
+print(BlackShoes) # number of black shoes available
+while(True): # True == True
+  purchaseSize = int(input("Which shoe size would you like to buy?\n"))
+  if purchaseSize < 0: # Need to break out of the loop
+    break
+  if BlackShoes[purchaseSize] > 0: # if a shoe size is in stock
+    BlackShoes[purchaseSize] -= 1
+  else:
+    print("Shoes are no longer in stock")
+  print(BlackShoes) # after purchase, what is the new inventory for shoe sizes
+  
+  
