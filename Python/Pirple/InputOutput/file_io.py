@@ -22,7 +22,32 @@ VacationFile.close()
 
 # Lets read the file
 VacationFile = open("VacationPlaces", "r") 
-TheWholeFile = VacationFile.read() # Be careful if the file is large
-print(TheWholeFile)
+
+# Lets step through the lines within the read file
+FirstLine = VacationFile.readline()
+print(FirstLine)
+for line in VacationFile:
+  print(line, end="")
+
+# TheWholeFile = VacationFile.read() # Be careful if the file is large
+# print(TheWholeFile)
 
 VacationFile.close()
+
+# Append an additional city to the file
+FinalSpot = "Dublin"
+VacationFile = open("VacationPlaces", "a")
+VacationFile.write(FinalSpot)
+VacationFile.close()
+
+# Read the file after the append
+VacationFile = open("VacationPlaces", "r") 
+for line in VacationFile:
+  print(line, end="")
+
+VacationFile.close()
+
+# To ensure that the file doesn't remain open. Where the user forgets to close the file, we can use "with"
+with open("VacationPlaces", "r") as VacationFile:
+  for line in VacationFile:
+    print(line, end="")
