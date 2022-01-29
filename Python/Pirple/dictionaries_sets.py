@@ -1,6 +1,6 @@
 # Working with sets and dictionaries
 
-# Sets - order does not matter but all values are unique
+# A. Sets - order does not matter but all values are unique
 Sets = {"Element1", "Element2", "Element1", "Element4")}
 print(Sets)
 >> "Element1", "Element2", "Element4"
@@ -20,3 +20,10 @@ print(CountrySet)
 # Check for country in set
 if "Brazil" in CountrySet:
   print("attended")
+
+# B. Dictionaries
+Dictionary = {
+  "Key":"Value",
+  "Key2":"Value2",
+  
+}
