@@ -73,3 +73,23 @@ plt.plot(aapl_data['Close'], color='red', label='Close')
 plt.title('Simple moving averages')
 plt.legend()
 plt.show()
+
+# C. Financial trading with bt
+# 1. Define and backtest a simple strategy
+# The bt package
+# A flexible framework for defining and backtesting trading strategies. The strategy related to trading the FAANG companies over a six month period
+# Define the strategy
+bt_strategy = bt.Strategy('Trade_Weekly', 
+                         [bt.algos.RunWeekly(),
+                          bt.algos.SelectAll(),
+                          bt.algos.WeighEqually(),
+                          bt.algos.Rebalance()])
+# Create a backtest
+bt_test = bt.Backtest(bt_strategy, bt_data)
+
+# Run the backtest
+bt_res = bt.run(bt_test)
+
+# Plot the test result
+bt_res.plot(title="Backtest result")
+plt.show()
