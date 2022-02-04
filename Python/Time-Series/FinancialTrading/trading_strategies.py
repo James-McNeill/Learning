@@ -98,3 +98,26 @@ bt_result.plot(title='Backtest result')
 plt.show()
 
 # D. Strategy optimization and benchmarking
+# 1. Conduct a strategy optimization
+# Create a function for the signal strength
+def signal_strategy(price_data, period, name):
+    # Calculate SMA
+    sma = price_data.rolling(period).mean()
+    # Define the signal-based Strategy
+    bt_strategy = bt.Strategy(name, 
+                              [bt.algos.SelectWhere(price_data > sma),
+                               bt.algos.WeighEqually(),
+                               bt.algos.Rebalance()])
+    # Return the backtest
+    return bt.Backtest(bt_strategy, price_data)
+
+# Experiment with different strategy time periods
+# Create signal strategy backtest
+sma10 = signal_strategy(price_data, period=10, name='SMA10')
+sma30 = signal_strategy(price_data, period=30, name='SMA30')
+sma50 = signal_strategy(price_data, period=50, name='SMA50')
+
+# Run all backtests and plot the resutls
+bt_results = bt.run(sma10, sma30, sma50)
+bt_results.plot(title='Strategy optimization')
+plt.show()
