@@ -107,3 +107,19 @@ ax2.plot(stock_data['RSI'], color='orangered')
 ax1.set_title('Price and RSI')
 plt.show()
 
+# D. Volatility indicator: Bollinger Bands
+# 1. Implement Bollinger Bands
+# Define the Bollinger Bands with 2-sd
+upper_2sd, mid_2sd, lower_2sd = talib.BBANDS(bitcoin_data['Close'],
+                                     nbdevup=2,
+                                     nbdevdn=2,
+                                     timeperiod=20)
+# Plot the upper and lower Bollinger Bands 
+plt.plot(bitcoin_data['Close'], color='green', label='Price')
+plt.plot(upper_2sd, color='orange', label='Upper 2sd')
+plt.plot(lower_2sd, color='orange', label='Lower 2sd')
+
+# Customize and show the plot
+plt.legend(loc='upper left')
+plt.title('Bollinger Bands (2sd)')
+plt.show()
