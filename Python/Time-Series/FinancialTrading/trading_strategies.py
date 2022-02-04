@@ -121,3 +121,23 @@ sma50 = signal_strategy(price_data, period=50, name='SMA50')
 bt_results = bt.run(sma10, sma30, sma50)
 bt_results.plot(title='Strategy optimization')
 plt.show()
+
+# 2. Perform a strategy benchmarking
+# Define a buy and hold strategy for the stock price. This will be a good comparison to the actual trading strategies
+def buy_and_hold(price_data, name):
+    # Define the benchmark strategy
+    bt_strategy = bt.Strategy(name, 
+                              [bt.algos.RunOnce(),
+                               bt.algos.SelectAll(),
+                               bt.algos.WeighEqually(),
+                               bt.algos.Rebalance()])
+    # Return the backtest
+    return bt.Backtest(bt_strategy, price_data)
+
+# Create benchmark strategy backtest
+benchmark = buy_and_hold(price_data, name='benchmark')
+
+# Run all backtests and plot the resutls
+bt_results = bt.run(sma10, sma30, sma50, benchmark)
+bt_results.plot(title='Strategy benchmarking')
+plt.show()
