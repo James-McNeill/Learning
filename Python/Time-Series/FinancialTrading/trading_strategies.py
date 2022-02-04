@@ -40,3 +40,34 @@ bt_result = bt.run(bt_backtest)
 bt_result.plot(title='Backtest result')
 plt.show()
 
+# B. Trend following strategies
+# 1. Construct an EMA crossover signal
+# Trend following stratgies believe that "the trend is your friend"
+# When the shorter-term EMA, EMA_short, is larger than the longer-term EMA, EMA_long, you will enter 
+# long positions in the market. Vice versa, when EMA_short is smaller than EMA_long, you will enter short positions.
+# A 10-day EMA and 40-day EMA have been pre-calculated and saved in EMA_short and EMA_long
+# Construct the signal
+signal[EMA_short > EMA_long] = 1
+signal[EMA_short < EMA_long] = -1
+
+# Merge the data 
+combined_df = bt.merge(signal, price_data, EMA_short, EMA_long)
+combined_df.columns = ['signal', 'Price', 'EMA_short', 'EMA_long']
+# Plot the signal, price and MAs
+combined_df.plot(secondary_y=['signal'])
+plt.show()
+
+# 2. Build and backtest a trend-following strategy
+# Define the strategy
+bt_strategy = bt.Strategy('EMA_crossover', 
+                          [bt.algos.WeighTarget(signal),
+                           bt.algos.Rebalance()])
+
+# Create the backtest and run it
+bt_backtest = bt.Backtest(bt_strategy, price_data)
+bt_result = bt.run(bt_backtest)
+
+# Plot the backtest result
+bt_result.plot(title='Backtest result')
+plt.show()
+
