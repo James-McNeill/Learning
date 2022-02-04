@@ -4,19 +4,15 @@
 Seeks to review the options available when assessing the repayment schedule of a loan.
 */
 
-/*Bring in a recent version of the account management table*/
+/*Bring in a recent version of the monthly reporting table
+VARIABLES: required to create the loan schedule
+ LOAN_ID, CURRENT_BALANCE, TERM, INTEREST_RATE, EXISTING_PAYMENT
+*/
 data act_all;
- set udm1.perm_ubdm_actmgt_mortlvl_2017_12
- (where=(/*system = 'GMS' and*/ drv_remaining_term > 0 and FINANCE_INTEREST_RATE > 0
-   /*and acc_incep_dt >= "01jun2017"d*/)
- keep=account_no brand system month drawdown_amt 
- tot_curr_bal_amt drv_CURR_TERM_OF_LOAN
- drv_REMAINING_TERM FINANCE_INTEREST_RATE
- drv_expected_payment drv_repay_amt
- drv_payments_missed tot_arr_bal_amt
- drawdown_dt acc_incep_dt);
+ set DATABASE.MONTHLY_REPORTING_TABLE
+ (where=(remaining_term > 0 and INTEREST_RATE > 0)
+ keep=VARIABLES);
 run;
-
 
 proc sort data=act_all out=act_all_1; by account_no; run;
 
@@ -25,11 +21,11 @@ data act_all_1;
  set act_all_1;
  by account_no;
 
- *Variables for schedule;
- term_remain_mth = round(drv_REMAINING_TERM * 12);
-/* int_rate_mth = (1 + (FINANCE_INTEREST_RATE/100))**(1/12) - 1;*/
- int_rate_mth = (finance_interest_rate / 100) / 12;
- payment = finance("PMT", int_rate_mth, term_remain_mth, -tot_curr_bal_amt);
+ *Variables for schedule. Term was in a yearly format;
+ term_remain_mth = round(REMAINING_TERM * 12);
+/* int_rate_mth = (1 + (INTEREST_RATE/100))**(1/12) - 1;*/
+ int_rate_mth = (interest_rate / 100) / 12;
+ payment = finance("PMT", int_rate_mth, term_remain_mth, -current_balance);
 
  *Project the schedule for review;
  do i = 1 to term_remain_mth;
@@ -64,15 +60,15 @@ data act_all_3;
  by account_no;
 
  *Review the shortfall;
- shortfall = tot_curr_bal_amt - pay_made;
- lgd = shortfall / tot_curr_bal_amt;
+ shortfall = current_balance - pay_made;
+ lgd = shortfall / current_balance;
 
 run;
 
 /*Review the cumulative interest and principal functions*/
 data act_all_3_acct;
- set act_all_1 (where=(account_no = 52012784));
+ set act_all_1 (where=(account_no = SAMPLE_LOAN_ID));
 
- cum_int = abs(finance("CUMIPMT", int_rate_mth, term_remain_mth, tot_curr_bal_amt, 1, mth, 0));
- cum_princ = finance("CUMPRINC", int_rate_mth, term_remain_mth, -tot_curr_bal_amt, 1, mth, 0);
+ cum_int = abs(finance("CUMIPMT", int_rate_mth, term_remain_mth, current_balance, 1, mth, 0));
+ cum_princ = finance("CUMPRINC", int_rate_mth, term_remain_mth, -current_balance, 1, mth, 0);
 run;
