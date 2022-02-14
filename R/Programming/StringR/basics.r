@@ -40,3 +40,67 @@ writeLines("This is a really\n really really\n long string")
 # Use writeLines() with 
 # "\u0928\u092e\u0938\u094d\u0924\u0947 \u0926\u0941\u0928\u093f\u092f\u093e"
 writeLines("\u0928\u092e\u0938\u094d\u0924\u0947 \u0926\u0941\u0928\u093f\u092f\u093e")
+
+# B. Turning numbers into strings
+# 1. Using format() with numbers
+# Some vectors of numbers
+percent_change  <- c(4, -1.91, 3.00, -5.002)
+income <-  c(72.19, 1030.18, 10291.93, 1189192.18)
+p_values <- c(0.12, 0.98, 0.0000191, 0.00000000002)
+
+# Format c(0.0011, 0.011, 1) with digits = 1
+format(c(0.0011, 0.011, 1), digits = 1)
+
+# Format c(1.0011, 2.011, 1) with digits = 1
+format(c(1.0011, 2.011, 1), digits = 1)
+
+# Format percent_change to one place after the decimal point
+format(percent_change, digits = 2)
+
+# Format income to whole numbers
+format(income, digits = 2)
+
+# Format p_values in fixed format
+format(p_values, scientific = FALSE)
+
+# 2. Controlling other aspects of the string
+formatted_income <- format(income, digits = 2)
+
+# Print formatted_income
+print(formatted_income)
+
+# Call writeLines() on the formatted income
+writeLines(formatted_income)
+
+# Define trimmed_income
+trimmed_income <- format(income, digits = 2, trim = TRUE)
+
+# Call writeLines() on the trimmed_income
+writeLines(trimmed_income)
+
+# Define pretty_income
+pretty_income <- format(income, digits = 2, big.mark=",")
+
+# Call writeLines() on the pretty_income
+writeLines(pretty_income)
+
+# 3. formatC()
+# From the format() exercise
+x <- c(0.0011, 0.011, 1)
+y <- c(1.0011, 2.011, 1)
+
+# formatC() on x with format = "f", digits = 1
+formatC(x, format = "f", digits = 1)
+
+# formatC() on y with format = "f", digits = 1
+formatC(y, format = "f", digits = 1)
+
+# Format percent_change to one place after the decimal point
+formatC(percent_change, digits = 1, format = "f")
+
+# percent_change with flag = "+"
+formatC(percent_change, flag = "+", digits = 1, format = "f")
+
+# Format p_values using format = "g" and digits = 2
+formatC(p_values, format = "g", digits = 2)
+
