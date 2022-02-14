@@ -104,3 +104,54 @@ formatC(percent_change, flag = "+", digits = 1, format = "f")
 # Format p_values using format = "g" and digits = 2
 formatC(p_values, format = "g", digits = 2)
 
+# C. Putting strings together
+# 1. Annotation of numbers
+# Add $ to pretty_income
+paste("$", pretty_income, sep = "")
+ 
+# Add % to pretty_percent
+paste(pretty_percent, "%", sep = "")
+
+# Create vector with elements like 2010: +4.0%`
+year_percent <- paste(years, ": ", pretty_percent, "%", sep = "")
+
+# Collapse all years into single string
+paste(year_percent, collapse = ", ")
+
+# 2. Simple table
+# Define the names vector
+income_names <- c("Year 0", "Year 1", "Year 2", "Project Lifetime")
+
+# Create pretty_income
+pretty_income <- format(income, digits = 2, big.mark = ",")
+
+# Create dollar_income
+dollar_income <- paste("$", pretty_income, sep = "")
+
+# Create formatted_names
+formatted_names <- format(income_names, justify = "right")
+
+# Create rows
+rows <- paste(formatted_names, dollar_income, sep = "   ")
+
+# Write rows
+writeLines(rows)
+
+# 3. Order a pizza
+# Randomly sample 3 toppings
+my_toppings <- sample(toppings, size = 3)
+
+# Print my_toppings
+print(my_toppings)
+
+# Paste "and " to last element: my_toppings_and
+my_toppings_and <- paste(c("", "", "and "), my_toppings, sep = "")
+
+# Collapse with comma space: these_toppings
+these_toppings <- paste(my_toppings_and, collapse = ", ")
+
+# Add rest of sentence: my_order
+my_order <- paste("I want to order a pizza with ", these_toppings, ".", sep = "")
+
+# Order pizza with writeLines()
+writeLines(my_order)
