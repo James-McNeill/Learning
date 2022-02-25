@@ -190,3 +190,15 @@ str_replace_all(phone_numbers, pattern = "-", replacement = "")
 # Turn phone numbers into the format xxx.xxx.xxxx
 str_replace_all(phone_numbers, pattern = "-", replacement = ".")
 
+# 2. Review
+# Find the number of nucleotides in each sequence
+str_length(genes)
+
+# Find the number of A's occur in each sequence
+str_count(genes, pattern = fixed("A"))
+
+# Return the sequences that contain "TTTTTT"
+str_subset(genes, pattern = fixed("TTTTTT"))
+
+# Replace all the "A"s in the sequences with a "_"
+str_replace_all(genes, pattern = fixed("A"), replacement = "_")
