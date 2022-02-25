@@ -166,3 +166,27 @@ word_lengths <- lapply(words, str_length)
   
 # Average word length per line
 lapply(word_lengths, mean)
+
+# D. Replacing matches in strings
+# 1. Replacing to tidy strings
+# Some IDs
+ids <- c("ID#: 192", "ID#: 118", "ID#: 001")
+
+# Replace "ID#: " with ""
+id_nums <- str_replace(ids, pattern = "ID#: ", replacement = "")
+
+# Turn id_nums into numbers
+id_ints <- as.numeric(id_nums)
+
+# Some (fake) phone numbers
+phone_numbers <- c("510-555-0123", "541-555-0167")
+
+# Use str_replace() to replace "-" with " ". Note that str_replace() will only replace the first pattern value found. For all values use str_replace_all()
+str_replace(phone_numbers, pattern = "-", replacement = "")
+
+# Use str_replace_all() to replace "-" with " "
+str_replace_all(phone_numbers, pattern = "-", replacement = "")
+
+# Turn phone numbers into the format xxx.xxx.xxxx
+str_replace_all(phone_numbers, pattern = "-", replacement = ".")
+
