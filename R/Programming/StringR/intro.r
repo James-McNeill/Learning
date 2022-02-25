@@ -74,3 +74,20 @@ girl_last_letter <- str_sub(girl_names, -1, -1)
 table(girl_last_letter)
 
 # str_sub() is similar to base R substr() function. Advantage of using str_sub() is the negative index values
+
+# B. Hunting for matches
+# 1. Detecting matches
+# Look for pattern "zz" in boy_names
+contains_zz <- str_detect(boy_names, pattern = "zz")
+
+# Examine str() of contains_zz
+str(contains_zz)
+
+# How many names contain "zz"?
+sum(contains_zz)
+
+# Which names contain "zz"?
+boy_names[contains_zz]
+
+# Which rows in boy_df have names that contain "zz"?
+boy_df[contains_zz,]
