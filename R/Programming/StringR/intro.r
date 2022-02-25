@@ -122,3 +122,34 @@ total_as <- number_as + number_As
 
 # girl_names with more than 4 a's
 girl_names[total_as > 4]
+
+# C. Splitting strings
+# 1. Parsing strings into variables
+# Some date data
+date_ranges <- c("23.01.2017 - 29.01.2017", "30.01.2017 - 06.02.2017")
+
+# Split dates using " - ". A list is returned with the same length as the input list
+split_dates <- str_split(date_ranges, pattern = fixed(" - "))
+split_dates
+
+# Split dates with n and simplify specified. Adding simplify = TRUE, will return a matrix. Number of columns will relate to max length of input row.
+split_dates_n <- str_split(date_ranges, pattern = fixed(" - "), simplify = TRUE, n = 2)
+split_dates_n
+
+# Subset split_dates_n into start_dates and end_dates
+start_dates <- split_dates_n[, 1]
+
+# Split start_dates into day, month and year pieces
+str_split(start_dates, fixed("."), n = 3, simplify = TRUE)
+
+# Input list of famous mathematicians. Aim is extract first and last names
+both_names <- c("Box, George", "Cox, David")
+
+# Split both_names into first_names and last_names
+both_names_split <- str_split(both_names, fixed(", "), n = 2, simplify = TRUE)
+
+# Get first names
+first_names <- both_names_split[, 2]
+
+# Get last names
+last_names <- both_names_split[, 1]
