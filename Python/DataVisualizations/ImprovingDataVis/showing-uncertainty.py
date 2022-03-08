@@ -103,3 +103,40 @@ plt.plot(pollution_model.params, pollution_model.params.index, 'wo', label = 'Po
 plt.legend()
 plt.show() 
 
+# 2. 90 and 95% bands
+int_widths = ['90%', '99%']
+z_scores = [1.67, 2.58]
+colors = ['#fc8d59', '#fee08b']
+
+for percent, Z, color in zip(int_widths, z_scores, colors):
+    
+    # Pass lower and upper confidence bounds and lower opacity
+    plt.fill_between(
+        x = cinci_13_no2.day, alpha = 0.4, color = color,
+        y1 = cinci_13_no2['mean'] - Z*cinci_13_no2['std_err'],
+        y2 = cinci_13_no2['mean'] + Z*cinci_13_no2['std_err'],
+        label = percent)
+    
+plt.legend()
+plt.show()
+
+# 3. Using band thickness instead of coloring
+# Decrease interval thickness as interval widens
+sizes =      [    15,  10,  5]
+int_widths = ['90% CI', '95%', '99%']
+z_scores =   [    1.67,  1.96,  2.58]
+
+for percent, Z, size in zip(int_widths, z_scores, sizes):
+    plt.hlines(y = rocket_model.pollutant, 
+               xmin = rocket_model['est'] - Z*rocket_model['std_err'],
+               xmax = rocket_model['est'] + Z*rocket_model['std_err'],
+               label = percent, 
+               # Resize lines and color them gray
+               linewidth = size, 
+               color = 'gray') 
+    
+# Add point estimate
+plt.plot('est', 'pollutant', 'wo', data = rocket_model, label = 'Point Estimate')
+plt.legend(loc = 'center left', bbox_to_anchor = (1, 0.5))
+plt.show()
+
