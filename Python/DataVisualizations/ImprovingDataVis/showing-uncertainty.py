@@ -166,3 +166,21 @@ plt.axvspan(lower, upper, color = 'gray', alpha = 0.2)
 sns.distplot(boot_means, bins = 100, kde = False)
 
 plt.show()
+
+# 2. Bootstrapped regressions
+# Make the bootstrapped DataFrame
+no2_so2_boot = pd.concat([no2_so2.sample(n=len(denver_may), replace=True).assign(sample=i) for i in range(100)])
+
+# Bootstrap regressions
+sns.lmplot('NO2', 'SO2', data = no2_so2_boot,
+           # Tell seaborn to a regression line for each sample
+           hue = 'sample', 
+           # Make lines blue and transparent
+           line_kws = {'color': 'steelblue', 'alpha': 0.2},
+           # Disable built-in confidence intervals
+           ci = None, legend = False, scatter = False)
+
+# Draw scatter of all points
+plt.scatter('NO2', 'SO2', data = no2_so2)
+
+plt.show()
