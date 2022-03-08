@@ -65,3 +65,41 @@ g.map(plt.fill_between, 'day', 'lower', 'upper', color = 'coral')
 g.map(plt.plot, 'day', 'mean', color = 'white')
 
 plt.show()
+
+# 3. Cleaning up bands for overlaps
+for city, color in [('Denver',"#66c2a5"), ('Long Beach', "#fc8d62")]:
+    # Filter data to desired city
+    city_data = SO2_compare[SO2_compare.city  ==  city]
+
+    # Set city interval color to desired and lower opacity
+    plt.fill_between(x = 'day', y1 = 'lower', y2 = 'upper', data = city_data,
+                     color = color, alpha = 0.4)
+    
+    # Draw a faint mean line for reference and give a label for legend
+    plt.plot('day','mean', data = city_data, label = city,
+             color = color, alpha = 0.25)
+
+plt.legend()
+plt.show()
+
+# C. Beyond 95%
+# 1. 90, 95, and 99% intervals
+# Add interval percent widths
+alphas = [     0.01,  0.05,   0.1] 
+widths = [ '99% CI', '95%', '90%']
+colors = ['#fee08b','#fc8d59','#d53e4f']
+
+for alpha, color, width in zip(alphas, colors, widths):
+    # Grab confidence interval
+    conf_ints = pollution_model.conf_int(alpha)
+    
+    # Pass current interval color and legend label to plot
+    plt.hlines(y = conf_ints.index, xmin = conf_ints[0], xmax = conf_ints[1],
+               colors = color, label = width, linewidth = 10) 
+
+# Draw point estimates
+plt.plot(pollution_model.params, pollution_model.params.index, 'wo', label = 'Point Estimate')
+
+plt.legend()
+plt.show() 
+
