@@ -17,3 +17,21 @@ g = sns.FacetGrid(data = pollution,
 g.map(sns.scatterplot, 'CO', 'NO2', alpha = 0.2)
 plt.show()
 
+# 2. Fixing Seaborn's bar charts
+import numpy as np
+
+sns.barplot(y = 'city', x = 'CO', 
+              estimator = np.mean,
+            ci = False,
+              data = pollution,
+              # Add a border to the bars
+            edgecolor = 'black')
+plt.show()
+
+sns.barplot(y = 'city', x = 'CO', 
+              estimator = np.mean,
+            ci = False,
+              data = pollution,
+              # Replace border with bar colors
+            color = 'cadetblue')
+plt.show()
