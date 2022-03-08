@@ -81,3 +81,64 @@ sns.heatmap(oct_2015_o3,
             center = 0)
 plt.yticks(rotation = 0)
 plt.show()
+
+# C. Categorical Palettes
+# 1. Using a custom categorical palette
+# Filter our data to Jan 2013
+pollution_jan13 = pollution.query('year  ==  2013 & month  ==  1')
+
+# Color lines by the city and use custom ColorBrewer palette
+sns.lineplot(x = "day", 
+             y = "CO", 
+             hue = "city",
+             palette = "Set2", 
+             linewidth = 3,
+             data = pollution_jan13)
+plt.show()
+
+# 2. Dealing with too many categories
+# Choose the combos that get distinct colors
+wanted_combos = ['Vandenberg Air Force Base NO2', 'Long Beach CO', 'Cincinnati SO2']
+
+# Assign a new column to DataFrame for isolating the desired combos
+city_pol_month['color_cats'] = [x if x in wanted_combos else 'other' for x in city_pol_month['city_pol']]
+
+# Plot lines with color driven by new column and lines driven by original categories
+sns.lineplot(x = "month",
+             y = "value",
+             hue = 'color_cats',
+             units = 'city_pol',
+             estimator = None,
+             palette = 'Set2',
+             data = city_pol_month)
+plt.show()
+
+# 3. Coloring ordinal categories
+# Divide CO into quartiles
+pollution['CO quartile'] = pd.qcut(pollution['CO'], q = 4, labels = False)
+
+# Filter to just Des Moines
+des_moines = pollution.query("city  ==  'Des Moines'")
+
+# Color points with by quartile and use ColorBrewer palette
+sns.scatterplot(x = 'SO2',
+                y = 'NO2',
+                hue = 'CO quartile', 
+                data = des_moines,
+                palette = 'GnBu')
+plt.show()
+
+# 4. Choosing the right variable to encode with color
+# Reduce to just cities in the western half of US
+cities = ['Fairbanks', 'Long Beach', 'Vandenberg Air Force Base', 'Denver']
+
+# Filter data to desired cities
+city_maxes = max_pollutant_values[max_pollutant_values.city.isin(cities)]
+
+# Swap city and year encodings
+sns.catplot(x = 'city', hue = 'year',
+              y = 'value', row = 'pollutant',    
+              # Change palette to one appropriate for ordinal categories
+              data = city_maxes, palette = 'BuGn',
+              sharey = False, kind = 'bar')
+plt.show()
