@@ -36,3 +36,32 @@ sns.scatterplot(x = 'log_pop',
                   data = markets)
 
 plt.show()
+
+# B. Exploring the patterns
+# 1. Is latitude related to months open
+sns.regplot(x = 'lat', 
+            y = 'months_open', 
+            # Set scatter point opacity & color
+            scatter_kws = {'alpha':0.1, 'color':'gray'}, 
+            # Disable confidence band
+            ci = False, 
+            data = markets)
+
+plt.show()
+
+# 2. What state is the most market-friendly?
+g = sns.regplot(
+    "log_markets", "log_pop", 
+    ci = False,
+    # Shrink scatter plot points
+    scatter_kws = {'s':2},
+    data = markets_and_pop)
+
+# Iterate over the rows of the data. The use of the _ will remove the values that are seen at this data points. For each row the 2nd and 3rd feature are not required
+for _, row in markets_and_pop.iterrows():
+    state, _, _, log_markets, log_pop = row
+    # Place annotation and reduce size for clarity
+    g.annotate(state, (log_markets,log_pop), size = 10) # state: text to show, (): tuple is the x,y coordinate
+
+plt.show()
+
