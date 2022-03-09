@@ -121,3 +121,63 @@ ax1.legend_.remove()
 ax2.legend_.remove() 
 plt.show() 
 
+# D. Tweaking your plots
+# 1. Cleaning up the background
+# Set background to white with grid
+sns.set_style('whitegrid')
+
+plt.scatter('good','prop selling', marker = '_', alpha = 0.7, data = goods_by_state)
+
+# Draw lines across goods for highlighted states
+highlighted = goods_by_state.query("state in ['New Mexico','North Dakota','Vermont']")
+sns.lineplot('good','prop selling', 'state', data = highlighted, legend = False)
+
+# Draw state name at end of lines
+last_rows = highlighted.groupby('state', as_index = False).agg('first')
+for _,row in last_rows.iterrows():
+    plt.annotate(row['state'], (row['good'], row['prop selling']),
+                 ha = 'right', xytext = (5,0), textcoords = 'offset pixels')
+
+# Remove all borders
+sns.despine(left = True, bottom = True)
+plt.show()
+
+# 2. Remixing a plot
+# Decrease font size so state names are less crowded
+sns.set(font_scale = 0.85)
+
+# Switch to an appropriate color palette
+blue_pal = sns.light_palette("steelblue", as_cmap = True)
+
+# Order states by latitude
+g = sns.heatmap(markets_by_month.reindex(state_by_lat), 
+            # Add gaps between cells
+            linewidths = 0.1, 
+            # Set new palette and remove color bar 
+            cmap = blue_pal, cbar = False,
+            yticklabels = True)
+
+# Rotate y-axis ticks 
+g.set_yticklabels(g.get_yticklabels(), rotation = 0)
+plt.title('Distribution of months open for farmers markets by latitude')
+plt.show()
+
+# 3. Enhancing legibility
+# Draw barplot w/ colors mapped to state_colors vector
+sns.barplot('people_per_market', 'state', palette = state_colors,
+            data = markets_by_state, ax = ax1)
+
+# Map state colors vector to the scatterplot as well
+p = sns.scatterplot('population', 'num_markets', color = state_colors,
+                    data = markets_by_state, s = 60, ax = ax2)
+
+# Log the x and y scales of our scatter plot so it's easier to read
+ax2.set(xscale = "log", yscale = 'log')
+
+# Increase annotation text size for legibility
+ax2.annotate(tx_message, xy = (26956958,230), 
+             xytext = (26956958, 450),ha = 'right', 
+             size = 15, backgroundcolor = 'white',
+             arrowprops = {'facecolor':'black', 'width': 3})
+sns.set_style('whitegrid')
+plt.show()
