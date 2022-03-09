@@ -40,4 +40,19 @@ df['lng'] = [loc[1] for loc in df.Location]
 # print the first few rows of df again
 print(df.head())
 
-# 3. 
+# 3. Plotting chicken locations
+# Import pandas and matplotlib.pyplot using their customary aliases
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset
+chickens = pd.read_csv(chickens_path)
+
+# Look at the first few rows of the chickens DataFrame
+print(chickens.head())
+
+# Plot the locations of all Nashville chicken permits
+plt.scatter(x = chickens.lng, y = chickens.lat)
+
+# Show the plot
+plt.show()
