@@ -81,3 +81,6 @@ for _,row in goods_by_state_small.iterrows():
              size = 10)
 
 plt.show()
+
+# C. Making your visualizations efficient
+# 1. 
