@@ -114,3 +114,46 @@ plt.ylabel('latitude')
 plt.title('2017 Building Project Density by Council District')
 plt.show()
 
+# D. Choropleths with folium
+# 1. Folium choropleth
+# Center point for Nashville
+nashville = [36.1636,-86.7823]
+
+# Create map
+m = folium.Map(location=nashville, zoom_start=10)
+
+# Build choropleth
+m.choropleth(
+    geo_data=districts_and_permits,
+    name='geometry',
+    data=districts_and_permits,
+    columns=['district', 'permit_density'],
+    key_on='feature.properties.district',
+    fill_color='Reds',
+    fill_opacity=0.5,
+    line_opacity=1.0,
+    legend_name='2017 Permitted Building Projects per km squared'
+)
+
+# Create LayerControl and add it to the map            
+folium.LayerControl().add_to(m)
+
+# Display the map
+display(m)   
+
+# 2. Folium choropleth with markers and popups
+# Create center column for the centroid of each district
+districts_and_permits['center'] = districts_and_permits.geometry.centroid
+
+# Build markers and popups
+for row in districts_and_permits.iterrows():
+    row_values = row[1] 
+    center_point = row_values['center']
+    location = [center_point.y, center_point.x]
+    popup = ('Council District: ' + str(row_values['district']) + 
+             ';  ' + 'permits issued: ' + str(row_values['bldg_permits']))
+    marker = folium.Marker(location = location, popup = popup)
+    marker.add_to(m)
+    
+# Display the map
+display(m)
