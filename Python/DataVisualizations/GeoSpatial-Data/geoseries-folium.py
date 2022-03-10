@@ -61,3 +61,41 @@ for row in art_dist_meters.iterrows():
 # Pretty print the art_distances
 pprint.pprint(art_distances)
 
+# C. Street maps with folium
+# 1. Create a folium location from the urban centroid
+# Print the head of the urban_polygon
+print(urban_polygon.head())
+
+# Create urban_center from the urban_polygon center
+urban_center = urban_polygon.center[0]
+
+# Print urban_center
+print(urban_center)
+
+# Create array for folium called urban_location. Folium using latitude and longitude order
+urban_location = [urban_center.y, urban_center.x]
+
+# Print urban_location
+print(urban_location)
+
+# 2. Create a folium map of downtown Nashville
+# Construct a folium map with urban_location
+downtown_map = folium.Map(location = urban_location, zoom_start = 15)
+
+# Display the map
+display(downtown_map)
+
+# 3. Folium street map of the downtown neighborhood
+# Create array for called folium_loc from the urban_polygon center point
+point = urban_polygon.center[0]
+folium_loc = [point.y, point.x]
+
+# Construct a map from folium_loc: downtown_map
+downtown_map = folium.Map(location = folium_loc, zoom_start = 15)
+
+# Draw our neighborhood: Urban Residents
+folium.GeoJson(urban_polygon.geometry).add_to(downtown_map)
+
+# Display the map
+display(downtown_map)
+
