@@ -19,3 +19,30 @@ permit_counts = permits_by_district.groupby(['district']).size()
 print(permit_counts)
 
 # 2. Council district areas and permit counts
+# Create an area column in council_districts
+council_districts['area'] = council_districts.geometry.area
+print(council_districts.head(2))
+
+# Convert permit_counts to a DataFrame
+permits_df = permit_counts.to_frame()
+print(permits_df.head(2))
+
+# Reset index and column names
+permits_df.reset_index(inplace=True)
+permits_df.columns = ['district', 'bldg_permits']
+print(permits_df.head(2))
+
+# Merge council_districts and permits_df: 
+districts_and_permits = pd.merge(council_districts, permits_df, on = 'district')
+print(districts_and_permits.head(2))
+
+# 3. Calculating a normalized metric
+# Print the type of districts_and_permits
+print(type(districts_and_permits))
+
+# Create permit_density column in districts_and_permits
+districts_and_permits['permit_density'] = districts_and_permits.apply(lambda row: row.bldg_permits / row.area, axis = 1)
+
+# Print the head of districts_and_permits
+print(districts_and_permits.head())
+
