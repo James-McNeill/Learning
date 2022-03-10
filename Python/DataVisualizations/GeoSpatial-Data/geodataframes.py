@@ -29,3 +29,5 @@ neighborhoods.plot(column = 'name', cmap = 'Dark2')
 # Show the plot.
 plt.show()
 
+# B. Projections and coordinate reference systems
+# 1. Changing coordinate reference systems
