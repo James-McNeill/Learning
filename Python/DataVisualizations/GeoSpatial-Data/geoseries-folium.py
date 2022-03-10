@@ -99,3 +99,50 @@ folium.GeoJson(urban_polygon.geometry).add_to(downtown_map)
 # Display the map
 display(downtown_map)
 
+# D. Creating markers and popups in folium
+# 1. Adding markers for the public art
+# Iterate through the urban_art and print each part of tuple returned
+for row in urban_art.iterrows():
+  print('first part: ', row[0])
+  print('second part: ', row[1])
+
+# Create a location and marker with each iteration for the downtown_map
+for row in urban_art.iterrows():
+    row_values = row[1] 
+    location = [row_values['lat'], row_values['lng']]
+    marker = folium.Marker(location = location)
+    marker.add_to(downtown_map)
+
+# Display the map
+display(downtown_map)
+
+# 2. Troubleshooting data issues
+# Print the urban_art titles
+print(urban_art.title)
+
+#Print the urban_art descriptions
+print(urban_art.desc)
+
+# Replace Nan and ' values in description
+urban_art.desc.fillna('', inplace = True)
+urban_art.desc = urban_art.desc.str.replace("'", "`")
+
+#Print the urban_art descriptions again
+print(urban_art.desc)
+
+# 3. A map of downturn art
+# Construct downtown map
+downtown_map = folium.Map(location = nashville, zoom_start = 15)
+folium.GeoJson(urban_polygon).add_to(downtown_map)
+
+# Create popups inside the loop you built to create the markers
+for row in urban_art.iterrows():
+    row_values = row[1] 
+    location = [row_values['lat'], row_values['lng']]
+    popup = (str(row_values['title']) + ': ' + 
+             str(row_values['desc'])).replace("'", "`")
+    marker = folium.Marker(location = location, popup = popup)
+    marker.add_to(downtown_map)
+
+# Display the map.
+display(downtown_map)
