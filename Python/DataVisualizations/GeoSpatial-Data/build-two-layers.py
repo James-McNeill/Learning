@@ -68,3 +68,16 @@ print(service_district.head())
 
 # Print the contents of the service districts geometry in the first row
 print(service_district.loc[0, 'geometry'])
+
+# 2. Plotting shapefile polygons
+# Import packages
+import geopandas as gpd
+import matplotlib.pyplot as plt
+
+# Plot the Service Districts without any additional arguments
+service_district.plot()
+plt.show()
+
+# Plot the Service Districts, color them according to name, and show a legend
+service_district.plot(column = 'name', legend = True)
+plt.show()
