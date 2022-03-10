@@ -81,3 +81,31 @@ plt.show()
 # Plot the Service Districts, color them according to name, and show a legend
 service_district.plot(column = 'name', legend = True)
 plt.show()
+
+# C. Scatterplots over polygons
+# 1. Plotting points over polygons - part 1
+# Plot the service district shapefile
+service_district.plot(column='name')
+
+# Add the chicken locations
+plt.scatter(x=chickens['lng'], y=chickens['lat'], color = 'black')
+
+# Show the plot
+plt.show()
+
+# 2. Plotting points over polygons - part 2
+# Plot the service district shapefile
+service_district.plot(column='name', legend=True)
+
+# Add the chicken locations
+plt.scatter(x=chickens['lng'], y=chickens['lat'], c='black', edgecolor = 'white')
+
+
+# Add labels and title
+plt.title('Nashville Chicken Permits')
+plt.xlabel('longitude')
+plt.ylabel('latitude')
+
+# Add grid lines and show the plot
+plt.grid()
+plt.show()
