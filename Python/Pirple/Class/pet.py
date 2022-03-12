@@ -32,6 +32,9 @@ class Pet:
     
     def setPlayful(self, play):
         self.playful = play
+    
+    def __str__(self): # aiming to overwrite keyword
+        return (self.name + " is " + str(self.age) + " years old")
 
 # # Instantiate the class
 # Pet1 = Pet("Jim", 3, False, True)
@@ -48,7 +51,7 @@ class Pet:
 # Class inheritance example
 class Dog(Pet):
     def __init__(self, name, age, hunger, playful, breed, FavouriteToy):
-        super().__init__(name, age, hunger, playful) # refering to the inherited class initiatliser
+        super().__init__(name, age, hunger, playful) # refering to the inherited class initialiser
         self.breed = breed
         self.FavouriteToy = FavouriteToy
     
@@ -57,6 +60,21 @@ class Dog(Pet):
             return ("Dog wants to play with " + self.FavouriteToy)
         else:
             return ("Dog doesn't want to play")
+
+# Class inheritance #2
+class Cat(Pet):
+    def __init__(self, name, age, hunger, playful, place):
+        super().__init__(name, age, hunger, playful)
+        self.FavouritePlaceToSit = place
+    
+    def wantsToSit(self):
+        if self.playful == False:
+            print("The cat wants to sit in", self.FavouritePlaceToSit)
+        else:
+            print("The cat wants to play")
+    
+    def __str__(self):
+        return (self.name + " likes to sit in " + self.FavouritePlaceToSit)
 
 # Instantiate the new dog class
 huskyDog = Dog("Snowball", 5, False, True, "Husky", "Stick")
@@ -67,3 +85,10 @@ print(Play)
 huskyDog.playful = False
 Play = huskyDog.wantsToPlay()
 print(Play)
+
+# Instantiate the new cat class
+typicalCat = Cat("Fluffy", 3, False, False, "the sun ray")
+typicalCat.wantsToSit()
+print(typicalCat) # prints the __str__ method
+print(Dog) # prints the standard information as the __str__ method was not updated
+print(huskyDog) # uses the __str__ method from the Pet class
