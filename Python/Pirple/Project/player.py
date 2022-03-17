@@ -40,7 +40,37 @@ class Player:
             # elif card in faceCardsDict:
             #     self.score += faceCardsDict[card]
         return self.score # pass back the score value
+    
+    # hit a new card
+    def hit(self, card):
+        self.hand.append(card) # adding the new card to the hand list
+        self.score = self.setScore() # after adding the new card then need to update score
 
+    # creating a new hand
+    def play(self, newHand):
+        self.hand = newHand
+        self.score = self.setScore()
+    
+    # creating a pay method
+    def pay(self, amount):
+        self.money -= amount
+    
+    # create a win method
+    def win(self, amount):
+        self.money += amount
 
-Player1 = Player(["3", "7"])
+Player1 = Player(["3", "7", "5"])
 print(Player1)
+# Player1.hit("K")
+Player1.hit("A") # helps to debug the Ace value. Making sure it doesn't take 11 but takes 1
+Player1.hit("A")
+print(Player1)
+Player1.play(["A", "K"]) # testing the new play method
+print(Player1)
+Player1.pay(20) # testing the pay amount
+print(Player1.money)
+Player1.win(40) # player wins
+print(Player1.money)
+Player1.play(["A", "K"])
+print(Player1)
+print(Player1.money) # check that the money stays the same after starting a new game
