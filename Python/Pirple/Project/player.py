@@ -7,6 +7,7 @@ class Player:
         # self.score = 0 # current score they have
         self.score = self.setScore() # allows the function to keep track of the score
         self.money = money # current capital assigned for the game
+        self.bet = 0 # new player hasn't had a bet yet
         
     # value to be printed (print(player)) can be adjusted with the __str__() function
     def __str__(self): # aim is to return the hand and score
@@ -51,13 +52,21 @@ class Player:
         self.hand = newHand
         self.score = self.setScore()
     
-    # creating a pay method
-    def pay(self, amount):
+    # creating a bet method
+    def betMoney(self, amount):
         self.money -= amount
+        self.bet += amount # money moves from money to bet variable
     
     # create a win method
-    def win(self, amount):
-        self.money += amount
+    def win(self, result):
+        if result:
+            if self.score == 21 and len(self.hand) == 2:
+                self.money += self.bet * 2.5 # extra winnings for getting a blackjack
+            else:
+                self.money += self.bet * 2 # a win gets double from the bet
+            self.bet = 0
+        else:
+            self.bet = 0
 
 Player1 = Player(["3", "7", "5"])
 print(Player1)
@@ -65,12 +74,13 @@ print(Player1)
 Player1.hit("A") # helps to debug the Ace value. Making sure it doesn't take 11 but takes 1
 Player1.hit("A")
 print(Player1)
-Player1.play(["A", "K"]) # testing the new play method
-print(Player1)
-Player1.pay(20) # testing the pay amount
-print(Player1.money)
-Player1.win(40) # player wins
-print(Player1.money)
+Player1.betMoney(20)
+# Player1.pay(20) # testing the pay amount
+print(Player1.money, Player1.bet)
+Player1.win(True) # player wins
+print(Player1.money, Player1.bet)
 Player1.play(["A", "K"])
+Player1.betMoney(20)
+Player1.win(True)
 print(Player1)
-print(Player1.money) # check that the money stays the same after starting a new game
+print(Player1.money, Player1.bet) # check that the money stays the same after starting a new game
