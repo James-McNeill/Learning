@@ -46,3 +46,11 @@ names['Ethnicity'].replace(['BLACK NON HISP', 'BLACK NON HISPANIC', 'WHITE NON H
 
 print("Time using .replace(): {} sec".format(time.time() - start_time))
 
+# 2. Replace multiple values II
+start_time = time.time()
+
+# Replace ethnicities as instructed. From the list index values each value will match against each other 
+names['Ethnicity'].replace(['ASIAN AND PACI','BLACK NON HISP', 'WHITE NON HISP'], ['ASIAN AND PACIFIC ISLANDER','BLACK NON HISPANIC','WHITE NON HISPANIC'], inplace=True)
+
+print("Time using .replace(): {} sec".format(time.time() - start_time))
+
