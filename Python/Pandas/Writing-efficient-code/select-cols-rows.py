@@ -57,3 +57,27 @@ for wrd in words:
 # Print the difference between the start and the current time
 total_time_fl = time.time() - start_time
 print('Time using for loop: {} sec'.format(total_time_fl))
+
+# B. Locate rows: .iloc[] vs .loc[]
+# .iloc[] is great (more efficient) for searching by rows
+# .loc[] is great for selecting features
+
+# 1. Row selection comparison
+# Define the range of rows to select: row_nums
+row_nums = range(0, 1000)
+
+# Select the rows using .loc[] and row_nums and record the time before and after
+loc_start_time = time.time()
+rows = poker_hands.loc[row_nums]
+loc_end_time = time.time()
+
+# Print the time it took to select the rows using .loc
+print("Time using .loc[]: {} sec".format(loc_end_time - loc_start_time))
+
+# Select the rows using .iloc[] and row_nums and record the time before and after
+iloc_start_time = time.time()
+rows = poker_hands.iloc[row_nums]
+iloc_end_time = time.time()
+
+# Print the time it took to select the rows using .iloc
+print("Time using .iloc[]: {} sec".format(iloc_end_time - iloc_start_time))
