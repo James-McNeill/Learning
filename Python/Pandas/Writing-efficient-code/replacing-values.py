@@ -66,3 +66,11 @@ names['Rank'].replace({1:'FIRST', 2:'SECOND', 3:'THIRD'}, inplace=True)
 print(names.head())
 
 # 3. Replace multiple values III
+# Replace the rank of the first three ranked names to 'MEDAL'. With this dictionary we can use the first level to identify the feature key that relates to the 
+# feature that will be used. The values from this key relate to the values in the feature that will be replaced. Means that multiple features could be updated
+# together using the same logic. Would have to test the efficiency of this process step to see if it works better
+names.replace({'Rank': {1:'MEDAL', 2:'MEDAL', 3:'MEDAL'}}, inplace=True)
+
+# Replace the rank of the 4th and 5th ranked names to 'ALMOST MEDAL'
+names.replace({'Rank': {4:'ALMOST MEDAL', 5:'ALMOST MEDAL'}}, inplace=True)
+print(names.head())
