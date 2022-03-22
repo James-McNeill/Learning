@@ -4,7 +4,21 @@
 # A. The need for efficient coding I
 # 1. Measuring time
 
+# Extract the syntax for the functions that were used
+import inspect
+print(inspect.getsource(formula))
 
+# Efficient formula function
+def formula(N):
+    return N*(N+1)*(2*N+1)/6
+
+# Brute force function
+def brute_force(N):
+    res = 0
+    UL = N+1
+    for i in range(1,UL):
+        res+=i^2
+    return res
 
 # Calculate the result of the problem using formula() and print the time required
 N = 1000000
