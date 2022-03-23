@@ -22,3 +22,15 @@ restaurant_grouped = restaurant_data.groupby('time')
 # Apply the transformation
 restaurant_exp_group = restaurant_grouped['tip'].transform(exp_tr)
 print(restaurant_exp_group.head())
+
+# 3. Validation of normalization
+zscore = lambda x: (x - x.mean()) / x.std()
+
+# Apply the transformation
+poker_trans = poker_grouped.transform(zscore)
+
+# Re-group the grouped object and print each group's means and standard deviation
+poker_regrouped = poker_trans.groupby(poker_hands['Class'])
+
+print(np.round(poker_regrouped.mean(), 3))
+print(poker_regrouped.std())
