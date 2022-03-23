@@ -54,3 +54,17 @@ col_start_time = time.time()
 mean_c = poker_hands[['R1', 'R2', 'R3', 'R4', 'R5']].mean(axis=0)
 print("Time using pandas vectorization for columns: {} sec".format(time.time() - col_start_time))
 print(mean_c.head())
+
+# D. Vectorization with NumPy arrays using .values()
+# 1. Vectorization methods for looping a DataFrame
+# Calculate the variance in each hand
+start_time = time.time()
+poker_var = poker_hands[['R1', 'R2', 'R3', 'R4', 'R5']].var(axis=1)
+print("Time using pandas vectorization: {} sec".format(time.time() - start_time))
+print(poker_var.head())
+
+# Calculate the variance in each hand
+start_time = time.time()
+poker_var = poker_hands[['R1', 'R2', 'R3', 'R4', 'R5']].values.var(axis=1, ddof=1) # ddof: Delta Degrees of Freedom
+print("Time using NumPy vectorization: {} sec".format(time.time() - start_time))
+print(poker_var[0:5])
