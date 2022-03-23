@@ -57,3 +57,13 @@ restaurant_grouped = restaurant_data.groupby('time')
 restaurant_impute = restaurant_grouped.transform(missing_trans)
 print(restaurant_impute.head())
 
+# C. Data filtration using the filter() function
+# 1. Data filtration
+# Filter the days where the count of total_bill is greater than $40
+total_bill_40 = restaurant_data.groupby('day').filter(lambda x: x['total_bill'].count() > 40)
+
+# Select only the entries that have a mean total_bill greater than $20
+total_bill_20 = total_bill_40.groupby('day').filter(lambda x : x['total_bill'].mean() > 20)
+
+# Print days of the week that have a mean total_bill greater than $20. Highlights that saturday and sunday are the most profitable days for tips
+print('Days of the week that have a mean total_bill greater than $20:', total_bill_20.day.unique())
