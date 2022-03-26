@@ -107,3 +107,38 @@ fig.circle(x="free_throw_perc", y="points", source=source, legend_field="positio
 output_file(filename="average_points_vs_free_throw_percentage.html")
 show(fig)
 
+# C. Communicating with text
+# 1. Sales by time and type of day
+# Create figure
+fig = figure(x_range=FactorRange(*factors), y_axis_label="Sales", title="Sales by type of day")
+
+# Create bar glyphs
+fig.vbar(x=factors, top=grouped_bakery["sales"], width=0.9)
+fig.yaxis[0].formatter = NumeralTickFormatter(format="$0,0")
+
+# Update title text size
+fig.title.text_font_size = "25px"
+
+# Update title alignment
+fig.title.align = "center"
+
+output_file("sales_by_type_of_day.html")
+show(fig)
+
+# 2. Products sold by the time of day
+fig = figure(x_axis_label="Count of Products Sold", y_axis_label="Sales", title="Bakery Product Sales", tooltips=TOOLTIPS)
+fig.circle(x="count", y="sales", source=morning, line_color="red", size=12, fill_alpha=0.4, legend_label="Morning")
+fig.circle(x="count", y="sales", source=afternoon, fill_color="purple", size=10, fill_alpha=0.6, legend_label="Afternoon")
+fig.circle(x="count", y="sales", source=evening, fill_color="yellow", size=8, fill_alpha=0.6, legend_label="Evening")
+
+# Add legend title
+fig.legend.title = "Time of Day"
+
+# Move the legend
+fig.legend.location = "top_left"
+
+# Make the legend interactive
+fig.legend.click_policy = "hide"
+fig.yaxis[0].formatter = NumeralTickFormatter(format="$0.00")
+output_file("Sales_by_time_of_day")
+show(fig)
