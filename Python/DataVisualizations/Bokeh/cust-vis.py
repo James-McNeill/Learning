@@ -142,3 +142,55 @@ building_size_vs_year.circle(x="year_built", y="building_area", source=source)
 # Generate HTML file and display plot
 output_file(filename="custom_size_plot")
 show(row(distance_vs_year, building_size_vs_year))
+
+# D. Visualizing categorical data
+# 1. High to low prices by region
+regions = melb.groupby("region", as_index=False)["price"].mean()
+# Sort df by price in descending order
+regions = regions.sort_values("price", ascending=False)
+
+# Create figure
+fig = figure(x_range=regions["region"], x_axis_label="Region", y_axis_label="Sales")
+
+# Add bar glyphs
+fig.vbar(x=regions["region"], top=regions["price"], width=0.9)
+
+# Format the y-axis to numeric format
+fig.yaxis[0].formatter = NumeralTickFormatter(format="$0.0a")
+
+output_file(filename="sorted_barplot.html")
+show(fig)
+
+# 2. Creating nested categories
+melb["month"] = melb["date"].dt.month
+quarters = {1: "Q1", 2:"Q1", 3:"Q1", 4:"Q2", 5:"Q2", 6:"Q2", 7:"Q3", 8:"Q3", 9:"Q3", 10:"Q4", 11:"Q4", 12:"Q4"}
+melb["quarter"] = melb["month"].replace(quarters)
+melb["month"] = melb["month"].replace({1:"January", 2:"February", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12:"December"})
+
+# Create factors
+factors = [("Q1", "January"), ("Q1", "February"), ("Q1", "March"), 
+           ("Q2", "April"), ("Q2", "May"), ("Q2", "June"), 
+           ("Q3", "July"), ("Q3", "August"), ("Q3", "September"), 
+           ("Q4", "October"), ("Q4", "November"), ("Q4", "December")]
+
+# Calculate total sales by month and quarter
+grouped_melb = melb.groupby(["month", "quarter"], as_index=False)["price"].sum()
+grouped_melb.sort_values("quarter", inplace=True)
+print(grouped_melb.head())
+
+# 3. Visualizing sales by period
+# Import NumeralTickFormatter and FactorRange
+from bokeh.models import NumeralTickFormatter, FactorRange
+
+# Create figure
+fig = figure(x_range=FactorRange(*factors), y_axis_label="Sales") # extract the values from the tuples
+
+# Create bar glyphs
+fig.vbar(x=factors, top=grouped_melb["price"], width=0.9)
+fig.yaxis[0].formatter = NumeralTickFormatter(format="$0.0a")
+
+# Rotate the x-axis labels
+fig.xaxis.major_label_orientation = 45
+
+output_file(filename="sales_by_period.html")
+show(fig)
