@@ -29,3 +29,17 @@ center_glyphs.glyph.fill_color = "red"
 power_forward_glyphs.glyph.fill_color = "yellow"
 output_file(filename="big_shooters.html")
 show(fig)
+
+# 3. Evolution of the point guard
+fig = figure(x_axis_label="Season", y_axis_label="Performance")
+
+# Add line glyphs for Steph Curry
+fig.line(x="season", y="points", source=steph, line_width=2, line_color="green", alpha=0.5, legend_label="Steph Curry Points")
+fig.line(x="season", y="assists", source=steph, line_width=4, line_color="purple", alpha=0.3, legend_label="Steph Curry Assists")
+
+# Add line glyphs for Chris Paul
+fig.line(x="season", y="points", source=chris, line_width=1, line_color="red", alpha=0.8, legend_label="Chris Paul Points")
+fig.line(x="season", y="assists", source=chris, line_width=3, line_color="orange", alpha=0.2, legend_label="Chris Paul Assists")
+
+output_file(filename="point_guards.html")
+show(fig)
