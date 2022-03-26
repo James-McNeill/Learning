@@ -80,3 +80,77 @@ slider.js_link("value", fig.x_range, "end", attr_selector=1)
 output_file(filename="stock_price_over_time.html")
 show(layout([slider], [fig])) # Puts the slider above the figure by using this order with layout
 
+# C. Select widgets
+# 1. Travel analysis
+boeing = stocks.loc[stocks["name"] == "BA"]
+delta = stocks.loc[stocks["name"] == "DAL"]
+southwest = stocks.loc[stocks["name"] == "LUV"]
+fig = figure(x_axis_label="Date", y_axis_label="Stock Price", 
+             x_axis_type="datetime")
+boeing_line = fig.line(x=boeing["date"], y=boeing["close"], alpha=0.5)
+delta_line = fig.line(x=delta["date"], y=delta["close"], color="red", alpha=0.5)
+sw_line = fig.line(x=southwest["date"], y=southwest["close"], color="green", alpha=0.5)
+
+# Import modules
+from bokeh.models import Select, CustomJS
+
+# Create Select widget
+menu = Select(options=["Boeing", "Delta", "Southwest"], value="Boeing", title="Airline") 
+# Making use of some JavaScript
+callback = CustomJS(args=dict(line_1=boeing_line, line_2=delta_line,
+                             line_3=sw_line), code="""
+line_1.visible = true
+line_2.visible = true
+line_3.visible = true
+if (this.value == "Boeing") {line_2.visible = false
+							 line_3.visible = false} 
+    else {line_1.visible = false}
+if (this.value == "Delta") {line_1.visible = false
+							line_3.visible = false} 
+    else {line_2.visible = false}
+if (this.value == "Southwest") {line_1.visible = false
+								line_2.visible = false} 
+    else {line_3.visible = false}
+""")
+
+# Set up interaction
+menu.js_on_change("value", callback)
+output_file(filename="airline_stocks.html")
+show(column(menu, fig))
+
+# 2. Changing line plots with Select
+# Create menu
+menu = Select(options=["Close", "Market Cap", "Volume"], value="Close", title="Metric")
+callback = CustomJS(args=dict(plot_one=close, plot_two=market_cap, plot_three=volume, line_1=close_line, line_2=market_cap_line, line_3=volume_line), code="""
+plot_one.visible = true
+plot_two.visible = true
+plot_three.visible = true
+line_1.visible = true
+line_2.visible = true
+line_3.visible = true
+if (this.value == "Close") {plot_two.visible = false
+                            plot_three.visible = false
+                            line_2.visible = false
+                            line_3.visible = false}
+    else {plot_one.visible = false
+          line_1.visible = false} 
+if (this.value == "Market Cap") {plot_one.visible = false
+                                 plot_three.visible = false
+                                 line_1.visible = false
+                                 line_3.visible = false} 
+    else {plot_two.visible = false
+          line_2.visible = false}
+if (this.value == "Volume") {plot_one.visible = false
+                             plot_two.visible = false
+                             line_1.visible = false
+                             line_2.visible = false}
+    else {plot_three.visible = false
+          line_3.visible = false}
+""")
+
+# Set up the interaction
+menu.js_on_change("value", callback)
+
+# Display the layout
+output_file(filename="stock_metrics.html")
+show(layout([menu], [close, market_cap, volume]))
