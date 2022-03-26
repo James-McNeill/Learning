@@ -74,3 +74,56 @@ fig.yaxis[0].formatter = NumeralTickFormatter(format="$0a")
 output_file(filename="melbourne_sales.html")
 show(fig)
 
+# C. Subplots
+# 1. Categorical column subplots
+# The column stacking works well because the same x-axis values are being used
+# Import column
+from bokeh.layouts import column
+regions = ["Eastern", "Southern", "Western", "Northern"]
+building_size = figure(x_axis_label="Region", y_axis_label="Building Size (Meters Squared)", x_range=regions)
+land_size = figure(x_axis_label="Region", y_axis_label="Land Size (Meters Squared)", x_range=regions)
+
+# Add bar glyphs
+building_size.vbar(x="region", top="building_area", source=source)
+land_size.vbar(x="region", top="land_area", source=source)
+
+# Generate HTML file and display the subplots
+output_file(filename="my_first_column.html")
+show(column(building_size, land_size)) # order that the plots will be shown
+
+# 2. Size, location, and price
+# The row stacking works well because the same y-axis values are being used
+# Import row
+from bokeh.layouts import row
+building_size = figure(x_axis_label="Building Area (Meters Squared)", y_axis_label="Sales")
+distance = figure(x_axis_label="Distance from CBD (km)", y_axis_label="Sales")
+
+# Add circle glyphs
+building_size.circle(x="building_area", y="price", source=source)
+distance.circle(x="distance", y="price", source=source)
+
+# Update the y-axis format for both figures
+building_size.yaxis[0].formatter = NumeralTickFormatter(format="$0a")
+distance.yaxis[0].formatter = NumeralTickFormatter(format="$0a")
+
+# Display the subplots
+output_file(filename="my_first_row.html")
+show(row(building_size, distance))
+
+# 3. Using gridplot
+# Import gridplot
+from bokeh.layouts import gridplot
+plots = []
+
+# Complete for loop to create plots
+for region in ["Northern", "Western", "Southern", "Eastern"]:
+  df = melb.loc[melb["region"] == region]
+  source = ColumnDataSource(data=df)
+  fig = figure(x_axis_label="Building Area (Meters Squared)", y_axis_label="Price")
+  fig.circle(x="building_area", y="price", source=source, legend_label=region)
+  fig.yaxis[0].formatter = NumeralTickFormatter(format="$0a")
+  plots.append(fig)
+
+# Display plot
+output_file(filename="gridplot.html")
+show(gridplot(plots, ncols=2))
