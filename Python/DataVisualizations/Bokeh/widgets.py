@@ -37,3 +37,46 @@ output_file(filename="pharma_stocks.html")
 
 # Display the layout
 show(layout([title], [spinner, fig]))
+
+# B. Slider widgets
+# 1. Automotive stock analysis
+# Import RangeSlider
+from bokeh.models import RangeSlider
+fig = figure(x_axis_label="Stock Price ($)", y_axis_label="Market Cap")
+fig.circle(x=ford["close"], y=ford["market_cap"], legend_label="Ford", fill_color="red", fill_alpha=0.5)
+fig.circle(x=gm["close"], y=gm["market_cap"], legend_label="GM", fill_color="green", fill_alpha=0.5)
+fig.yaxis[0].formatter = NumeralTickFormatter(format="$0a")
+
+# Create slider
+slider = RangeSlider(title="Stock Price", start=10, end=47, value=(10, 47), step=1)
+
+# Link to start of x-axis
+slider.js_link("value", fig.x_range, "start", attr_selector=0)
+
+# Link to end of x-axis
+slider.js_link("value", fig.x_range, "end", attr_selector=1)
+output_file(filename="Slider.html")
+show(layout([slider], [fig]))
+
+# 2. Tech stock performance over time
+# Import widget
+from bokeh.models import DateRangeSlider
+earliest_date = stocks["date"].min()
+latest_date = stocks["date"].max()
+fig.line(apple["date"], apple["close"], color="green", legend_label="Apple")
+fig.line(netflix["date"], netflix["close"], color="red", legend_label="Netflix")
+fig.line(ibm["date"], ibm["close"], color="purple", legend_label="IBM")
+fig.legend.location = "top_left"
+
+# Create DateRangeSlider
+slider = DateRangeSlider(title="Date", start=earliest_date, end=latest_date, 
+                         value=("2014, 6, 2", "2018, 2, 7"), step=1)
+
+# Link DateRangeSlider values to figure
+slider.js_link("value", fig.x_range, "start", attr_selector=0)
+slider.js_link("value", fig.x_range, "end", attr_selector=1)
+
+# Create layout and display plot
+output_file(filename="stock_price_over_time.html")
+show(layout([slider], [fig])) # Puts the slider above the figure by using this order with layout
+
