@@ -43,3 +43,67 @@ fig.line(x="season", y="assists", source=chris, line_width=3, line_color="orange
 
 output_file(filename="point_guards.html")
 show(fig)
+
+# B. Highlighting and contrasting
+# 1. Highlighting by glyph size
+# Create sizes
+east_sizes = east["blocks"] / 5
+west_sizes = west["blocks"] / 5
+fig = figure(x_axis_label="Assists", y_axis_label="Points", title="NBA Points, Blocks, and Assists by Conference")
+
+# Add circle glyphs for east
+fig.circle(x=east["assists"], y=east["points"], fill_color="blue", fill_alpha=0.3, legend_label="East", radius=east_sizes)
+
+# Add circle glyphs for west
+fig.circle(x=west["assists"], y=west["points"], fill_color="red", fill_alpha=0.3, legend_label="West", radius=west_sizes)
+
+output_file(filename="size_contrast.html")
+show(fig)
+
+# 2. Steals vs. Assists
+# Import required modules
+from bokeh.palettes import RdBu8
+from bokeh.transform import linear_cmap
+
+# Create mapper
+mapper = linear_cmap(field_name="assists", palette=RdBu8, low=min(nba["assists"]), high=max(nba["assists"]))
+
+# Create the figure
+fig = figure(x_axis_label="Steals", y_axis_label="Assists", title="Steals vs. Assists")
+
+# Add circle glyphs
+fig.circle(x="steals", y="assists", source=source, color=mapper)
+output_file(filename="steals_vs_assists.html")
+show(fig)
+
+# 3. Adding a color bar
+# Import ColorBar
+from bokeh.models import ColorBar
+
+mapper = linear_cmap(field_name="assists", palette=RdBu8, low=min(nba["assists"]), high=max(nba["assists"]))
+fig = figure(x_axis_label="Steals", y_axis_label="Assists", title="Steals vs. Assists")
+fig.circle(x="steals", y="assists", source=source, color=mapper)
+
+# Create the color_bar
+color_bar = ColorBar(color_mapper=mapper["transform"], width=8)
+
+# Update layout with color_bar on the right
+fig.add_layout(color_bar, "right")
+output_file(filename="steals_vs_assists_color_mapped.html")
+show(fig)
+
+# 4. Free throw percentage by position
+# Import modules
+from bokeh.transform import factor_cmap
+from bokeh.palettes import Category10_5
+
+# Create positions
+positions = ["PG", "SG", "SF", "PF", "C"]
+fig = figure(x_axis_label="Free Throw Percentage", y_axis_label="Points", title="Free Throw Percentage vs. Average Points", tooltips=TOOLTIPS)
+
+# Add circle glyphs
+fig.circle(x="free_throw_perc", y="points", source=source, legend_field="position", fill_color=factor_cmap("position", palette=Category10_5, factors=positions))
+
+output_file(filename="average_points_vs_free_throw_percentage.html")
+show(fig)
+
