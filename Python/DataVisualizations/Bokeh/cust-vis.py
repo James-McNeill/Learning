@@ -127,3 +127,18 @@ for region in ["Northern", "Western", "Southern", "Eastern"]:
 # Display plot
 output_file(filename="gridplot.html")
 show(gridplot(plots, ncols=2))
+
+# 4. Changing size
+# Set up figures. Adjusting the height and width helps to fit the plots better
+distance_vs_year = figure(x_axis_label="Year Built", y_axis_label="Distance from CBD (km)", height=300, width=400)
+building_size_vs_year = figure(x_axis_label="Year Built", y_axis_label="Building Size (Meters Squared)", height=300, width=400)
+
+# Add circle glyphs to distance_vs_year
+distance_vs_year.circle(x="year_built", y="distance", source=source)
+
+# Add circle glyphs to building_size_vs_year
+building_size_vs_year.circle(x="year_built", y="building_area", source=source)
+
+# Generate HTML file and display plot
+output_file(filename="custom_size_plot")
+show(row(distance_vs_year, building_size_vs_year))
