@@ -142,3 +142,58 @@ fig.legend.click_policy = "hide"
 fig.yaxis[0].formatter = NumeralTickFormatter(format="$0.00")
 output_file("Sales_by_time_of_day")
 show(fig)
+
+# D. Adding annotations
+# 1. Box annotations for sales performance
+sales = bakery.groupby("date", as_index=False)["sales"].sum()
+source = ColumnDataSource(data=sales)
+fig = figure(x_axis_label="Date", y_axis_label="Revenue ($)")
+fig.line(x="date", y="sales", source=source)
+fig.xaxis[0].formatter = DatetimeTickFormatter(months="%b %Y")
+
+# Create low_box. Top would set an upper limit to the color
+low_box = BoxAnnotation(top=250, fill_alpha=0.1, fill_color='red')
+
+# Create high_box. Bottom sets the lower limit. If no top value is added then the color will fill to the highest data point
+high_box = BoxAnnotation(bottom=250, fill_alpha=0.2, fill_color='green')
+
+# Add low_box
+fig.add_layout(low_box)
+
+# Add high_box
+fig.add_layout(high_box)
+
+output_file(filename="sales_annotated.html")
+show(fig)
+
+# 2. Setting up a polygon annotation
+# Import PolyAnnotation
+from bokeh.models import PolyAnnotation
+
+# Create start and end dates
+start_date = dt.datetime(2017, 6, 30)
+end_date = dt.datetime(2017, 7, 27)
+
+# Create start and end floats
+start_float = start_date.timestamp() * 1000
+end_float = end_date.timestamp() * 1000
+
+# 3. Annotating Netflix stock price growth
+start_date = dt.datetime(2017, 6, 30)
+end_date = dt.datetime(2017, 7, 27)
+start_float = start_date.timestamp() * 1000
+end_float = end_date.timestamp() * 1000
+
+# Create start and end data
+start_data = netflix.loc[netflix["date"] == start_date]["close"].values[0]
+end_data = netflix.loc[netflix["date"] == end_date]["close"].values[0]
+
+# Create polygon annotation
+polygon = PolyAnnotation(fill_color="green", fill_alpha=0.4,
+                         xs=[start_float, start_float, end_float, end_float],
+                         ys=[start_data - 10, start_data + 10, end_data + 15, end_data - 15])
+
+# Add polygon to figure and display
+fig.add_layout(polygon)
+output_file(filename="netflix_annotated.html")
+show(fig)
