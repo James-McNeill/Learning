@@ -38,3 +38,39 @@ fig.square(x=units["year_built"], y=units["distance"], legend_label="Unit", colo
 fig.triangle(x=townhouses["year_built"], y=townhouses["distance"], legend_label="Townhouse", color="green")
 output_file(filename="year_built_vs_distance_by_property_type.html")
 show(fig)
+
+# B. Customizing axes
+# 1. Average building size
+# Group by date and calculate average building size
+prop_size = melb.groupby("date", as_index=False)["building_area"].mean()
+source = ColumnDataSource(data=prop_size)
+
+# Create the figure
+fig = figure(x_axis_label="Date", y_axis_label="Building Size (Meters Squared)", x_axis_type="datetime")
+
+# Add line glyphs
+fig.line(x="date", y="building_area", source=source)
+
+# Generate the HTML file
+output_file(filename="property_size_by_date.html")
+show(fig)
+
+# 2. Sales over time
+melb_sales = melb.groupby("date", as_index=False)["price"].sum()
+
+# Import the second formatter
+from bokeh.models import DatetimeTickFormatter, NumeralTickFormatter
+fig = figure(x_axis_label="Date", y_axis_label="Sales")
+
+# Add line glyphs
+fig.line(x="date", y="price", source=source)
+
+# Format the x-axis format
+fig.xaxis[0].formatter = DatetimeTickFormatter(months="%b %Y")
+
+# Format the y-axis format
+fig.yaxis[0].formatter = NumeralTickFormatter(format="$0a")
+
+output_file(filename="melbourne_sales.html")
+show(fig)
+
