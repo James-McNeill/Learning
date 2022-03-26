@@ -71,3 +71,34 @@ fig.circle(x=nba["field_goal_perc"], y=nba["points"])
 fig.add_tools(LassoSelectTool())
 output_file(filename="updated_plot_with_lasso_select.html")
 show(fig)
+
+# C. The Hover Tool
+# 1. Adding a HoverTool
+# Import ColumnDataSource
+from bokeh.models import ColumnDataSource
+
+# Create source. Means that when the source is added to the method we only need the column name when using parameters
+source = ColumnDataSource(data=nba)
+
+# Create TOOLTIPS and add to figure
+TOOLTIPS = [("Name", "@player"), ("Position", "@position"), ("Team", "@team")]
+fig = figure(x_axis_label="Assists", y_axis_label="Steals", tooltips=TOOLTIPS)
+
+# Add circle glyphs
+fig.circle(x="assists", y="steals", source=source)
+output_file(filename="first_tooltips.html")
+show(fig)
+
+# 2. Formatting the HoverTool
+# Create TOOLTIPS
+TOOLTIPS = [("Name", "@player"), 
+            ("Conference", "@conference"), 
+            ("Field Goal %", "@field_goal_perc{0.2f}")] # adjusts the format for the float. Default 3 decimal places are shown
+
+# Add TOOLTIPS to figure
+fig = figure(x_axis_label="Minutes", y_axis_label="Points", tooltips=TOOLTIPS)
+
+# Add circle glyphs
+fig.circle(x="minutes", y="points", source=source)
+output_file(filename="formatted_hovertool.html")
+show(fig)
