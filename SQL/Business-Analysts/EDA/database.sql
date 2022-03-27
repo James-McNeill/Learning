@@ -76,3 +76,27 @@ SELECT company_original.name, fortune500.title, fortune500.rank
              fortune500.ticker
  -- For clarity, order by rank
  ORDER BY rank; 
+
+-- C. Column types and constraints
+-- 1. Effects of casting
+SELECT CAST(value AS new_type);
+
+SELECT value::new_type;
+
+-- Select the original value. Lose precision when casting value to integer
+SELECT profits_change, 
+	   -- Cast profits_change
+       CAST(profits_change AS integer) AS profits_change_int
+  FROM fortune500;
+
+-- Divide 10 by 3
+SELECT 10/3, 
+       -- Cast 10 as numeric and divide by 3
+       10::numeric/3;
+
+SELECT '3.2'::numeric,
+       '-123'::numeric,
+       '1e3'::numeric,
+       '1e-3'::numeric,
+       '02314'::numeric,
+       '0002'::numeric;
