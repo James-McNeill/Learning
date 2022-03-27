@@ -100,3 +100,24 @@ SELECT '3.2'::numeric,
        '1e-3'::numeric,
        '02314'::numeric,
        '0002'::numeric;
+
+-- 2. Summarize the distribution of numeric values
+-- Select the count of each value of revenues_change. Displays a lot of unique values. Time to cast
+SELECT revenues_change, count(*)
+  FROM fortune500
+ GROUP BY revenues_change
+ -- order by the values of revenues_change
+ ORDER BY revenues_change;
+ 
+ -- Select the count of each revenues_change integer value
+SELECT revenues_change::integer, count(*)
+  FROM fortune500
+ GROUP BY revenues_change::integer
+ -- order by the values of revenues_change
+ ORDER BY revenues_change;
+ 
+ -- Count rows 
+SELECT count(*)
+  FROM fortune500
+ -- Where...
+ WHERE revenues_change > 0;
