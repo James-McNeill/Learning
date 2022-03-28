@@ -23,3 +23,50 @@ SELECT street, count(*)
  GROUP BY street
  ORDER BY count(*) DESC
  LIMIT 5;
+
+-- B. Cases and spaces
+-- 1. Trimming
+SELECT distinct street,
+       -- Trim off unwanted characters from street. function(original, values to trim)
+       trim(street, '0123456789 #/.') AS cleaned_street
+  FROM evanston311
+ ORDER BY street;
+ 
+--  2. Exploring unstructured text
+-- Count rows
+SELECT count(*)
+  FROM evanston311
+ -- Where description includes trash or garbage. ILIKE: is case insensitive. This does take more memory so be careful
+ WHERE description ILIKE '%trash%'
+    OR description ILIKE '%garbage%';
+
+-- Select categories containing Trash or Garbage
+SELECT category
+  FROM evanston311
+ -- Use LIKE
+ WHERE category LIKE '%Trash%'
+    OR category LIKE '%Garbage%';
+
+-- Count rows
+SELECT count(*)
+  FROM evanston311 
+ -- description contains trash or garbage (any case)
+ WHERE (description ILIKE '%trash%'
+    OR description ILIKE '%garbage%') 
+ -- category does not contain Trash or Garbage
+   AND category NOT LIKE '%Trash%'
+   AND category NOT LIKE '%Garbage%';
+
+-- Count rows with each category
+SELECT category, count(*)
+  FROM evanston311 
+ WHERE (description ILIKE '%trash%'
+    OR description ILIKE '%garbage%') 
+   AND category NOT LIKE '%Trash%'
+   AND category NOT LIKE '%Garbage%'
+ -- What are you counting?
+ GROUP BY category
+ --- order by most frequent values
+ ORDER BY count(*) DESC
+ LIMIT 10;
+
