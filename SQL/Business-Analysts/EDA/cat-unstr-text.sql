@@ -99,4 +99,66 @@ SELECT CASE WHEN length(description) > 50
  WHERE description LIKE 'I %'
  ORDER BY description;
  
---  D. Strategies for multiple transformations
+-- D. Strategies for multiple transformations
+-- 1. Create an 'other' category
+SELECT CASE WHEN zipcount < 100 THEN 'other'
+       ELSE zip
+       END AS zip_recoded,
+       sum(zipcount) AS zipsum
+  FROM (SELECT zip, count(*) AS zipcount
+          FROM evanston311
+         GROUP BY zip) AS fullcounts
+ GROUP BY zip_recoded
+ ORDER BY zipsum DESC;
+ 
+--  2. Group and recode values
+-- Code from previous step
+DROP TABLE IF EXISTS recode;
+CREATE TEMP TABLE recode AS
+  SELECT DISTINCT category, 
+         rtrim(split_part(category, '-', 1)) AS standardized
+  FROM evanston311;
+UPDATE recode SET standardized='Trash Cart' 
+ WHERE standardized LIKE 'Trash%Cart';
+UPDATE recode SET standardized='Snow Removal' 
+ WHERE standardized LIKE 'Snow%Removal%';
+UPDATE recode SET standardized='UNUSED' 
+ WHERE standardized IN ('THIS REQUEST IS INACTIVE...Trash Cart', 
+               '(DO NOT USE) Water Bill',
+               'DO NOT USE Trash', 'NO LONGER IN USE');
+
+-- Select the recoded categories and the count of each
+SELECT standardized, count(*)
+-- From the original table and table with recoded values
+  FROM evanston311 
+       LEFT JOIN recode
+       -- What column do they have in common?
+       ON evanston311.category = recode.category
+ -- What do you need to group by to count?
+ GROUP BY standardized
+ -- Display the most common val values first
+ ORDER BY count(*) DESC;
+ 
+-- 3. Create a table with indicator variables
+-- To clear table if it already exists
+DROP TABLE IF EXISTS indicators;
+
+-- Create the temp table
+CREATE TEMP TABLE indicators AS
+  SELECT id, 
+         CAST (description LIKE '%@%' AS integer) AS email,
+         CAST (description LIKE '%___-___-____%' AS integer) AS phone 
+    FROM evanston311;
+  
+-- Select the column you'll group by
+SELECT priority,
+       -- Compute the proportion of rows with each indicator
+       sum(email)/count(*)::numeric AS email_prop, 
+       sum(phone)/count(*)::numeric AS phone_prop
+  -- Tables to select from
+  FROM evanston311
+       LEFT JOIN indicators
+       -- Joining condition
+       ON evanston311.id=indicators.id
+ -- What are you grouping by?
+ GROUP BY priority;
