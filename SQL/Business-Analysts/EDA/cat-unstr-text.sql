@@ -70,3 +70,33 @@ SELECT category, count(*)
  ORDER BY count(*) DESC
  LIMIT 10;
 
+-- C. Splitting and concatenating text
+-- 1. Concatenate strings
+-- Concatenate house_num, a space, and street
+-- and trim spaces from the start of the result
+SELECT trim(concat(house_num, ' ', street),' ') AS address
+  FROM evanston311;
+
+-- 2. Split strings on a delimiter
+-- split_part(string_to_split, delimiter, part_number)
+-- Select the first word of the street value
+SELECT split_part(street, ' ', 1) AS street_name, 
+       count(*)
+  FROM evanston311
+ GROUP BY street_name
+ ORDER BY count DESC
+ LIMIT 20;
+ 
+--  3. Shorten long strings
+-- Select the first 50 chars when length is greater than 50
+SELECT CASE WHEN length(description) > 50
+            THEN left(description, 50) || '...'
+       -- otherwise just select description
+       ELSE description
+       END
+  FROM evanston311
+ -- limit to descriptions that start with the word I
+ WHERE description LIKE 'I %'
+ ORDER BY description;
+ 
+--  D. Strategies for multiple transformations
