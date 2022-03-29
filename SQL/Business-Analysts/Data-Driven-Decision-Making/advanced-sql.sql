@@ -29,3 +29,60 @@ WHERE movie_id IN
      HAVING AVG(rating) > 
 		(SELECT AVG(rating)
 		 FROM renting));
+
+-- B. Correlated Nested queries
+-- 1. Analyzing customer behavior
+-- Select customers with less than 5 movie rentals
+SELECT *
+FROM customers as c
+WHERE 5 > 
+	(SELECT count(*)
+	FROM renting as r
+	WHERE r.customer_id = c.customer_id); -- correlated connection between the inner and outer query datasets being used
+
+-- 2. Customers who gave low ratings
+SELECT *
+FROM customers AS c
+WHERE 4 > -- Select all customers with a minimum rating smaller than 4 
+	(SELECT MIN(rating)
+	FROM renting AS r
+	WHERE r.customer_id = c.customer_id);
+
+-- 3. Movies and ratings with correlated queries
+SELECT *
+FROM movies AS m
+WHERE 5 < -- Select all movies with more than 5 ratings
+	(SELECT count(rating)
+	FROM renting AS r
+	WHERE r.movie_id = m.movie_id);
+
+SELECT *
+FROM movies AS m
+WHERE 8 < -- Select all movies with an average rating higher than 8
+	(SELECT avg(rating)
+	FROM renting AS r
+	WHERE r.movie_id = m.movie_id);
+-- Didn't have to use a group by clause to arrive at the final answer
+
+-- C. Queries with exists
+-- 1. Customers with at least one rating
+SELECT *
+FROM customers AS c -- Select all customers with at least one rating
+WHERE EXISTS -- using this to return all the customers that have at least one rating
+	(SELECT *
+	FROM renting AS r
+	WHERE rating IS NOT NULL 
+	AND r.customer_id = c.customer_id);
+
+-- 2. Actors in comedies
+SELECT a.nationality, count(*) -- Report the nationality and the number of actors for each nationality
+FROM actors AS a
+WHERE EXISTS
+	(SELECT ai.actor_id
+	 FROM actsin AS ai
+	 LEFT JOIN movies AS m
+	 ON m.movie_id = ai.movie_id
+	 WHERE m.genre = 'Comedy'
+	 AND ai.actor_id = a.actor_id)
+GROUP BY a.nationality;
+
