@@ -86,3 +86,41 @@ WHERE EXISTS
 	 AND ai.actor_id = a.actor_id)
 GROUP BY a.nationality;
 
+-- D. Queries with UNION and INTERSECT
+-- 1. Young actors not coming from the USA
+SELECT name, 
+       nationality, 
+       year_of_birth
+FROM actors
+WHERE nationality <> 'USA'
+UNION -- Select all actors who are not from the USA and all actors who are born after 1990
+SELECT name, 
+       nationality, 
+       year_of_birth
+FROM actors
+WHERE year_of_birth > 1990;
+
+SELECT name, 
+       nationality, 
+       year_of_birth
+FROM actors
+WHERE nationality <> 'USA'
+INTERSECT -- Select all actors who are not from the USA and who are also born after 1990
+SELECT name, 
+       nationality, 
+       year_of_birth
+FROM actors
+WHERE year_of_birth > 1990;
+
+-- 2. Dramas with high ratings
+SELECT *
+FROM movies
+WHERE movie_id IN -- Select all movies of genre drama with average rating higher than 9
+   (SELECT movie_id
+    FROM movies
+    WHERE genre = 'Drama'
+    INTERSECT
+    SELECT movie_id
+    FROM renting
+    GROUP BY movie_id
+    HAVING AVG(rating)>9);
