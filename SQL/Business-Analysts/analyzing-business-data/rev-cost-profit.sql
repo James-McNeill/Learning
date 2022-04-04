@@ -33,8 +33,59 @@ WITH monthly_cost AS (
   JOIN stock ON meals.meal_id = stock.meal_id
   GROUP BY delivr_month)
 
+-- C. Profit
+-- 1. Overall review
+WITH revenue AS (
+  -- Calculate revenue per eatery
+  SELECT eatery,
+         SUM(meal_price * order_quantity) AS revenue
+    FROM meals
+    JOIN orders ON meals.meal_id = orders.meal_id
+   GROUP BY eatery),
+
+  cost AS (
+  -- Calculate cost per eatery
+  SELECT eatery,
+         SUM(meal_cost * stocked_quantity) AS cost
+    FROM meals
+    JOIN stock ON meals.meal_id = stock.meal_id
+   GROUP BY eatery)
+
+   -- Calculate profit per eatery
+   SELECT revenue.eatery,
+          revenue - cost as profit
+     FROM revenue
+     JOIN cost ON revenue.eatery = cost.eatery
+    ORDER BY profit DESC;
+    
+
 SELECT
   -- Calculate the average monthly cost before September
   AVG(cost)
 FROM monthly_cost
 WHERE delivr_month < '2018-09-01';
+
+-- 2. Monthly review
+-- Set up the revenue CTE
+WITH revenue AS ( 
+	SELECT
+		DATE_TRUNC('month', order_date) :: DATE AS delivr_month,
+		SUM(meal_price * order_quantity) AS revenue
+	FROM meals
+	JOIN orders ON meals.meal_id = orders.meal_id
+	GROUP BY delivr_month),
+-- Set up the cost CTE
+  cost AS (
+ 	SELECT
+		DATE_TRUNC('month', stocking_date) :: DATE AS delivr_month,
+		SUM(meal_cost * stocked_quantity) AS cost
+	FROM meals
+    JOIN stock ON meals.meal_id = stock.meal_id
+	GROUP BY delivr_month)
+-- Calculate profit by joining the CTEs
+SELECT
+	revenue.delivr_month,
+	revenue - cost AS profit
+FROM revenue
+JOIN cost ON revenue.delivr_month = cost.delivr_month
+ORDER BY revenue.delivr_month ASC;
