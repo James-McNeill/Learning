@@ -51,3 +51,24 @@ brazil_investment_projects_2018 <- investment_services_projects %>%
 
 brazil_investment_projects_2018
 ```
+
+<!-- Referencing code within the markdown file -->
+### Investment Projects in Brazil in 2018
+
+```{r brazil-investment-projects-2018}
+brazil_investment_projects_2018 <- investment_services_projects %>%
+  filter(country == "Brazil",
+         date_disclosed >= "2017-07-01",
+         date_disclosed <= "2018-06-30") 
+
+brazil_investment_projects_2018
+
+brazil_investment_projects_2018_total <- brazil_investment_projects_2018 %>%
+  summarize(sum_total_investment = sum(total_investment, na.rm = TRUE)) 
+```
+
+<!-- To include a dynamic output the backticks and r need to be included within the text. Should the underlying data change then the code 
+updates the text as well. 
+-->
+The total investment amount for all projects in Brazil in the 2018 fiscal year was `r brazil_investment_projects_2018_total` million dollars.
+
