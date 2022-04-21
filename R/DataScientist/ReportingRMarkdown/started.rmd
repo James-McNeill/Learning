@@ -72,3 +72,24 @@ investment_services_projects
 <!-- Including links and images within the Markdown file
 [DataCamp](https://learn.datacamp.com/) for links and ![](datacamp.png) for images 
 -->
+
+<!-- YAML header
+This is the header element of the markdown file which allows for different parameter (variable) updates
+-->
+<!-- The information will be displayed at the beginning of the report
+output: can include options of "html_document" or "pdf_document" 
+-->
+---
+title: "Investment Report"
+author: "James McNeill"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+<!-- Formatting the date -->
+---
+title: "Investment Report"
+author: "Add your name"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+---
