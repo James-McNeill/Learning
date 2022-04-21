@@ -37,3 +37,17 @@ brazil_investment_projects
 ```
 
 
+<!-- Filter by the fiscal year 
+Fiscal year 2018 = 01Jul2017 - 30Jun2018
+-->
+
+### Investment Projects in Brazil in 2018
+
+```{r brazil-investment-projects-2018}
+brazil_investment_projects_2018 <- investment_services_projects %>%
+  filter(country == "Brazil",
+         date_disclosed >= '2017-07-01',
+         date_disclosed <= '2018-06-30') 
+
+brazil_investment_projects_2018
+```
