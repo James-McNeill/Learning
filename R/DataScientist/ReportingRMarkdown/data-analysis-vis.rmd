@@ -86,3 +86,10 @@ ggplot(investment_annual_summary, aes(x=fiscal_year, y=dollars_in_millions, colo
     x = "Fiscal Year",
     y = "Dollars in Millions"
   )
+
+
+<!-- Setting chunk options to adjust the plots within the markdown -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(fig.align = "center", out.width = '80%', echo = TRUE)
+```
