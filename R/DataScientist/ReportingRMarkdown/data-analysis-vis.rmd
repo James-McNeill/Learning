@@ -72,3 +72,17 @@ updates the text as well.
 -->
 The total investment amount for all projects in Brazil in the 2018 fiscal year was `r brazil_investment_projects_2018_total` million dollars.
 
+<!-- Including plots -->
+library(ggplot2)
+
+### Investment Annual Summary
+
+The `investment_annual_summary` dataset provides a summary of the dollars in millions provided to each region for each fiscal year, from 2012 to 2018.
+```{r investment-annual-summary}
+ggplot(investment_annual_summary, aes(x=fiscal_year, y=dollars_in_millions, color=region)) +
+  geom_line() +
+  labs(
+    title = "Investment Annual Summary",
+    x = "Fiscal Year",
+    y = "Dollars in Millions"
+  )
