@@ -93,3 +93,14 @@ ggplot(investment_annual_summary, aes(x=fiscal_year, y=dollars_in_millions, colo
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(fig.align = "center", out.width = '80%', echo = TRUE)
 ```
+
+<!-- Adding a caption to the figure -->
+```{r investment-annual-summary, out.width = '85%', fig.cap = 'Figure 1.1 The Investment Annual Summary for each region for 2012 to 2018'}
+ggplot(investment_annual_summary, aes(x = fiscal_year, y = dollars_in_millions, color = region)) +
+  geom_line() +
+  labs(
+    title = "Investment Annual Summary",
+    x = "Fiscal Year",
+    y = "Dollars in Millions"
+  )
+```
