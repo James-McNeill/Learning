@@ -117,3 +117,19 @@ pre {
 }
 
 </style>
+
+<!-- Referencing the CSS file within the YAML header -->
+---
+title: "Investment Report for Projects in `r params$country`"
+output: 
+  html_document:
+    css: styles.css
+    toc: true
+    toc_float: true
+date: "`r format(Sys.time(), '%d %B %Y')`"
+params:
+  country: Brazil
+  year_start: 2017-07-01
+  year_end: 2018-06-30
+  fy: 2018
+---
