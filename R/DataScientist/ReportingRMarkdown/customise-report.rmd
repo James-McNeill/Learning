@@ -1,0 +1,57 @@
+<!-- working with additional customisation techniques -->
+
+<!-- Table of contents -->
+---
+title: "Investment Report"
+output: 
+  html_document:
+    toc: true
+date: "`r format(Sys.time(), '%d %B %Y')`"
+---
+
+<!-- Depth refers to how many # items for the headers that the TOC reviews -->
+---
+title: "Investment Report"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+date: "`r format(Sys.time(), '%d %B %Y')`"
+---
+
+<!-- Adding a parameter to the report -->
+---
+title: "Investment Report"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+date: "`r format(Sys.time(), '%d %B %Y')`"
+params:
+  country: Brazil 
+---
+
+<!-- Using the parameter in the report -->
+```{r country-investment-projects}
+country_investment_projects <- investment_services_projects %>%
+  filter(country == params$country) 
+
+ggplot(country_investment_projects, aes(x = date_disclosed, y = total_investment, color = status)) +
+  geom_point() +
+  labs(
+    title = "Investment Services Projects",
+    x = "Date Disclosed",
+    y = "Total IFC Investment in Dollars in Millions"
+  )
+```
+<!-- Parameter can be added to the title of the report -->
+---
+title: "Investment Report for Projects in `r params$country`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+date: "`r format(Sys.time(), '%d %B %Y')`"
+params:
+  country: Brazil 
+---
