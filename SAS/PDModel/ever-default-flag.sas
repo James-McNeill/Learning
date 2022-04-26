@@ -51,13 +51,14 @@ data golden_source_1;
 	*Cumulative Payment missed total of zero;
 	pay_miss_tot_zero = ifn(pay_miss_tot = 0, 1, 0);
 
-	*Payments missed as event sequences;
+	*Payments missed as event sequences
+	pay_miss_tot - Only accumulates the missed payments over time, i.e. any overpayments will not decrease this variable;
 	if first.account_no and pay_miss_tot > 0 then pay_miss_seq = 1;
 	if pay_miss_tot > lag_pay_miss_tot then pay_miss_seq = 1;
 	
 	lag_pay_miss_seq = lag(pay_miss_seq);
 		
-	*Counter for the payment missed events;
+	*Counter for the payment missed events - any amount of payment missed during a month means that the payment missed events continues as one continuous event;
 	if lag_pay_miss_seq = 0 and pay_miss_seq = 1 then pay_miss_events + 1;
 
 	*Track the start and end dates of the payment missed counter events;
@@ -74,7 +75,9 @@ data golden_source_1;
 
 run;
 
-*Max duration for continuous payments missed;
+*Max duration for continuous payments missed
+Maximum length of time that a continuous payments missed sequence lasted, represented by number of months
+Where if a loan missed regular small amounts across a series of months then these are all seen as being continuous;
 proc sql;
 	create table max_pm_dur as
 	select distinct account_no, max(pm_time) as max_pm_time
