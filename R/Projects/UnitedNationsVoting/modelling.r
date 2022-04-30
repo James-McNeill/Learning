@@ -86,3 +86,32 @@ country_coefficients <- by_year_country %>%
 
 # Print the resulting country_coefficients variable. For each country the model coefficients are displayed in two rows, one for the intercept and one for the variable
 country_coefficients
+
+# Print the country_coefficients dataset
+country_coefficients
+
+# Filter for only the slope terms
+country_coefficients %>% filter(term == "year")
+
+# Filter for only the slope terms
+slope_terms <- country_coefficients %>%
+  filter(term == "year")
+
+# Add p.adjusted column, then filter
+slope_terms %>%
+  mutate(p.adjusted = p.adjust(p.value)) %>%
+  filter(p.adjusted < .05)
+
+# Filter by adjusted p-values
+filtered_countries <- country_coefficients %>%
+  filter(term == "year") %>%
+  mutate(p.adjusted = p.adjust(p.value)) %>%
+  filter(p.adjusted < .05)
+
+# Sort for the countries increasing most quickly
+filtered_countries %>%
+  arrange(estimate)
+
+# Sort for the countries decreasing most quickly
+filtered_countries %>%
+  arrange(desc(estimate))
