@@ -27,3 +27,26 @@ votes_processed <- votes %>%
   mutate(year = session + 1945,
   votes_processed = countrycode(ccode, "cown", "country.name")
   )
+
+# Print votes_processed
+votes_processed
+
+# Find total and fraction of "yes" votes. By performing a binary review of the variable vote, the calculation will treat each TRUE as 1 in the formula
+votes_processed %>%
+    summarize(total = n(),
+    percent_yes = mean(vote == 1))
+
+# Change this code to summarize by year
+votes_processed %>%
+  group_by(year) %>%
+  summarize(total = n(),
+            percent_yes = mean(vote == 1))
+
+# Summarize by country: by_country. Storing the output within the variable by_country
+by_country <- votes_processed %>%
+  group_by(country) %>%
+  summarize(total = n(),
+            percent_yes = mean(vote == 1))
+
+# Review the output in the console
+by_country
