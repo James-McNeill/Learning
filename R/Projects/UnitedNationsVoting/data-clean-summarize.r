@@ -50,3 +50,24 @@ by_country <- votes_processed %>%
 
 # Review the output in the console
 by_country
+
+# You have the votes summarized by country
+by_country <- votes_processed %>%
+  group_by(country) %>%
+  summarize(total = n(),
+            percent_yes = mean(vote == 1))
+
+# Print the by_country dataset
+by_country
+
+# Sort in ascending order of percent_yes
+by_country %>% arrange(percent_yes)
+
+# Now sort in descending order
+by_country %>% arrange(desc(percent_yes))
+
+# Filter out countries with fewer than 100 votes. The countries with the lowest number of votes submitted can skew the conclusions
+by_country %>%
+  arrange(percent_yes) %>%
+  filter(total >= 100)
+
