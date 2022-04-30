@@ -9,3 +9,21 @@ votes
 
 # Filter for votes that are "yes", "abstain", or "no"
 votes %>% filter(vote <= 3)
+
+# Add another %>% step to add a year column
+votes %>%
+  filter(vote <= 3) %>%
+  mutate(year = session + 1945)
+
+# Load the countrycode package
+library(countrycode)
+
+# Convert country code 100
+countrycode(100, "cown", "country.name")
+
+# Add a country column within the mutate: votes_processed
+votes_processed <- votes %>%
+  filter(vote <= 3) %>%
+  mutate(year = session + 1945,
+  votes_processed = countrycode(ccode, "cown", "country.name")
+  )
