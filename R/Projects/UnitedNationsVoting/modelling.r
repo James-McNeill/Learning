@@ -36,3 +36,53 @@ UK_tidied <- tidy(UK_fit)
 # Combine the two tidied models
 dplyr::bind_rows(US_tidied, UK_tidied)
 
+# Load the tidyr package
+library(tidyr)
+
+# Nest all columns besides country. Creates a tibble with a dataframe stored for each row by the country variable
+by_year_country %>%
+    nest(-country) # the tibble output will store a variable called data which represents a list of data
+
+# All countries are nested besides country
+nested <- by_year_country %>%
+  nest(-country)
+
+# Print the nested data for Brazil
+nested$data[[7]]
+
+# All countries are nested besides country
+nested <- by_year_country %>%
+  nest(-country)
+
+# Unnest the data column to return it to its original form. Creates one row for each record again
+nested %>%
+  unnest(-country)
+
+# Load tidyr and purrr
+library(tidyr)
+library(purrr)
+
+# Perform a linear regression on each item in the data column
+by_year_country %>%
+  nest(-country) %>%
+  mutate(model = map(data, ~ lm(percent_yes ~ year, data = .))) # purrr package allows us to use a map function. The data = ., represents each element in the list
+# that the map function will step through to apply the model each time. The parameter "data" is the column from the tibble that contains each countries data points
+
+# Load the broom package
+library(broom)
+
+# Add another mutate that applies tidy() to each model
+by_year_country %>%
+  nest(-country) %>%
+  mutate(model = map(data, ~ lm(percent_yes ~ year, data = .)),
+  tidied = map(model, tidy)) # the tidy function is taken from the broom package to create the coefficient values from each linear regression model run
+
+# Add one more step that unnests the tidied column
+country_coefficients <- by_year_country %>%
+  nest(-country) %>%
+  mutate(model = map(data, ~ lm(percent_yes ~ year, data = .)),
+         tidied = map(model, tidy)) %>%
+  unnest(cols = tidied)
+
+# Print the resulting country_coefficients variable. For each country the model coefficients are displayed in two rows, one for the intercept and one for the variable
+country_coefficients
