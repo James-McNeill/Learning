@@ -29,3 +29,95 @@ mdl_churn_vs_relationship <- glm(
 
 # See the result
 mdl_churn_vs_relationship
+
+# Make a data frame of predicted probabilities
+prediction_data <- explanatory_data %>% 
+  mutate(   
+    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = "response")
+  )
+
+# Update the plot
+plt_churn_vs_relationship +
+  # Add points from prediction_data, colored yellow, size 2
+  geom_point(data = prediction_data, color = "yellow", size = 2)
+
+# Update the data frame
+prediction_data <- explanatory_data %>% 
+  mutate(   
+    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = "response"),
+    most_likely_outcome = round(has_churned)
+  )
+
+# Update the plot
+plt_churn_vs_relationship +
+  # Add most likely outcome points from prediction_data, colored yellow, size 2
+  geom_point(
+    aes(y = most_likely_outcome),
+    data = prediction_data, color = "yellow", size = 2)
+
+# Odds ratio
+# From previous step
+prediction_data <- explanatory_data %>% 
+  mutate(   
+    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = "response"),
+    odds_ratio = has_churned / (1 - has_churned)
+  )
+
+# Using prediction_data, plot odds_ratio vs. time_since_first_purchase
+ggplot(prediction_data, aes(time_since_first_purchase, odds_ratio)) +
+  # Make it a line plot
+  geom_line() +
+  # Add a dotted horizontal line at y = 1
+  geom_hline(yintercept = 1, linetype = "dotted")
+
+# Update the data frame
+prediction_data <- explanatory_data %>% 
+  mutate(   
+    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = "response"),
+    odds_ratio = has_churned / (1 - has_churned),
+    # Add the log odds ratio from odds_ratio
+    log_odds_ratio = log(odds_ratio),
+    # Add the log odds ratio using predict()
+    log_odds_ratio2 = predict(mdl_churn_vs_relationship, explanatory_data)
+  )
+
+# See the result
+prediction_data
+
+# Update the data frame
+prediction_data <- explanatory_data %>% 
+  mutate(   
+    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = "response"),
+    odds_ratio = has_churned / (1 - has_churned),
+    log_odds_ratio = log(odds_ratio)
+  )
+
+# Update the plot
+ggplot(prediction_data, aes(time_since_first_purchase, odds_ratio)) +
+  geom_line() +
+  geom_hline(yintercept = 1, linetype = "dotted") +
+  # Use a logarithmic y-scale
+  scale_y_log10()
+
+# Confusion matrix
+# Get the actual responses from the dataset
+actual_response <- churn$has_churned
+
+# Get the "most likely" responses from the model
+predicted_response <- round(fitted(mdl_churn_vs_relationship))
+
+# Create a table of counts
+outcomes <- table(predicted_response, actual_response)
+
+# See the result
+outcomes
+
+# Measuring performance
+# Convert outcomes to a yardstick confusion matrix
+confusion <- conf_mat(outcomes)
+
+# Plot the confusion matrix
+autoplot(confusion)
+
+# Get performance metrics for the confusion matrix
+summary(confusion, event_level = "second")
