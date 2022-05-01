@@ -67,3 +67,29 @@ augment(mdl_price_vs_conv)
 
 # Get the model-level elements of the model. Summary stats for the model
 glance(mdl_price_vs_conv)
+
+# Regression to the mean
+# Using sp500_yearly_returns, plot return_2019 vs. return_2018
+ggplot(sp500_yearly_returns, aes(return_2018, return_2019)) +
+  # Make it a scatter plot
+  geom_point() +
+  # Add a line at y = x, colored green, size 1. To show if similar results happen in both years. Extreme values return to the mean
+  geom_abline(color = "green", size = 1) +
+  # Add a linear regression trend line, no std. error ribbon
+  geom_smooth(method = "lm", se = FALSE) +
+  # Fix the coordinate ratio
+  coord_fixed()
+
+# Run a linear regression on return_2019 vs. return_2018 using sp500_yearly_returns
+mdl_returns <- lm(
+  return_2019 ~ return_2018, 
+  data = sp500_yearly_returns
+)
+
+# Create a data frame with return_2018 at -1, 0, and 1 
+explanatory_data <- tibble(
+    return_2018 = -1:1
+  )
+
+# Use mdl_returns to predict with explanatory_data
+predict(mdl_returns, explanatory_data)
