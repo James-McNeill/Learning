@@ -18,3 +18,14 @@ ggplot(churn, aes(time_since_first_purchase, has_churned)) +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   # Add a glm trend line, no std error ribbon, binomial family
   geom_smooth(method = "glm", se = FALSE, method.args = list(family = "binomial"))
+
+# Fit a logistic regression of churn vs. length of relationship using the churn dataset. The same method can be used to fit a linear regression model, the only
+# adjustment is to change family to "gaussian"
+mdl_churn_vs_relationship <- glm(
+    has_churned ~ time_since_first_purchase,
+    data = churn,
+    family = "binomial"
+)
+
+# See the result
+mdl_churn_vs_relationship
