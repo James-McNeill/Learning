@@ -69,3 +69,40 @@ prob_greater_than_5
 # Calculate probability of waiting 10-20 mins
 prob_between_10_and_20 <- punif(20, min = min, max = max) - punif(10, min = min, max = max)
 prob_between_10_and_20
+
+# Simulating wait times
+# Set random seed to 334
+set.seed(334)
+
+# Generate 1000 wait times between 0 and 30 mins, save in time column
+wait_times %>%
+  mutate(time = runif(1000, min = 0, max = 30)) %>%
+  # Create a histogram of simulated times
+  ggplot(aes(time)) +
+  geom_histogram()
+
+# Binomial distribution
+# Set random seed to 10
+set.seed(10)
+
+# Simulate a single deal. First param is number of simulations, second param is n = number of trials, third param is p = probability of success.
+rbinom(1, 1, 0.3)
+
+# Simulate 1 week of 3 deals
+rbinom(1, 3, 0.3)
+
+# Simulate 52 weeks of 3 deals
+deals <- rbinom(52, 3, 0.3)
+
+# Calculate mean deals won per week
+mean(deals)
+
+# Probability of closing 3 out of 3 deals
+dbinom(3, 3, 0.3)
+
+# Probability of closing <= 1 deal out of 3 deals
+pbinom(1, 3, 0.3)
+
+# Probability of closing > 1 deal out of 3 deals
+pbinom(1, 3, 0.3, lower.tail = FALSE)
+
