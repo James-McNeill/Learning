@@ -147,3 +147,24 @@ prediction_data <- explanatory_data %>%
 
 # See the result
 prediction_data
+
+
+# Simpsons paradox
+# Sometimes modeling a whole dataset suggests trends that disagree with models on separate parts of that dataset. 
+# This is known as Simpson's paradox. In the most extreme case, you may see a positive slope on the whole dataset, 
+# and negative slopes on every subset of that dataset (or the other way around).
+
+# Take a glimpse at the dataset
+glimpse(auctions)
+
+# Model price vs. opening bid using auctions
+mdl_price_vs_openbid <- lm(price ~ openbid, data = auctions)
+
+# See the result
+mdl_price_vs_openbid
+
+# Using auctions, plot price vs. opening bid as a scatter plot with linear regression trend lines. Openbid appears to have no impact on final price
+ggplot(auctions, aes(openbid, price)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE)
+
