@@ -63,3 +63,87 @@ ggplot(taiwan_real_estate, aes(n_convenience, price_twd_msq, color = house_age_y
   # Add points using prediction_data_30_to_45, colored blue, size 3, shape 15
   geom_point(data = prediction_data_30_to_45, color = "blue", size = 3, shape = 15)
 
+# Specifying interactions
+# Aim is to have one model that benefits from the improvements seen with each individual model. This is where the interactions come into play. 
+# Defining this single model is achieved through adding interactions between explanatory variables. R's formula syntax is flexible, and gives 
+# you a couple of options, depending on whether you prefer concise code that is quick to type and to read, or explicit code that describes what 
+# you are doing in detail.
+
+# Model price vs both with an interaction using "times" syntax
+lm(price_twd_msq ~ n_convenience * house_age_years, data = taiwan_real_estate)
+
+# Model price vs both with an interaction using "colon" syntax. Both methods produce the same model outputs. All depends on syntax that is preferred
+lm(price_twd_msq ~ n_convenience + house_age_years + n_convenience:house_age_years, data = taiwan_real_estate)
+
+# Reviewing interactions
+# Model price vs. house age plus an interaction, no intercept
+mdl_readable_inter <- 
+    lm(
+        price_twd_msq ~ house_age_years + n_convenience:house_age_years + 0,
+        data = taiwan_real_estate
+    )
+
+# See the result
+mdl_readable_inter
+
+# Get coefficients for mdl_0_to_15
+coefficients(mdl_0_to_15)
+
+# Get coefficients for mdl_15_to_30
+coefficients(mdl_15_to_30)
+
+# Get coefficients for mdl_30_to_45
+coefficients(mdl_30_to_45)
+
+# Look at the coefficients. Shows how one model can produce the same coefficients as the three separate models
+coefficients(mdl_readable_inter)
+
+# Predicting with interactions
+# Make a grid of explanatory data
+explanatory_data <- expand_grid(
+  # Set n_convenience to zero to ten
+  n_convenience = 0:10,
+  # Set house_age_years to the unique values of that variable
+  house_age_years = unique(taiwan_real_estate$house_age_years)
+)
+
+# See the result
+explanatory_data
+
+# Add predictions to the data frame
+prediction_data <- explanatory_data %>%
+  mutate(
+    price_twd_msq = predict(mdl_price_vs_both_inter, explanatory_data)
+  )
+
+# Using taiwan_real_estate, plot price vs. no. of convenience stores, colored by house age
+ggplot(taiwan_real_estate, aes(n_convenience, price_twd_msq, color = house_age_years)) +
+  # Make it a scatter plot
+  geom_point() +
+  # Add linear regression trend lines, no ribbon
+  geom_smooth(method = "lm", se = FALSE) +
+  # Add points from prediction_data, size 5, shape 15
+  geom_point(data = prediction_data, size = 5, shape = 15)
+
+# Manual predictions
+# From previous step
+coeffs <- coefficients(mdl_price_vs_both_inter)
+intercept_0_15 <- coeffs[1]
+intercept_15_30 <- coeffs[2]
+intercept_30_45 <- coeffs[3]
+slope_0_15 <- coeffs[4]
+slope_15_30 <- coeffs[5]
+slope_30_45 <- coeffs[6]
+
+prediction_data <- explanatory_data %>% 
+  mutate(
+    # Consider the 3 cases to choose the price
+    price_twd_msq = case_when(
+      house_age_years == "0 to 15" ~ intercept_0_15 + slope_0_15 * n_convenience,
+      house_age_years == "15 to 30" ~ intercept_15_30 + slope_15_30 * n_convenience,
+      house_age_years == "30 to 45" ~ intercept_30_45 + slope_30_45 * n_convenience
+    )   
+  )
+
+# See the result
+prediction_data
