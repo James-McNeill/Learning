@@ -62,3 +62,96 @@ autoplot(confusion)
 
 # Get summary metrics
 summary(confusion, event = "second")
+
+# CDF for logistic dist
+logistic_distn_cdf <- tibble(
+  # Make a seq from -10 to 10 in steps of 0.1
+  x = seq(-10, 10, 0.1),
+  # Transform x with built-in logistic CDF
+  logistic_x = plogis(x),
+  # Transform x with manual logistic
+  logistic_x_man = 1 / (1 + exp(-x))
+) 
+
+# Check that each logistic function gives the same results
+all.equal(
+  logistic_distn_cdf$logistic_x_man, 
+  logistic_distn_cdf$logistic_x
+)
+
+# Using logistic_distn_cdf, plot logistic_x vs. x
+ggplot(logistic_distn_cdf, aes(x, logistic_x)) +
+  # Make it a line plot
+  geom_line()
+
+# Inverse CDF
+logistic_distn_inv_cdf <- tibble(
+  # Make a seq from 0.001 to 0.999 in steps of 0.001
+  p = seq(0.001, 0.999, 0.001),
+  # Transform with built-in logistic inverse CDF
+  logit_p = qlogis(p),
+  # Transform with manual logit
+  logit_p_man = log(p / (1 - p))
+) 
+
+# Check that each logistic function gives the same results
+all.equal(
+  logistic_distn_inv_cdf$logit_p,
+  logistic_distn_inv_cdf$logit_p_man
+)
+
+# Using logistic_distn_inv_cdf, plot logit_p vs. p
+ggplot(logistic_distn_inv_cdf, aes(p, logit_p)) +
+  # Make it a line plot
+  geom_line()
+
+# binomial family argument
+# Look at the structure of binomial() function
+str(binomial())
+
+# Call the link inverse on x
+linkinv_x <- binomial()$linkinv(x)
+
+# Check linkinv_x and plogis() of x give same results 
+all.equal(
+    linkinv_x,
+    plogis(x)
+)
+
+# Call the link fun on p
+linkfun_p <- binomial()$linkfun(p)
+
+# Check linkfun_p and qlogis() of p give same results  
+all.equal(
+    linkfun_p,
+    qlogis(p)
+)
+
+# Logistic regression algorithm
+calc_neg_log_likelihood <- function(coeffs) {
+  # Get the intercept coeff
+  intercept <- coeffs[1]
+
+  # Get the slope coeff
+  slope <- coeffs[2]
+
+  # Calculate the predicted y values
+  y_pred <- plogis(intercept + slope * x_actual)
+
+  # Calculate the log-likelihood for each term
+  log_likelihoods <- log(y_pred) * y_actual + log(1 - y_pred) * (1 - y_actual)
+
+  # Calculate minus the sum of the log-likelihoods for each term
+  -sum(log_likelihoods)
+}
+
+# Optimize the metric
+optim(
+  # Initially guess 0 intercept and 1 slope
+  par = c(intercept = 0, slope = 1),
+  # Use calc_neg_log_likelihood as the optimization fn 
+  fn = calc_neg_log_likelihood
+)
+
+# Compare the coefficients to those calculated by glm()
+glm(has_churned ~ time_since_last_purchase, data = churn, family = binomial)
