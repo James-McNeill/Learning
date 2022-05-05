@@ -86,3 +86,13 @@ loan_model_pruned <- prune(loan_model, cp = 0.0014)
 # Compute the accuracy of the pruned tree. Model accuracy has improved
 loans_test$pred <- predict(loan_model_pruned, loans_test, type = "class")
 mean(loans_test$outcome == loans_test$pred)
+
+# Load the randomForest package
+library(randomForest)
+
+# Build a random forest model
+loan_model <- randomForest(outcome ~ ., data = loans)
+
+# Compute the accuracy of the random forest
+loans_test$pred <- predict(loan_model, loans_test)
+mean(loans_test$outcome == loans_test$pred)
