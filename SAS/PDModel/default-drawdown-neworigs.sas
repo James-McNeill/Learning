@@ -14,7 +14,7 @@ run;
 proc sql;
  create table actmgt_gs as
  select t1.account_no, t1.month, t1.drawdown_dt, t1.acc_incep_dt,
-  t1.tot_current_balance,
+  t1.current_balance,
   t2.payments_missed, t2.default_flag,
   t2.arrears
  from actmgt t1
