@@ -63,3 +63,17 @@ bloodpressure_model <- lm(fmla, data = bloodpressure)
 # Print bloodpressure_model and call summary() 
 bloodpressure_model
 summary(bloodpressure_model)
+
+# bloodpressure is available
+summary(bloodpressure)
+
+# bloodpressure_model is available
+bloodpressure_model
+
+# Predict blood pressure using bloodpressure_model: prediction
+bloodpressure$prediction <- predict(bloodpressure_model, data = bloodpressure)
+
+# Plot the results
+ggplot(bloodpressure, aes(prediction, blood_pressure)) + 
+    geom_point() +
+    geom_abline(color = "blue")
