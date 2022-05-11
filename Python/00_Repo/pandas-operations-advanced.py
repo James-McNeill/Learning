@@ -195,5 +195,6 @@ df_sample.head(10)
 df_sample['Customer Name Length']=df_sample['Customer Name'].apply(len)
 df_sample.head(10)
 
+# Perform an inline UDF using lambda
 df_sample['Discounted Price']=df_sample['Sales'].apply(lambda x:0.85*x if x > 200 else x)
 df_sample.head(10)
