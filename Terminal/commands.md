@@ -2,10 +2,10 @@ Using the Terminal in AWS Sagemaker to create a zip file containing the developm
 	
 Open Terminal	
 	
-dir:  shows the current folders in the directory
-pwd:	shows the current working directory
-cd:	  change directory
-zip:	zip the files required
+- dir:  shows the current folders in the directory
+- pwd:	shows the current working directory
+- cd:	change directory
+- zip:	zip the files required
 
 Creating a zipped folder	
 steps	
