@@ -10,10 +10,10 @@ zip:	zip the files required
 Creating a zipped folder	
 steps	
 1. change directory	
-	  SageMaker is the directory to go into
-    cd /SageMaker/s3-user-bucket/…/	
+ - SageMaker is the directory to go into
+ - cd /SageMaker/s3-user-bucket/…/	
 2. Move to the directory folder required. For the macro models this would have been into the STF folder
-	zip -r ZipFolder.zip .	
-	`-r is the command, 
-  ZipFolder.zip is the zipped folder name and 
-  . Is used to select all items in the current folder
+ - zip -r ZipFolder.zip .	
+	- `-r is the command, 
+ 	- ZipFolder.zip is the zipped folder name and 
+  	- . Is used to select all items in the current folder
