@@ -24,3 +24,32 @@ dist_two_players
 # Calculate the Distance Between three_players
 dist_three_players <- dist(three_players)
 dist_three_players
+
+# Effects of scaling
+# Calculate distance for three_trees 
+dist_trees <- dist(three_trees)
+
+# Scale three trees & calculate the distance  
+scaled_three_trees <- scale(three_trees)
+dist_scaled_trees <- dist(scaled_three_trees)
+
+# Output the results of both Matrices
+print('Without Scaling')
+dist_trees
+
+print('With Scaling')
+dist_scaled_trees
+
+# Calculating distance between categorical variables
+library(dummies) # used to create dummy data frames
+# Dummify the Survey Data
+dummy_survey <- dummy.data.frame(job_survey)
+
+# Calculate the Distance
+dist_survey <- dist(dummy_survey, method = "binary")
+
+# Print the Original Data
+job_survey
+
+# Print the Distance Matrix
+dist_survey
