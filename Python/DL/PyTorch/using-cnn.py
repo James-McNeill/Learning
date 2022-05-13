@@ -96,3 +96,36 @@ class Net(nn.Module):
         
         # Implement the fully connected layer for classification
         self.fc = nn.Linear(in_features=7*7*20, out_features=10)
+
+# Transfer learning
+# Fine tuning a CNN
+# Create a model using
+model = Net()
+
+# Load the parameters from the old model. Old model predicted hand written numbers
+model.load_state_dict(torch.load('my_net.pth'))
+
+# Change the number of out channels. New model output layer aims to predict handwritten letters
+model.fc = nn.Linear(7 * 7 * 512, 26)
+
+# Train and evaluate the model
+model.train()
+train_net(model, optimizer, criterion)
+print("Accuracy of the net is: " + str(model.eval()))
+
+# Touchvision module
+# Fine tune model that was already built. Resnet18 was built on over 1.2 million images, so the pretrained model can be used for the challenge
+# that we are aiming to review.
+
+# Import the module
+import torchvision
+
+# Download resnet18
+model = torchvision.models.resnet18(pretrained=True)
+
+# Freeze all the layers bar the last one
+for param in model.parameters():
+    param.requires_grad = False
+
+# Change the number of output units to match the number of output classes required by the new model
+model.fc = nn.Linear(512, 7)
