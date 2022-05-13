@@ -74,3 +74,60 @@ mean_f = torch.mean(f)
 
 # Calculate the gradients
 mean_f.backward()
+
+# First neural network
+# Initialize the weights of the neural network
+weight_1 = torch.rand(784, 200)
+weight_2 = torch.rand(200, 10)
+
+# Multiply input_layer with weight_1
+hidden_1 = torch.matmul(input_layer, weight_1)
+
+# Multiply hidden_1 with weight_2
+output_layer = torch.matmul(hidden_1, weight_2)
+print(output_layer)
+
+# Building a Neural Network class
+import torch
+import torch.nn as nn
+
+# Note that this class worked for a picture
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        
+        # Instantiate all 2 linear layers  
+        self.fc1 = nn.Linear(784, 200) # First hidden layer that connected to the input layer. (input_layer, hidden_layer). For this example 784 pixels (28,28)
+        self.fc2 = nn.Linear(200, 10) # Second hidden layer connection to the output layer. (hidden_layer, output_layer). There are 10 output nodes
+
+    def forward(self, x):
+      
+        # Use the instantiated layers and return x
+        x = self.fc1(x) # Take input values and create hidden layer
+        x = self.fc2(x) # Use hidden layer to create outputs
+        return x
+      
+# Working with a similar class setup
+import torch
+import torch.nn as nn
+
+# Note that this class worked for a picture
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.fc1 = nn.Linear(10, 20) # First hidden layer that connected to the input layer. (input_layer, hidden_layer). For this example 784 pixels (28,28)
+        self.fc2 = nn.Linear(20, 20) # Second hidden layer connection to the output layer. (hidden_layer, output_layer). There are 10 output nodes
+        self.output = nn.Linear(20, 4)
+        
+    def forward(self, x):
+      
+        # Use the instantiated layers and return x
+        x = self.fc1(x)
+        x = self.fc2(x)
+        x = self.output(x)
+        return x
+
+# Working with this example class
+input_layer = torch.rand(10)
+net = Net()
+result = Net(input_layer)
