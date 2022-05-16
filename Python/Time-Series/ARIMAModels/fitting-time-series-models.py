@@ -110,3 +110,44 @@ plt.xlabel('Date')
 plt.ylabel('Amazon Stock Price - Close USD')
 plt.legend()
 plt.show()
+
+# Differencing and fitting ARMA
+# Take the first difference of the data
+amazon_diff = amazon.diff().dropna()
+
+# Create ARMA(2,2) model. The second element of the order relates to the differencing being used. (p,d,q). As the differencing is already applied before using
+# the function then this value can be 0. However the model results will produce the differenced predictions, so need to be aware of this
+arma = SARIMAX(amazon_diff, order=(2,0,2))
+
+# Fit model
+arma_results = arma.fit()
+
+# Print fit summary
+print(arma_results.summary())
+
+# Unrolling ARMA forecast
+# Returning the prediction back to it's original format. The get_forecast() will return a cumulative sum
+# Make arma forecast of next 10 differences
+arma_diff_forecast = arma_results.get_forecast(steps=10).predicted_mean
+
+# Integrate the difference forecast. Therefore the np.cumsum() is used to unroll
+arma_int_forecast = np.cumsum(arma_diff_forecast)
+
+# Make absolute value forecast. Attach the unrolled values to the last value in the original amazon series
+arma_value_forecast = arma_int_forecast + amazon.iloc[-1,0]
+
+# Print forecast
+print(arma_value_forecast)
+
+# Fitting an ARIMA model
+# Create ARIMA(2,1,2) model
+arima = SARIMAX(amazon, order=(2,1,2))
+
+# Fit ARIMA model
+arima_results = arima.fit()
+
+# Make ARIMA forecast of next 10 values
+arima_value_forecast = arima_results.get_forecast(steps=10).predicted_mean
+
+# Print forecast
+print(arima_value_forecast)
