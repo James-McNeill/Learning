@@ -63,4 +63,39 @@ plot(tree_loss_matrix, uniform = TRUE)
 # Add labels to the decision tree
 text(tree_loss_matrix)
 
-#Pruning decision trees
+# Pruning decision trees
+# tree_prior is loaded in your workspace
+
+# Plot the cross-validated error rate as a function of the complexity parameter. Aiming to select the cp value that results in the minimum xerror
+plotcp(tree_prior)
+
+# Use printcp() to identify for which complexity parameter the cross-validated error rate is minimized.
+printcp(tree_prior)
+
+# Create an index for of the row with the minimum xerror
+index <- which.min(tree_prior$cptable[ , "xerror"])
+
+# Create tree_min
+tree_min <- tree_prior$cptable[index, "CP"]
+
+#  Prune the tree using tree_min
+ptree_prior <- prune(tree_prior, cp = tree_min)
+
+# Use prp() to plot the pruned tree
+prp(ptree_prior)
+
+# Pruning tree with loss matrix
+# set a seed and run the code to construct the tree with the loss matrix again
+set.seed(345)
+tree_loss_matrix  <- rpart(loan_status ~ ., method = "class", data = training_set,
+                           parms = list(loss=matrix(c(0, 10, 1, 0), ncol = 2)),
+                           control = rpart.control(cp = 0.001))
+
+# Plot the cross-validated error rate as a function of the complexity parameter
+plotcp(tree_loss_matrix)
+
+# Prune the tree using cp = 0.0012788
+ptree_loss_matrix <- prune(tree_loss_matrix, cp = 0.0012788)
+
+# Use prp() and argument extra = 1 to plot the pruned tree
+prp(ptree_loss_matrix, extra = 1)
