@@ -63,3 +63,4 @@ plot(tree_loss_matrix, uniform = TRUE)
 # Add labels to the decision tree
 text(tree_loss_matrix)
 
+#Pruning decision trees
