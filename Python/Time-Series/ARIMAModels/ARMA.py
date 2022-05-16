@@ -27,3 +27,62 @@ fig, ax = plt.subplots()
 candy_train.plot(ax=ax)
 candy_test.plot(ax=ax)
 plt.show()
+
+# Test for stationarity
+# Import augmented dicky-fuller test function
+from statsmodels.tsa.stattools import adfuller
+
+# Run test
+result = adfuller(earthquake['earthquakes_per_year'])
+
+# Print test statistic
+print(result[0])
+
+# Print p-value
+print(result[1])
+
+# Print critical values
+print(result[4]) 
+
+# Taking the difference
+# Run the ADF test on the time series
+result = adfuller(city['city_population'])
+
+# Plot the time series
+fig, ax = plt.subplots()
+city.plot(ax=ax)
+plt.show()
+
+# Print the test statistic and the p-value
+print('ADF Statistic:', result[0])
+print('p-value:', result[1])
+
+# Calculate the first difference of the time series
+city_stationary = city.diff().dropna()
+
+# Run ADF test on the differenced time series
+result = adfuller(city_stationary['city_population'])
+
+# Plot the differenced time series
+fig, ax = plt.subplots()
+city_stationary.plot(ax=ax)
+plt.show()
+
+# Print the test statistic and the p-value
+print('ADF Statistic:', result[0])
+print('p-value:', result[1])
+
+# Calculate the second difference of the time series
+city_stationary = city.diff().diff().dropna()
+
+# Run ADF test on the differenced time series
+result = adfuller(city_stationary['city_population'])
+
+# Plot the differenced time series
+fig, ax = plt.subplots()
+city_stationary.plot(ax=ax)
+plt.show()
+
+# Print the test statistic and the p-value
+print('ADF Statistic:', result[0])
+print('p-value:', result[1])
