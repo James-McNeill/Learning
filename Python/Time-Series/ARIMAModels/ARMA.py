@@ -86,3 +86,20 @@ plt.show()
 # Print the test statistic and the p-value
 print('ADF Statistic:', result[0])
 print('p-value:', result[1])
+
+# Other transforms
+# Calculate the first difference and drop the nans
+amazon_diff = amazon.diff()
+amazon_diff = amazon_diff.dropna()
+
+# Run test and print
+result_diff = adfuller(amazon_diff['close'])
+print(result_diff)
+
+# Calculate log-return and drop nans
+amazon_log = np.log(amazon)
+amazon_log = amazon_log.dropna()
+
+# Run test and print
+result_log = adfuller(amazon_log['close'])
+print(result_log)
