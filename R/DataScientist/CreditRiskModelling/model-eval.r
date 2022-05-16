@@ -89,3 +89,45 @@ auc(ROC_undersample)
 auc(ROC_prior)
 auc(ROC_loss_matrix)
 auc(ROC_weights)
+
+# AUC based pruning
+# Build four models each time deleting one variable in log_3_remove_ir
+log_4_remove_amnt <- glm(loan_status ~ grade + annual_inc + emp_cat, 
+                        family = binomial, data = training_set) 
+log_4_remove_grade <- glm(loan_status ~ annual_inc + emp_cat + loan_amnt, 
+                        family = binomial, data = training_set)
+log_4_remove_inc <- glm(loan_status ~ grade + loan_amnt + emp_cat, 
+                        family = binomial, data = training_set)
+log_4_remove_emp <- glm(loan_status ~ grade + annual_inc + loan_amnt, 
+                        family = binomial, data = training_set)
+
+# Make PD-predictions for each of the models
+pred_4_remove_amnt <- predict(log_4_remove_amnt, newdata = test_set, type = "response")
+pred_4_remove_grade <- predict(log_4_remove_grade, newdata = test_set, type = "response")
+pred_4_remove_inc <- predict(log_4_remove_inc, newdata = test_set, type = "response")
+pred_4_remove_emp <- predict(log_4_remove_emp, newdata = test_set, type = "response")
+
+# Compute the AUCs
+auc(test_set$loan_status, pred_4_remove_amnt)
+auc(test_set$loan_status, pred_4_remove_grade)
+auc(test_set$loan_status, pred_4_remove_inc)
+auc(test_set$loan_status, pred_4_remove_emp)
+
+# Further reduction?
+# Build three models each time deleting one variable in log_4_remove_amnt
+log_5_remove_grade <- glm(loan_status ~ annual_inc + emp_cat, family = binomial, data = training_set) 
+log_5_remove_inc <- glm(loan_status ~ grade + emp_cat, family = binomial, data = training_set) 
+log_5_remove_emp <- glm(loan_status ~ annual_inc + grade, family = binomial, data = training_set) 
+
+# Make PD-predictions for each of the models
+pred_5_remove_grade <- predict(log_5_remove_grade, newdata = test_set, type = "response")
+pred_5_remove_inc <- predict(log_5_remove_inc, newdata = test_set, type = "response")
+pred_5_remove_emp <- predict(log_5_remove_emp, newdata = test_set, type = "response")
+
+# Compute the AUCs
+auc(test_set$loan_status, pred_5_remove_grade)
+auc(test_set$loan_status, pred_5_remove_inc)
+auc(test_set$loan_status, pred_5_remove_emp)
+
+# Plot the ROC-curve for the best model here
+plot(roc(test_set$loan_status, pred_4_remove_amnt))
