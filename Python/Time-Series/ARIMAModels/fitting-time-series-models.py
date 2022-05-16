@@ -20,3 +20,23 @@ results = model.fit()
 
 # Print summary
 print(results.summary())
+
+# Fitting ARMA model
+# Instantiate the model. ARMA(3, 1)
+model = ARMA(earthquake, order = (3, 1))
+
+# Fit the model
+results = model.fit()
+
+# Print model fit summary
+print(results.summary())
+
+# Fitting an ARMAX model
+# Instantiate the model
+model = ARMA(hospital['wait_times_hrs'], order=(2,1), exog=hospital['nurse_count'])
+
+# Fit the model
+results = model.fit()
+
+# Print model fit summary
+print(results.summary())
