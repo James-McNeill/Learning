@@ -103,3 +103,54 @@ amazon_log = amazon_log.dropna()
 # Run test and print
 result_log = adfuller(amazon_log['close'])
 print(result_log)
+
+# Generating ARMA data
+# Import data generation function and set random seed
+from statsmodels.tsa.arima_process import arma_generate_sample
+np.random.seed(1)
+
+# Set coefficients. MA(1) model
+ar_coefs = [1, ]
+ma_coefs = [1, -0.7]
+
+# Generate data
+y = arma_generate_sample(ar_coefs, ma_coefs, nsample=100, scale=0.5)
+
+plt.plot(y)
+plt.ylabel(r'$y_t$')
+plt.xlabel(r'$t$')
+plt.show()
+
+# Set coefficients. AR(2) model
+ar_coefs = [1, -0.3, -0.2]
+ma_coefs = [1, ]
+
+# Generate data
+y = arma_generate_sample(ar_coefs, ma_coefs, nsample=100, scale=0.5)
+
+plt.plot(y)
+plt.ylabel(r'$y_t$')
+plt.xlabel(r'$t$')
+plt.show()
+
+# Set coefficients. ARMA(1,2)
+ar_coefs = [1, 0.2]
+ma_coefs = [1, 0.3, 0.4]
+
+# Generate data
+y = arma_generate_sample(ar_coefs, ma_coefs, nsample=100, scale=0.5)
+
+plt.plot(y)
+plt.ylabel(r'$y_t$')
+plt.xlabel(r'$t$')
+plt.show()
+
+# Fitting prelude
+# Import the ARMA model
+from statsmodels.tsa.arima_model import ARMA
+
+# Instantiate the model
+model = ARMA(y, order=(1,1))
+
+# Fit the model
+results = model.fit()
