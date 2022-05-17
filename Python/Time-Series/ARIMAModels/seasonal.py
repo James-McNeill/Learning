@@ -110,3 +110,64 @@ plt.legend()
 plt.show()
 
 # Automation and saving model selections
+# Import pmdarima as pm
+# Automatically choose model orders for some time series datasets
+import pmdarima as pm
+
+# Create auto_arima model
+# Model the time series df1 with period 7 days and set first order seasonal differencing and no non-seasonal differencing.
+model1 = pm.auto_arima(df1,
+                      seasonal=True, m=7,
+                      d=0, D=1, 
+                 	  max_p=2, max_q=2,
+                      trace=True,
+                      error_action='ignore',
+                      suppress_warnings=True) 
+
+# Print model summary
+print(model1.summary())
+
+# Create model
+# Create a model to fit df2. Set the non-seasonal differencing to 1, the trend to a constant and set no seasonality.
+model2 = pm.auto_arima(df2,
+                      seasonal=False,
+                      d=1,
+                      trend='c',
+                 	  max_p=2, max_q=2,
+                      trace=True,
+                      error_action='ignore',
+                      suppress_warnings=True) 
+
+# Print model summary
+print(model2.summary())
+
+# Create model for SARIMAX(p,1,q)(P,1,Q)7
+model3 = pm.auto_arima(df3,
+                      seasonal=True, m=7,
+                      d=1, D=1, 
+                      start_p=1, start_q=1,
+                      max_p=1, max_q=1,
+                      max_P=1, max_Q=1,
+                      trace=True,
+                      error_action='ignore',
+                      suppress_warnings=True) 
+
+# Print model summary
+print(model3.summary())
+
+# Saving and updating models
+# Import joblib
+import joblib
+
+# Set model name
+filename = "candy_model.pkl"
+
+# Pickle it
+joblib.dump(model,filename)
+
+# Load the model back in
+loaded_model = joblib.load(filename)
+
+# Update the model. Adding new data points to the model. The model will then be updated and aims to make updated predictions with the additional data.
+# This can help with monitoring steps. However, if the model stats need to be reviewed again, it might make more sense to follow the Box-Jenkins models again.
+loaded_model.update(df_new)
