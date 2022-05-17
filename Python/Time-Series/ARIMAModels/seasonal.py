@@ -41,3 +41,70 @@ plot_acf(water_2['water_consumers'], lags=25, zero=False, ax=ax1)
 
 # Show figure
 plt.show()
+
+# Seasonal ARIMA models
+# Create a SARIMAX model
+model = SARIMAX(df1, order=(1,0,0), seasonal_order=(1,1,0,7)) # seasonal_order=(P,D,Q,S), seasonal values for the three original parameters, then S is the seasonal step
+
+# Fit the model
+results = model.fit()
+
+# Print the results summary
+print(results.summary())
+
+# Create a SARIMAX model
+model = SARIMAX(df3, order=(1,1,0), seasonal_order=(0,1,1,12))
+
+# Fit the model
+results = model.fit()
+
+# Print the results summary
+print(results.summary())
+
+# Choosing SARIMA order
+# Take the first and seasonal differences and drop NaNs
+aus_employment_diff = aus_employment.diff(1).diff(12).dropna()
+
+# Plot Non-Seasonal figures
+# Create the figure 
+fig, (ax1, ax2) = plt.subplots(2,1,figsize=(8,6))
+
+# Plot the ACF on ax1
+plot_acf(aus_employment_diff, lags=11, zero=False, ax=ax1)
+
+# Plot the PACF on ax2
+plot_pacf(aus_employment_diff, lags=11, zero=False, ax=ax2)
+
+plt.show()
+
+# Plot Seasonal figures
+# Make list of lags
+lags = [12, 24, 36, 48, 60]
+
+# Create the figure 
+fig, (ax1, ax2) = plt.subplots(2,1,figsize=(8,6))
+
+# Plot the ACF on ax1
+plot_acf(aus_employment_diff, lags=lags, zero=False, ax=ax1)
+
+# Plot the PACF on ax2
+plot_pacf(aus_employment_diff, lags=lags, zero=False, ax=ax2)
+
+plt.show()
+
+# SARIMA vs ARIMA forecasts
+# Create ARIMA mean forecast
+arima_pred = arima_results.get_forecast(steps=25, dynamic=True)
+arima_mean = arima_pred.predicted_mean
+
+# Create SARIMA mean forecast
+sarima_pred = sarima_results.get_forecast(steps=25, dynamic=True)
+sarima_mean = sarima_pred.predicted_mean
+
+# Plot mean ARIMA and SARIMA predictions and observed. The Seasonal forecast captures this element much better than the regular ARIMA forecast which only
+# detects the upward trend
+plt.plot(dates, sarima_mean, label='SARIMA')
+plt.plot(dates, arima_mean, label='ARIMA')
+plt.plot(wisconsin_test, label='observed')
+plt.legend()
+plt.show()
