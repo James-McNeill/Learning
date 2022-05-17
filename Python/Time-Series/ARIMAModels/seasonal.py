@@ -108,3 +108,5 @@ plt.plot(dates, arima_mean, label='ARIMA')
 plt.plot(wisconsin_test, label='observed')
 plt.legend()
 plt.show()
+
+# Automation and saving model selections
