@@ -155,3 +155,32 @@ plot_acf(savings['savings'], lags=10, zero=False, ax=ax1)
 plot_pacf(savings['savings'], lags=10, zero=False, ax=ax2)
 
 plt.show()
+
+# Estimation
+# Loop over p values from 0-3
+for p in range(4):
+  
+  # Loop over q values from 0-3
+    for q in range(4):
+      try:
+        # Create and fit ARMA(p,q) model. Adding a constant trend
+        model = SARIMAX(savings, order=(p, 0, q), trend='c')
+        results = model.fit()
+        
+        # Print p, q, AIC, BIC
+        print(p, q, results.aic, results.bic)
+        
+      except:
+        print(p, q, None, None)
+
+# Diagnostics
+# Create and fit model
+model = SARIMAX(savings, order=(1, 0, 2), trend='c')
+results = model.fit()
+
+# Create the 4 diagostics plots
+results.plot_diagnostics()
+plt.show()
+
+# Print summary
+print(results.summary())
