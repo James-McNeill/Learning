@@ -121,3 +121,37 @@ results=model.fit()
 # Create the 4 diagostics plots
 results.plot_diagnostics()
 plt.show()
+
+# Box-Jenkins method
+# Steps to take when building a time series model
+# Raw data -> production model
+# 1. Identification: times series stationary, what differencing makes it stationary, what transforms make it stationary, what p and q look good
+#    plot time series, ADF tests, transforms and differencing, ACF and PACF plots
+# 2. Estimation: train model to get coefficients, choosing models based on AIC and BIC
+# 3. Model diagnostics: are the residuals uncorrelated, are residuals normally distrbuted
+# 4. Production: once the other steps before have been made and a model decision made then forecasts can take place
+
+# Identification
+# Plot time series
+savings.plot()
+plt.show()
+
+# Run Dicky-Fuller test
+result = adfuller(savings['savings'])
+
+# Print test statistic
+print(result[0])
+
+# Print p-value
+print(result[1])
+
+# Create figure
+fig, (ax1, ax2) = plt.subplots(2,1, figsize=(12,8))
+ 
+# Plot the ACF of savings on ax1
+plot_acf(savings['savings'], lags=10, zero=False, ax=ax1)
+
+# Plot the PACF of savings on ax2
+plot_pacf(savings['savings'], lags=10, zero=False, ax=ax2)
+
+plt.show()
