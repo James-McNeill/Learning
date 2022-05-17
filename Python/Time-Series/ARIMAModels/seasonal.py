@@ -171,3 +171,53 @@ loaded_model = joblib.load(filename)
 # Update the model. Adding new data points to the model. The model will then be updated and aims to make updated predictions with the additional data.
 # This can help with monitoring steps. However, if the model stats need to be reviewed again, it might make more sense to follow the Box-Jenkins models again.
 loaded_model.update(df_new)
+
+# Model diagnostics
+# Import model class
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+
+# Create model object
+model = SARIMAX(co2, 
+                order=(1,1,1), 
+                seasonal_order=(0,1,1,12), 
+                trend='c')
+# Fit model
+results = model.fit()
+
+# Plot common diagnostics
+results.plot_diagnostics()
+plt.show()
+
+# SARIMA forecast
+# Create forecast object
+forecast_object = results.get_forecast(steps=136, dynamic=True)
+
+# Extract predicted mean attribute
+mean = forecast_object.predicted_mean
+
+# Calculate the confidence intervals
+conf_int = forecast_object.conf_int()
+
+# Extract the forecast dates
+dates = mean.index
+
+plt.figure()
+
+# Plot past CO2 levels
+plt.plot(co2.index, co2, label='past')
+
+# Plot the prediction means as line
+plt.plot(dates, mean, label='predicted')
+
+# Shade between the confidence intervals
+plt.fill_between(dates, conf_int['lower CO2_ppm'], conf_int['upper CO2_ppm'], alpha=0.2)
+
+# Plot legend and show figure
+plt.legend()
+plt.show()
+
+# Print last predicted mean
+print(mean.iloc[-1])
+
+# Print last confidence interval
+print(conf_int.iloc[-1])
