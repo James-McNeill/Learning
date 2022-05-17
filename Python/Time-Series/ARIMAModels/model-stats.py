@@ -77,3 +77,47 @@ for p in range(3):
             
         except:
             print(p, q, None, None)     
+
+# Model diagnostics
+# Mean absolute error
+# Fit model
+model = SARIMAX(earthquake, order=(1,0,1))
+results = model.fit()
+
+# Calculate the mean absolute error from residuals
+mae = np.mean(abs(results.resid))
+
+# Print mean absolute error
+print(mae)
+
+# Make plot of time series for comparison
+earthquake.plot()
+plt.show()
+
+# Diagnostic summary stats
+# Create and fit model
+model1 = SARIMAX(df, order=(3,0,1))
+results1 = model1.fit()
+
+# Print summary
+print(results1.summary())
+
+# Summary stats being reviewed
+# Test,	Null hypothesis,	P-value name
+# Ljung-Box,	There are no correlations in the residual, Prob(Q)
+# Jarque-Bera,	The residuals are normally distributed,	Prob(JB)
+
+# Plot diagnostics
+# Test,	Good fit
+# Standardized residual,	There are no obvious patterns in the residuals
+# Histogram plus kde estimate,	The KDE curve should be very similar to the normal distribution
+# Normal Q-Q,	Most of the data points should lie on the straight line
+# Correlogram,	95% of correlations for lag greater than zero should not be significant
+
+# Create and fit model
+model = SARIMAX(df, order=(1,1,1))
+results=model.fit()
+
+# Create the 4 diagostics plots
+results.plot_diagnostics()
+plt.show()
