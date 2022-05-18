@@ -28,3 +28,49 @@ test_X = test[cols]
 
 # Extract testing target
 test_Y = test[target]
+
+# Fit logistic regression
+# Fit logistic regression on training data
+logreg.fit(train_X, train_Y)
+
+# Predict churn labels on testing data
+pred_test_Y = logreg.predict(test_X)
+
+# Calculate accuracy score on testing data
+test_accuracy = accuracy_score(test_Y, pred_test_Y)
+
+# Print test accuracy score rounded to 4 decimals
+print('Test accuracy:', round(test_accuracy, 4))
+
+# Using L1 regularization (Lasso)
+# Aims to reduce the number of features by reducing the co-efficients to zero. By default the L2 (ridge) regression is used by the algorithm to make
+# sure that the model doesn't overfit the training data and if it did it would then perform poorly on the test data.
+# Initialize logistic regression instance 
+logreg = LogisticRegression(penalty='l1', C=0.025, solver='liblinear')
+
+# Fit the model on training data
+logreg.fit(train_X, train_Y)
+
+# Predict churn values on test data
+pred_test_Y = logreg.predict(test_X)
+
+# Print the accuracy score on test data
+print('Test accuracy:', round(accuracy_score(test_Y, pred_test_Y), 4))
+
+# Identify optimal L1 penalty coefficient
+# Aim is to select the model with the number of features that have not reduced the overall recall too much when compared to including all features
+# Run a for loop over the range of C list length
+for index in range(0, len(C)):
+  # Initialize and fit Logistic Regression with the C candidate
+  logreg = LogisticRegression(penalty='l1', C=C[index], solver='liblinear')
+  logreg.fit(train_X, train_Y)
+  # Predict churn on the testing data
+  pred_test_Y = logreg.predict(test_X)
+  # Create non-zero count and recall score columns
+  l1_metrics[index,1] = np.count_nonzero(logreg.coef_)
+  l1_metrics[index,2] = recall_score(test_Y, pred_test_Y)
+
+# Name the columns and print the array as pandas DataFrame
+col_names = ['C','Non-Zero Coeffs','Recall']
+print(pd.DataFrame(l1_metrics, columns=col_names))
+
