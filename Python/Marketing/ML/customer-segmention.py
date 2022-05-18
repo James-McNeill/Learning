@@ -103,3 +103,32 @@ nmf.fit(wholesale)
 # Extract the components 
 components = pd.DataFrame(data=nmf.components_, columns=wholesale.columns)
 
+# KMeans segmentation averages
+# Group by the segment label and calculate average column values
+kmeans3_averages = wholesale_kmeans3.groupby(['segment']).mean().round(0)
+
+# Print the average column values per each segment
+print(kmeans3_averages)
+
+# Create a heatmap on the average column values per each segment
+sns.heatmap(kmeans3_averages.T, cmap='YlGnBu')
+
+# Display the chart
+plt.show()
+
+# NMF segmentation averages
+# Create the W matrix
+W = pd.DataFrame(data=nmf.transform(wholesale), columns=components.index)
+W.index = wholesale.index
+
+# Assign the column name where the corresponding value is the largest
+wholesale_nmf3 = wholesale.assign(segment = W.idxmax(axis=1))
+
+# Calculate the average column values per each segment
+nmf3_averages = wholesale_nmf3.groupby('segment').mean().round(0)
+
+# Plot the average values as heatmap
+sns.heatmap(nmf3_averages.T, cmap='YlGnBu')
+
+# Display the chart
+plt.show()
