@@ -24,3 +24,12 @@ def foo():
   time.sleep(10)
   print('bar!')
 foo()
+
+# Timeout - background info
+import signal
+
+def raise_timeout(*args, **kwargs):
+  raise TimeoutError()
+
+# When an "alarm" signal goes off, call raise_timeout()
+signal.signal(signalnum=signal.SIGALRM, handler=raise_timeout)
