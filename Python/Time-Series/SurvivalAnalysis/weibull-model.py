@@ -75,3 +75,26 @@ aft_pred = aft.predict_median(prison_new)
 
 # Print average predicted time to arrest
 print("On average, the median number of weeks for new released convicts to be arrested is: ", np.mean(aft_pred))
+
+# Other distributions and model selection
+# Import qq_plot
+from lifelines.plotting import qq_plot
+
+# Plot qq_plot of wb
+qq_plot(wb)
+
+# Display figure
+plt.show()
+
+# Instantiate each fitter
+wb = WeibullFitter()
+exp = ExponentialFitter()
+log = LogNormalFitter()
+
+# Fit to data
+for model in [wb, exp, log]:
+  model.fit(durations=heart_patients['survival'],
+            event_observed=heart_patients['observed'])
+  # Print AIC. Choosing model with the lowest AIC
+  print(model.__class__.__name__, model.AIC_)
+
