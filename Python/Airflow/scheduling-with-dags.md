@@ -19,7 +19,7 @@ dag = DAG(dag_id="sample",
 3. I I .     day of the month  (1 - 31)
 4. I I I .   month             (1 - 12)
 5. I I I I . day of the week   (0 - 6)
-6. * * * * * <command>
+6. "* * * * *" <command>
 
 #### Example
 0 * * * * # Every hour at the 0th minute
