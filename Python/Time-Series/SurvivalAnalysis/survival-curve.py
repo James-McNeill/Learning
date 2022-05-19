@@ -24,3 +24,40 @@ print("The median survival duration (months) of patients without pericardial eff
 senator_kmf.plot_survival_function()
 senator_kmf.survival_function_.plot()
 senator_kmf.plot()
+
+# Calculate duration
+recur['duration'] = recur['time_1'] - recur['time_0']
+
+# Instantiate and fit KaplanMeierFitter
+kmf = KaplanMeierFitter()
+kmf.fit(recur['duration'], recur['censor'])
+
+# Plot survival function with CI
+kmf.plot_survival_function()
+
+# Display figure
+plt.show()
+
+# Fit Kaplan-Meier estimator
+kmf.fit(bc_df['diff_days'], bc_df['observed'], label='British Columbia')
+
+# Plot survival function on senator_fig
+kmf.plot(ax=senator_fig)
+
+# Display the figure. Large confidence intervals show that the sample size is small and that the 95% CI is wider. For a larger sample size the CI is smaller
+plt.show()
+
+# Comparing treatment groups
+# Mask for new treatment. Creating a Boolean mask
+new = (recur['treat'] == 0)
+
+# Fit to new treatment and plot survival function
+kmf.fit(recur[new]['duration'], recur[new]['censor'], label='New treatment')
+kmf.plot_survival_function(ax=ax)
+
+# Fit to old treatment and plot survival function
+kmf.fit(recur[new == False]['duration'], recur[new == False]['censor'], label='Old treatment')
+kmf.plot_survival_function(ax=ax)
+
+# Display figure
+plt.show()
