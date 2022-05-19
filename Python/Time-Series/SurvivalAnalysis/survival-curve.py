@@ -61,3 +61,30 @@ kmf.plot_survival_function(ax=ax)
 
 # Display figure
 plt.show()
+
+# The logrank test
+# Hypothesis testing for different groups to understand if they are similar or statistically different
+# Fit kmf to patients with pericardial effusion
+kmf.fit(has_pericardial_effusion['survival'], has_pericardial_effusion['observed'], label='has_pericardial_effusion')
+
+# Create a plot of the survival function
+surv_plot = kmf.plot()
+
+# Fit kmf to patients without pericardial effusion
+kmf.fit(none_pericardial_effusion['survival'], none_pericardial_effusion['observed'], label='no_pericardial_effusion')
+
+# Plot new survival function and show plot
+kmf.plot(ax=surv_plot)
+plt.show()
+
+# Import logrank_test
+from lifelines.statistics import logrank_test
+
+# Run log-rank test to compare patients with and without pericardial effusion
+patient_results = logrank_test(durations_A = has_pericardial_effusion['survival'], 
+                               durations_B = none_pericardial_effusion['survival'], 
+                               event_observed_A = has_pericardial_effusion['observed'], 
+                               event_observed_B = none_pericardial_effusion['observed'])
+
+# Print out the p-value of log-rank test results
+print(patient_results.p_value)
