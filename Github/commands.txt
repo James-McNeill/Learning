@@ -1,0 +1,3 @@
+# git status
+When you are using Git, you will frequently want to check the status of your repository. To do this, run the command git status, 
+which displays a list of the files that have been modified since the last time changes were saved
