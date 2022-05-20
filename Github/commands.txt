@@ -15,5 +15,62 @@ git diff data/northern.csv
 
 Output displayed shows the changes made to the file. Lines removed are prefixed with - and lines added are prefixed with +
 
+# Saving changes to a repository
+Changes can be committed to a Git repository in two ways:
+Add one or more files to the staging area.
+Commit everything in the staging area.
+To add a file to the staging area, use 
 
- 
+git add filename
+git status   # returns that the repo as been modified with the new file added
+
+# How can I tell what is going to be committed
+To compare the state of your files with those in the staging area, you can use git diff -r HEAD. 
+The -r flag means "compare to a particular revision", and HEAD is a shortcut meaning "the most recent commit".
+
+git diff -r HEAD path/to/file
+
+# Using terminal to create a txt file
+nano names.txt   # creates the txt editor
+
+Then can add information, save and exit
+
+# How to commit changes?
+It always saves everything that is in the staging area as one unit: as you will see later, 
+when you want to undo changes to a project, you undo all of a commit or none of it.
+
+git commit -m "Program appears to have become self-aware."
+
+If you accidentally mistype a commit message, you can change it using the --amend flag.
+
+git commit --amend - m "new message"
+
+# How can I view a repo's history
+The command git log is used to view the log of the project's history. Log entries are shown most recent first, and look like this:
+
+commit 0430705487381195993bac9c21512ccfb511056d
+Author: Rep Loop <repl@datacamp.com>
+Date:   Wed Sep 20 13:42:26 2017 +0000
+
+    Added year to report title.
+
+The commit line displays a unique ID for the commit called a hash
+The log file will show all of the commits that have taken place. Remember that the first commits will be at the bottom of the file. As more
+recent information gets added each time the first commit will move to the bottom. To make sure that we are at the bottom of the file to check
+on the initial commit we may have to press enter to get to this position as the log file can contain a lot of info
+
+# How can I view a specific file's history
+git log path     # path is to a specific file or directory
+
+# How do I write a better log message
+Writing a one-line log message with git commit -m "message"is good enough for very small changes, but your collaborators 
+(including your future self) will appreciate more information. If you run git commit without -m "message", Git launches a text editor with a template like this:
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#       modified:   skynet.R
+#
