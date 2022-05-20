@@ -1,3 +1,19 @@
 # git status
 When you are using Git, you will frequently want to check the status of your repository. To do this, run the command git status, 
 which displays a list of the files that have been modified since the last time changes were saved
+
+# understand what has been changed in a repository since last review
+git diff                # shows all the changes made
+git diff filename       # filename changes
+git diff directory      # directory changes
+
+# what is a diff
+A diff is a formatted display of the differences between two sets of files.
+RStudio can display more readable side-by-side displays of the changes.
+
+git diff data/northern.csv
+
+Output displayed shows the changes made to the file. Lines removed are prefixed with - and lines added are prefixed with +
+
+
+ 
