@@ -1,0 +1,2 @@
+# Respositories
+# This chapter digs a little deeper into how Git stores information and how you can explore a repository's history.
