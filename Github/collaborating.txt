@@ -1,0 +1,3 @@
+# Collaborating
+# This chapter showcases how Git allows you to share changes between repositories to collaborate at scale.
+
