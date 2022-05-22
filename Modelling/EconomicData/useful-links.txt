@@ -8,3 +8,19 @@ http://www.datagenetics.com/blog/september32012/
 
 The elements of statistical learning; data mining, inference and prediction:
 https://web.stanford.edu/~hastie/Papers/ESLII.pdf
+
+Building model ensembles or why ensembles should be in your toolkit:
+https://files.knime.com/sites/default/files/inline-images/07_ModelEnsembles.pdf
+
+Can we predict which consumer credit users will suffer financial distress:
+https://www.fca.org.uk/publication/occasional-papers/occasional-paper-20.pdf
+
+Statistical Lifetime models:
+http://www.stats.ox.ac.uk/~martin/BS3b/bs3b2010.pdf
+
+Using multi-state markov models to identify credit card risk:
+http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0103-65132016000200330
+
+Marginal KS analysis measuring lack of fit in logistic regression:
+https://www.scoreplus.com/assets/files/Marginal-KS-analysis-Measuring-lack-of-fit-in-logistic-regression-Edinburgh-conference-Aug-2013.pdf
+
