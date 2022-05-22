@@ -24,3 +24,18 @@ http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0103-65132016000200330
 Marginal KS analysis measuring lack of fit in logistic regression:
 https://www.scoreplus.com/assets/files/Marginal-KS-analysis-Measuring-lack-of-fit-in-logistic-regression-Edinburgh-conference-Aug-2013.pdf
 
+LGD model development. Review the area of loss based cumulative accuracy profiles
+http://www.fww.ovgu.de/fww_media/femm/femm_2009/2009_25.pdf
+
+Choosing the reference groups can be critical to the output from the model developed.
+Strategies for picking the reference groups to use:
+http://www.theanalysisfactor.com/strategies-dummy-coding/
+
+SAS and R comparison for changing the reference category within a categorical variable during model development
+http://sas-and-r.blogspot.co.uk/2010/09/example-86-changing-reference-category.html
+
+Statistical and Machine Learning forecasting methods: Concerns and ways forward
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0194889#sec025
+
+Blockchain
+https://www.finextra.com/newsarticle/33447/fidelity-invests-in-blockchain-data-startup-coin-metrics?utm_medium=newsflash&utm_source=2019-2-28&member=105653
