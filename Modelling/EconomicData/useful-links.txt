@@ -1,0 +1,10 @@
+# Links contained within this file can be used for future analysis
+
+Blog on NAMA:
+https://namawinelake.wordpress.com/
+
+Four digit pin code analysis:
+http://www.datagenetics.com/blog/september32012/
+
+The elements of statistical learning; data mining, inference and prediction:
+https://web.stanford.edu/~hastie/Papers/ESLII.pdf
