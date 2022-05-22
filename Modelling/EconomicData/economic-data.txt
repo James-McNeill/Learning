@@ -39,5 +39,38 @@ http://www.economicshelp.org/blog/3118/economics/ireland-national-debt/
 Understanding Ireland's Economy
 http://gaelart.net/economics.html
 
-# Snapshot of Ireland
+Snapshot of Ireland
 https://www.oecd.org/economy/ireland-economic-snapshot/
+
+FRED economic data
+https://fred.stlouisfed.org/
+
+In depth report on Ireland
+https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52017SC0073
+
+Source for the google datasets – data version of google scholar
+https://toolbox.google.com/datasetsearch
+
+The official portal for European data
+https://data.europa.eu/en
+
+Ireland's open data portal
+https://data.gov.ie/
+
+Dublin's open data portal
+https://data.smartdublin.ie/
+
+GIS at UCD and on the Web: Find Spatial Data & Other Datasets for Ireland
+https://libguides.ucd.ie/gisguide/FindSpatialData
+
+Open data ordnance survey
+https://osi.ie/about/open-data/
+
+Geocoding sourcing
+https://developers.google.com/maps/documentation/javascript/geocoding
+
+SI 47 rules for mortgages within Ireland
+https://www.centralbank.ie/financial-system/financial-stability/macro-prudential-policy/mortgage-measures
+
+CSO House Completions
+https://www.cso.ie/en/releasesandpublications/ep/p-ndc/newdwellingcompletionsq12018/
