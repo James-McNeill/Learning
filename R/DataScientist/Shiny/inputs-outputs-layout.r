@@ -98,3 +98,50 @@ shinyApp(ui = ui, server = server)
 # Create an interactive table using, DT::datatable().
 # Render it using, DT::renderDT().
 # Display it using, DT::DTOutput().
+
+# Add an interactive table output
+ui <- fluidPage(
+  titlePanel("What's in a Name?"),
+  # Add select input named "sex" to choose between "M" and "F"
+  selectInput('sex', 'Select Sex', choices = c("M", "F")),
+  # Add slider input named "year" to select year between 1900 and 2010
+  sliderInput('year', 'Select Year', min = 1900, max = 2010, value = 1900),
+  # MODIFY CODE BELOW: Add a DT output named "table_top_10_names"
+  DT::DTOutput('table_top_10_names')
+)
+server <- function(input, output, session){
+  top_10_names <- function(){
+    babynames %>% 
+      filter(sex == input$sex) %>% 
+      filter(year == input$year) %>% 
+      top_n(10, prop)
+  }
+  # MODIFY CODE BELOW: Render a DT output named "table_top_10_names"
+  output$table_top_10_names <- DT::renderDT({
+    DT::datatable(top_10_names())
+  })
+}
+shinyApp(ui = ui, server = server)
+
+# Add interactive plot output
+ui <- fluidPage(
+  selectInput('name', 'Select Name', top_trendy_names$name),
+  # CODE BELOW: Add a plotly output named 'plot_trendy_names'
+  plotly::plotlyOutput('plot_trendy_names')
+)
+server <- function(input, output, session){
+  # Function to plot trends in a name
+  plot_trends <- function(){
+     babynames %>% 
+      filter(name == input$name) %>% 
+      ggplot(aes(x = year, y = n)) +
+      geom_col()
+  }
+  # CODE BELOW: Render a plotly output named 'plot_trendy_names'
+  output$plot_trendy_names <- plotly::renderPlotly(
+    {
+      plot_trends()
+    }
+  )
+}
+shinyApp(ui = ui, server = server)
