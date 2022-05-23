@@ -49,3 +49,71 @@ dest_indexer = StringIndexer(inputCol="dest", outputCol="dest_index")
 dest_encoder = OneHotEncoder(inputCol="dest_index", outputCol="dest_fact")
 # Make a VectorAssembler - pipeline method. All of these dummy variables are combined together into one large vector
 vec_assembler = VectorAssembler(inputCols=["month", "air_time", "carrier_fact", "dest_fact", "plane_age"], outputCol="features")
+
+
+# Create the Pipeline
+'''
+Pipeline is a class in the pyspark.ml module that combines all the Estimators and Transformers that you've already created. This 
+lets you reuse the same modeling process over and over again by wrapping it up in one simple object.
+'''
+# Import Pipeline
+from pyspark.ml import Pipeline
+
+# Make the pipeline
+flights_pipe = Pipeline(stages=[dest_indexer, dest_encoder, carr_indexer, carr_encoder, vec_assembler])
+# Fit and transform the data
+piped_data = flights_pipe.fit(model_data).transform(model_data)
+# Split the data into training and test sets
+training, test = piped_data.randomSplit([.6, .4])
+
+
+# Model tuning and selection
+'''
+Performing model evaluation using k-fold cross validation. It works by splitting the training data into a few different partitions. 
+The exact number is up to you, but in this course you'll be using PySpark's default value of three.
+
+# Fit cross validation models
+models = cv.fit(training)
+
+# Extract the best model
+best_lr = models.bestModel
+Due to the number of cross validation computations that would be required to fit the model, the cross validator instance has not
+been used. The setup for creating it has only been displayed.
+'''
+# Import LogisticRegression
+from pyspark.ml.classification import LogisticRegression
+
+# Create a LogisticRegression Estimator
+lr = LogisticRegression()
+# Import the evaluation submodule
+import pyspark.ml.evaluation as evals
+
+# Create a BinaryClassificationEvaluator
+evaluator = evals.BinaryClassificationEvaluator(metricName="areaUnderROC")
+# Import the tuning submodule
+import pyspark.ml.tuning as tune
+
+# Create the parameter grid
+grid = tune.ParamGridBuilder()
+
+# Add the hyperparameter
+grid = grid.addGrid(lr.regParam, np.arange(0, .1, .01))
+grid = grid.addGrid(lr.elasticNetParam, [0, 1])
+
+# Build the grid
+grid = grid.build()
+# Create the CrossValidator
+cv = tune.CrossValidator(estimator=lr,
+               estimatorParamMaps=grid,
+               evaluator=evaluator
+               )
+# Call lr.fit()
+best_lr = lr.fit(training)
+
+# Print best_lr
+print(best_lr)
+# Use the model to predict the test set
+test_results = best_lr.transform(test)
+
+# Evaluate the predictions
+print(evaluator.evaluate(test_results))
