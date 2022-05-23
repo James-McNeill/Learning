@@ -263,3 +263,78 @@ server <- function(input, output, session){
 shinyApp(ui = ui, server = server)
 
 # Building apps
+# App1: Multilingual Greeting
+ui <- fluidPage(
+    selectInput('greeting', 'Select greeting', selected = 'Hello', choices = c('Hello', 'Bonjour')),
+    textInput('name', 'Enter your name', 'Kaelen'),
+    textOutput('text')
+)
+
+server <- function(input, output, session) {
+  output$text <- renderText(
+      {
+        paste(
+            input$greeting, ", ", input$name
+        )
+      }
+  )
+}
+
+shinyApp(ui = ui, server = server)
+
+# App2: Popular Baby Names
+ui <- fluidPage(
+  titlePanel("Most Popular Names"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput('sex', 'Select Sex', c("M", "F")),
+      sliderInput('year', 'Select Year', min = 1880, max = 2017, value = 1900)
+    ),
+    mainPanel(
+     plotOutput('plot')
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    top_names_by_sex_year <- get_top_names(input$year, input$sex) 
+    ggplot(top_names_by_sex_year, aes(x = name, y = prop)) +
+      geom_col()
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+# App3: Popular Baby Names Redux
+# MODIFY this app (built in the previous exercise)
+ui <- fluidPage(
+  titlePanel("Most Popular Names"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput('sex', 'Select Sex', c("M", "F")),
+      sliderInput('year', 'Select Year', min = 1880, max = 2017, value = 1900)
+    ),
+    mainPanel(
+      tabsetPanel(  
+        tabPanel('Plot', plotOutput('plot')),
+        tabPanel('Table', tableOutput('table'))
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    top_names_by_sex_year <- get_top_names(input$year, input$sex) 
+    ggplot(top_names_by_sex_year, aes(x = name, y = prop)) +
+      geom_col()
+  })
+  output$table <- renderTable(
+    {
+      get_top_names(input$year, input$sex)
+    }
+  )
+}
+
+shinyApp(ui = ui, server = server)
