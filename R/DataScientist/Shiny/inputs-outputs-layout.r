@@ -63,3 +63,38 @@ server <- function(input, output, session){
 }
 
 shinyApp(ui = ui, server = server)
+
+# Outputs
+# Add a table output
+ui <- fluidPage(
+  titlePanel("What's in a Name?"),
+  # Add select input named "sex" to choose between "M" and "F"
+  selectInput('sex', 'Select Sex', choices = c("F", "M")),
+  # Add slider input named "year" to select year between 1900 and 2010
+  sliderInput('year', 'Select Year', min = 1900, max = 2010, value = 1900),
+  # CODE BELOW: Add table output named "table_top_10_names"
+  tableOutput('table_top_10_names')
+)
+server <- function(input, output, session){
+  # Function to create a data frame of top 10 names by sex and year 
+  top_10_names <- function(){
+    top_10_names <- babynames %>% 
+      filter(sex == input$sex) %>% 
+      filter(year == input$year) %>% 
+      top_n(10, prop)
+  }
+  # CODE BELOW: Render a table output named "table_top_10_names"
+  output$table_top_10_names <- renderTable(
+    top_10_names()
+  )
+}
+shinyApp(ui = ui, server = server)
+
+# Add an interactive table output
+# There are multiple htmlwidgets packages like DT, leaflet, plotly, etc. that provide highly interactive outputs and can be 
+# easily integrated into Shiny apps using almost the same pattern. For example, you can turn a static table in a Shiny app into 
+# an interactive table using the DT package:
+
+# Create an interactive table using, DT::datatable().
+# Render it using, DT::renderDT().
+# Display it using, DT::DTOutput().
