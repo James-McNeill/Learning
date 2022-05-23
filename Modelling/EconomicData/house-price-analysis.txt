@@ -18,3 +18,39 @@ to 931,615 homes, as at 2015 there are 389,000 homes.
 
 Hypostat 2017
 https://hypo.org/app/uploads/sites/3/2017/09/HYPOSTAT-2017.pdf
+European Mortgage Federation
+https://hypo.org/emf/
+
+European AVM alliance
+Discussing incumbent use of index linked house price valuations. Bias related to the initial valuation being used within the 
+indexed method. Has the inherent flaw of confirmation bias. The method outlines that the future for valuations within Europe 
+will be the use of AVMs. These models should represent more accurate valuations of real estate. Also, the AVM structure helps 
+to provide a confidence level to the valuations, which can help users to understand the level of volatility around a valuation.
+
+Thesis “A Framework for Evaluating Automated Valuation Models in Real Estate: an Auditing Perspective”
+•	Appears to be trying to understand if a framework currently exists. 
+•	Methods that could be used to audit an AVM to ensure that the calculations are working correctly.
+https://aaltodoc.aalto.fi/bitstream/handle/123456789/16679/master_Donovan_Jamie_2015.pdf?sequence=1
+
+Residential property price segments and mortgage finance
+https://www.centralbank.ie/docs/default-source/publications/financial-stability-notes/no-11-residential-property-price-segments-and-mortgage-finance-(gaffney).pdf?sfvrsn=4
+
+Review of residential mortgage lending requirements 2018
+https://www.centralbank.ie/docs/default-source/financial-system/financial-stability/macroprudential-policy/policy-documents/2018-review-of-mortgage-market-measures.pdf?sfvrsn=4
+
+Review of the exemptions provided during 2018
+https://www.independent.ie/business/one-in-five-mortgage-borrowers-granted-exemptions-to-strict-central-bank-lending-rules-38349318.html
+
+Zestimate
+Company which perform online valuations
+https://www.zillow.com/zestimate/
+
+US online home value estimates
+•	Article of the various options available
+http://rismedia.com/2018/07/18/closer-look-online-home-value-estimates/
+
+Build cost estimator
+https://selfbuild.ie/construction/build-cost-estimator/
+
+Irish map grid finder. Enter the addresses of interest and once all data points have been plugged in use the option “show on Openstreetmap” to review these data points together
+https://irish.gridreferencefinder.com/
