@@ -46,3 +46,55 @@ server <- function(input, output, session) {
 
 }
 shinyApp(ui = ui, server = server)
+
+# Add output (UI/Server)
+ui <- fluidPage(
+  textInput('name', 'Enter Name', 'David'),
+  # CODE BELOW: Display the plot output named 'trend'
+  plotOutput('trend')
+)
+server <- function(input, output, session) {
+  # CODE BELOW: Render an empty plot and assign to output named 'trend'
+  output$trend <- renderPlot({
+    ggplot()
+  })
+}
+shinyApp(ui = ui, server = server)
+
+# Update layout (UI)
+ui <- fluidPage(
+  titlePanel("Baby Name Explorer"),
+  # CODE BELOW: Add a sidebarLayout, sidebarPanel, and mainPanel
+  sidebarLayout(
+    sidebarPanel(
+      textInput('name', 'Enter Name', 'David')
+    ),
+    mainPanel(
+      plotOutput('trend')
+    )  
+  )
+)
+
+server <- function(input, output, session) {
+  output$trend <- renderPlot({
+    ggplot()
+  })
+}
+shinyApp(ui = ui, server = server)
+
+# Update output (server)
+ui <- fluidPage(
+  titlePanel("Baby Name Explorer"),
+  sidebarLayout(
+    sidebarPanel(textInput('name', 'Enter Name', 'David')),
+    mainPanel(plotOutput('trend'))
+  )
+)
+server <- function(input, output, session) {
+  output$trend <- renderPlot({
+    # CODE BELOW: Update to display a line plot of the input name
+    ggplot(subset(babynames, name == input$name)) +
+      geom_line(aes(x = year, y = prop, color = sex))
+  })
+}
+shinyApp(ui = ui, server = server)
