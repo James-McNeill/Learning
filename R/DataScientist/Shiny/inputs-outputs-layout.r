@@ -145,3 +145,119 @@ server <- function(input, output, session){
   )
 }
 shinyApp(ui = ui, server = server)
+
+# Layouts and themes
+# Sidebar layouts
+ui <- fluidPage(
+  # MODIFY CODE BELOW: Wrap in a sidebarLayout
+  sidebarLayout(
+    # MODIFY CODE BELOW: Wrap in a sidebarPanel
+    sidebarPanel(
+    selectInput('name', 'Select Name', top_trendy_names$name)
+    ),
+    # MODIFY CODE BELOW: Wrap in a mainPanel
+    mainPanel(
+    plotly::plotlyOutput('plot_trendy_names'),
+    DT::DTOutput('table_trendy_names')
+    )
+  )
+)
+# DO NOT MODIFY
+server <- function(input, output, session){
+  # Function to plot trends in a name
+  plot_trends <- function(){
+     babynames %>% 
+      filter(name == input$name) %>% 
+      ggplot(aes(x = year, y = n)) +
+      geom_col()
+  }
+  output$plot_trendy_names <- plotly::renderPlotly({
+    plot_trends()
+  })
+  
+  output$table_trendy_names <- DT::renderDT({
+    babynames %>% 
+      filter(name == input$name)
+  })
+}
+shinyApp(ui = ui, server = server)
+
+# Tab layouts
+# Displaying several tables and plots on the same page can lead to visual clutter and distract users of the app. In such cases, 
+# the tab layout comes in handy, as it allows different outputs to be displayed as tabs.
+ui <- fluidPage(
+  sidebarLayout(
+    sidebarPanel(
+      selectInput('name', 'Select Name', top_trendy_names$name)
+    ),
+    mainPanel(
+      # MODIFY CODE BLOCK BELOW: Wrap in a tabsetPanel
+      tabsetPanel(
+        # MODIFY CODE BELOW: Wrap in a tabPanel providing an appropriate label
+        tabPanel(
+          'Plot', plotly::plotlyOutput('plot_trendy_names')
+        ),
+        # MODIFY CODE BELOW: Wrap in a tabPanel providing an appropriate label
+        tabPanel(
+          'Table', DT::DTOutput('table_trendy_names')
+        )
+      )
+    )
+  )
+)
+server <- function(input, output, session){
+  # Function to plot trends in a name
+  plot_trends <- function(){
+     babynames %>% 
+      filter(name == input$name) %>% 
+      ggplot(aes(x = year, y = n)) +
+      geom_col()
+  }
+  output$plot_trendy_names <- plotly::renderPlotly({
+    plot_trends()
+  })
+  
+  output$table_trendy_names <- DT::renderDT({
+    babynames %>% 
+      filter(name == input$name)
+  })
+}
+shinyApp(ui = ui, server = server)
+
+# Themes
+ui <- fluidPage(
+  # CODE BELOW: Add a titlePanel with an appropriate title
+  titlePanel('Babynames trend over time'),
+  # REPLACE CODE BELOW: with theme = shinythemes::shinytheme("<your theme>")
+  # shinythemes::themeSelector(), # this option provides a drop down menu of different theme options
+  theme = shinythemes::shinytheme('superhero'),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput('name', 'Select Name', top_trendy_names$name)
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel('Plot', plotly::plotlyOutput('plot_trendy_names')),
+        tabPanel('Table', DT::DTOutput('table_trendy_names'))
+      )
+    )
+  )
+)
+server <- function(input, output, session){
+  # Function to plot trends in a name
+  plot_trends <- function(){
+     babynames %>% 
+      filter(name == input$name) %>% 
+      ggplot(aes(x = year, y = n)) +
+      geom_col()
+  }
+  output$plot_trendy_names <- plotly::renderPlotly({
+    plot_trends()
+  })
+  
+  output$table_trendy_names <- DT::renderDT({
+    babynames %>% 
+      filter(name == input$name)
+  })
+}
+shinyApp(ui = ui, server = server)
