@@ -1,0 +1,30 @@
+# arrays in bash
+
+There are two types in bash:
+1) Normal numerical-indexed structure. Called a list in Python or vector in R
+2) Associative array. Called a dictionary in Python or List in R. Only available in bash 4 onwards. Check version of bash (bash --version in the terminal)
+
+# Empty array
+declare -a my_first_array
+
+# Add elements - remember no spaces
+my_first_array=(1 2 3)
+array[@] : returns all elements
+my_array=(1 3 5 2)echo ${my_array[@]}
+
+#array[@] : returns the length of the array
+echo ${#my_array[@]}
+
+# Changing elements in an array
+my_first_array=(15 20 300 42 23 2 4 33 54 67 66)my_first_array[0]=999echo ${my_first_array[0]}
+
+# slicing arrays
+array[@]:N:M : N = starting index, M = number of elements returned
+array+=(element) : append new elements
+
+declare -A city_details # Declare first
+city_details=([city_name]="New York" [population]=14000000) # Add elements
+echo ${city_details[city_name]} # Index using key to return a value
+
+declare -A city_details=([city_name]="New York" [population]=14000000)
+echo ${!city_details[@]} # Return all the keys
