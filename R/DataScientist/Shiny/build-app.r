@@ -5,3 +5,4 @@
 # and output widgets, such as input validation, word clouds, and interactive maps.
 
 
+# Add inputs
