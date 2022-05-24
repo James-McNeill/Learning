@@ -33,3 +33,9 @@ terminal ensures that all the key areas within the packages have their version n
 '''
 Help for creating the documentation that will relate to the package's. Go to 1) ReadtheDocs or 2) Sphinx
 '''
+
+# Makefile
+'''
+This file can store all of the code that is required to be run within the terminal. It helps to store all of the terminal options required.
+To help with creating this file use 'make help' in terminal.
+'''
