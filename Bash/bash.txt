@@ -1,0 +1,17 @@
+# Introduction to Bash Scripting
+
+bash or hashbash or shebash is used to contain the script that will be processed with the bash method within the command line
+
+# find where bash is stored
+which bash : key into command line
+
+# Create a sed pipe to a new file
+cat soccer_scores.csv | sed 's/Cherno/Cherno City/g' | sed 's/Arda/Arda United/g' > soccer_scores_edited.csv
+
+# ARGV - arguments within the script
+$1 : first argument, $2 : second argument, $* : all arguments, $# : number of arguments
+
+# Cat all the files
+# Then pipe to grep using the first ARGV argument
+# Then write out to a named csv using the first ARGV argument
+cat hire_data/* | grep "$1" > "$1".csv
