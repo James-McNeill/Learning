@@ -1,0 +1,24 @@
+# csvkit
+
+Similar to python data analysis but only in the command line. There is a website to help with the API. Csvkit is written to only process csv files
+
+# Upgrade csvkit using pip  
+pip install --upgrade csvkit
+
+# Print manual for in2csv
+in2csv -h
+
+# Print manual for csvlook
+csvlook -h
+
+# Convert SpotifyData.xlsx to csv
+in2csv SpotifyData.xlsx > SpotifyData.csv
+
+# Print a preview in console using a csvkit suite command 
+csvlook SpotifyData.csv 
+
+# Convert sheet "Worksheet2_MusicAttributes" to CSV
+in2csv SpotifyData.xlsx --sheet "Worksheet2_MusicAttributes" > Spotify_MusicAttributes.csv
+
+# Print high level summary statistics for each column
+csvstat Spotify_Popularity.csv 
