@@ -6,3 +6,29 @@
 
 
 # Add inputs
+ui <- fluidPage(
+  # CODE BELOW: Add a title
+  titlePanel("UFO Sightings"),
+  sidebarLayout(
+    sidebarPanel(
+      # CODE BELOW: One input to select a U.S. state
+      # And one input to select a range of dates
+      selectInput("state",
+        "Choose a U.S. state:",
+        choices = unique(usa_ufo_sightings$state)
+      ),
+      dateRangeInput("daterange",
+        "Choose a date range:",
+        start = "1920-01-01",
+        end = "1950-01-01"
+      )
+    ),
+  	mainPanel()
+  )
+)
+
+server <- function(input, output) {
+
+}
+
+shinyApp(ui, server)
