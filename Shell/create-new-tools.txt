@@ -1,0 +1,14 @@
+# Creating new tools
+
+History lets you repeat things with just a few keystrokes, and pipes let you combine existing commands to create new ones. 
+In this chapter, you will see how to go one step further and create new commands of your own.
+
+nano : one of the many text editors that can be used
+nano filename : creates a new file in the editor. 
+  ctrl + k : delete a line, 
+  ctrl + u : un-delete a line, 
+  ctrl + o : output file, 
+  ctrl + x : exit editor
+bash headers.sh : bash command runs the list of commands contained within the headers.sh file. nano headers.sh is used to create the file
+$@ : within the text file (file.sh as example) means "all of the command-line parameters given to a scipt". So this allows for any number 
+  of file names to be passed, instead of having this explicitly within the text file
