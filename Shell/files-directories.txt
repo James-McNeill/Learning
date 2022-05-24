@@ -1,0 +1,18 @@
+# Manipulating files and directories
+
+Overview of the basic commands which can be used to move around the working direcotry environment using the command line interface commands. 
+The summary commands help to provide the building blocks for movements around the directory. Key tasks are showing how to move around directories, 
+make / delete directories and move files, rename / delete.
+
+# Commands are performed within the terminal (Command Line Interface)
+cd : change directory
+pwd : present working directory
+cp : copy file
+mv : move file
+rm : delete file
+/home/repl : home directory (cd ..) the two full stops move to parent directory (/home). Applied once more moves to root directory (/)
+~ : tidle allows to move straight to home directory
+rmdir : delete directory, can only take place when no files exist in directory
+mkdir : make directory
+relative : relative directory moves start with no /
+absolute : directory moves start with /
