@@ -1,0 +1,32 @@
+# Data Processing in Shell	
+# curl & wget
+
+curl & wget can be used to download data from URL's. Each of them can work using similar syntax. If they are not already 
+installed they can be downloaded or installed using the command line depending on the operating system.
+
+# Fill in the two option flags 
+wget -c -b https://assets.datacamp.com/production/repositories/4180/datasets/eb1d6a36fa3039e4e00064797e1a1600d267b135/201812SpotifyData.zip
+
+# Verify that the Spotify file has been downloaded
+ls 
+
+# Preview the log file 
+cat wget-log
+
+downloading multiple files. Renaming the downloaded file. Unzip and rename file. Adjust the download speed using limit-rate
+
+# Use curl, download and rename a single file from URL
+curl -o Spotify201812.zip -L https://assets.datacamp.com/production/repositories/4180/datasets/eb1d6a36fa3039e4e00064797e1a1600d267b135/201812SpotifyData.zip
+
+# Unzip, delete, then re-name to Spotify201812.csv
+unzip Spotify201812.zip && rm Spotify201812.zip
+mv 201812SpotifyData.csv Spotify201812.csv
+
+# View url_list.txt to verify content
+cat url_list.txt
+
+# Use Wget, limit the download rate to 2500 KB/s, download all files in url_list.txt
+wget --limit-rate=2500k -i url_list.txt
+
+# Take a look at all files downloaded
+ls
