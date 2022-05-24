@@ -1,0 +1,21 @@
+# Manipulating data
+
+Commands that can be used within the shell to perform operations with the data available	
+
+
+cat : file contents. cat stands for concatenate
+less : display one page of a file at a time, type :n to move to the next file in multiple are being reviewed, 
+  spacebar to page down in file, :p to go back to the previous file and :q to quit
+head : review the first few lines of a file (default is 10 lines)
+tab key : used to help autocomplete. write in first few values for command and press tab to autocomplete, if only one option 
+  is available with letter then the tab will create the completed word. if more options are available then hit tab twice to create the list of potential values
+-n : command to create n number of lines (e.g. head -n 5 filename, prints top five lines of filename)
+-R and -F : help to display everything underneath a directory
+man : can bring up the manual details for each command in UNIX
+tail : select rows at the end of the file
+cut : selecting columns from a file. -f means fields and -d means delimiter. have to ensure these come before the filename
+history : print list of recent commands run. !55 will return the 55th command in your history. !head will run the 
+  most recent head and !cut will run the most recent cut command
+grep : select lines according to what they contain. common flags, -c print count of matches, -h do not print the names of 
+  files when searching multiple, -i ignore case sensitivity, -l print the names of files, -n print line numbers, -v invert the match i.e. show lines that don't match
+paste : combine data files
