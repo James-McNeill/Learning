@@ -1,0 +1,13 @@
+# Combining Tools
+
+The real power of the Unix shell lies not in the individual commands, but in how easily they can be combined to do new things. 
+This chapter will show you how to use this power to select the data you want, and introduce commands for sorting values and removing duplicates.
+
+> : apply a redirection to create an output file
+| : pipe, allows for multiple actions to be combined together without having to store multiple temporary files before final processing
+wc : word count, prints number of characters, words and lines in a file (-c, -w, -l)
+* : wildcard, can be used match zero or more characters. Allows for selecting all files within a location. Makes sure that no 
+  files are missed. ? : matches single character, [..] matches any one of the characters inside the square brackets, {..} matches any of the comma-separated patterns
+sort : puts data in order. -n : used for numeric, -r : reverse the order, -b : ignore leading blanks and -f : fold case (i.e. be case-sensitive)
+uniq : remove duplicated lines, removes adjacent duplicated lines. -c : display unique lines with a count
+ctrl + c : stops a script running
