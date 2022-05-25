@@ -1,0 +1,2 @@
+Credit Scoring with Python
+https://www.openriskmanual.org/wiki/Credit_Scoring_with_Python
