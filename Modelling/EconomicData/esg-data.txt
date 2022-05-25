@@ -1,0 +1,16 @@
+Refinitiv (Eikon, formerly Asset4)
+Data sources: Company reports, Media, NGO reports
+
+Bloomberg
+Data sources: Company reports, Proxy statements, Company websites, CDP data
+
+Sustainalytics
+Data sources: Public company disclosure, Media, NGO reports
+
+Other notable data sources include:
+Trucost
+CDP
+RobecoSAM
+Vigeo Eiris
+MSCI ESG ratings
+Morningstar Portfolio Carbon Risk score (using Sustainalytics data)
