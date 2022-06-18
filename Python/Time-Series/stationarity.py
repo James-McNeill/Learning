@@ -54,12 +54,12 @@ class stationarity:
                               ,'adfpvalue': pval
                               ,'kpssstat': stats
                               ,'kpsspvalue': p
-                              ,'adf_stat': np.where(pval > 0.05, 
+                              ,'adf_stat': str(np.where(pval > 0.05, 
                                                     'Non-Stationary',
-                                                    'Stationary')
-                              ,'kpss_stat': np.where(p < 0.05,
+                                                    'Stationary'))
+                              ,'kpss_stat': str(np.where(p < 0.05,
                                                     'Non-Stationary',
-                                                    'Stationary')
+                                                    'Stationary'))
                              }
                             ,ignore_index=True)
         return tmp
