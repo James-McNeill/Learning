@@ -1,6 +1,6 @@
 ods graphics on; *produce HTML output;
 
-/* ANOVA to perform multivariate factor analysis of variance */
+/* ANOVA to perform multivariate factor analysis of variance. Allows for inclusion of multiple dependent variables. */
 %macro multifactor_analysis(inputdata=input, ind_var=ind_var, dep_var=dep dep1 dep2);
 
   title &ind_var.;
