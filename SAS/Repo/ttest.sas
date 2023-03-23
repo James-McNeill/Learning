@@ -1,3 +1,5 @@
+ods graphics on; *produce HTML output;
+
 /* TTest to perform binary one factor analysis of variance */
 %macro ttest(inputdata=input, ind_var=ind_var1, dep_var=dep);
 
@@ -17,3 +19,5 @@
 %ttest(dep_var=dep1);
 %ttest(ind_var=ind_var2);
 %ttest(ind_var=ind_var2, dep_var=dep1);
+
+ods graphics off; *return to default setting;
