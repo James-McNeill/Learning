@@ -31,7 +31,11 @@ ods graphics on; *produce HTML output;
   %DO V = 1 %TO &var_num.;
   
    *Assign the variable name to macro var[1:N];
-   
+   DATA _NULL_;
+    set vars;
+    where var_id = &V.;
+    call symput("VAR&V.", name);
+   RUN;
   
    *Perform chisq with each macro variable;
    proc freq data=&inputdata.;
