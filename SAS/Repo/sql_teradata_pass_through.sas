@@ -1,0 +1,1 @@
+/* Pass through query logic to teradata. Ensures teradata does SQL processing before returning results to SAS */
