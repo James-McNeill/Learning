@@ -1,0 +1,5 @@
+# Working with excel tables to reference header
+SUMPRODUCT((Table1[date]=date)*(INDIRECT("Table1["&B3&"]"))
+
+Within this script the INDIRECT function allows for the creation of an excel reference to select the required #Header from the excel table (Table1).
+Allows for the dynamic referencing that can be used to select for different headers within an excel table when trying to summarize into a smaller pivot table.
