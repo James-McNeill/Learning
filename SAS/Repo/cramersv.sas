@@ -15,6 +15,13 @@ ods graphics on; *produce HTML output;
     and name in &vars.
    ;
   quit;
+  
+  *Count of words;
+  proc sql noprint; select count(*) into :var_num from vars; quit;
+  
+  %put var_num is: &var_num.;
+  
+  *Assign id number to words;
 
   *Perform chisq with each macro variable;
   proc freq data=&inputdata.;
