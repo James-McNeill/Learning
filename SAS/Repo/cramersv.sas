@@ -22,11 +22,23 @@ ods graphics on; *produce HTML output;
   %put var_num is: &var_num.;
   
   *Assign id number to words;
-
-  *Perform chisq with each macro variable;
-  proc freq data=&inputdata.;
-    tables variable*&&var&v.. / expected chisq; *&&var&v.. = macro variable within do loop taking value from vars input list;
+  data vars;
+   set vars;
+   var_id = _N_;
   run;
+
+  *Perform DO loop to produce variable level chisquare analysis;
+  %DO V = 1 %TO &var_num.;
+  
+   *Assign the variable name to macro var[1:N];
+   
+  
+   *Perform chisq with each macro variable;
+   proc freq data=&inputdata.;
+     tables variable*&&var&v.. / expected chisq; *&&var&v.. = macro variable within do loop taking value from vars input list;
+   run;
+  
+  %END;
 
 %mend cramer;
 
