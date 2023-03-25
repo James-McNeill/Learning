@@ -21,3 +21,13 @@ PROC TABULATE DATA=INPUT_TABLE OUT=OUTPUT_TABLE (DROP=_TYPE_ _PAGE_ _TABLE_);
     ;
   ;
 RUN;
+
+/* Understand threshold boundaries for numeric variable */
+PROC TABULATE data=input_data;
+  VAR EXPOSURE; *variable to assess;
+  CLASS class_var / order=unformatted missing; *classification variable;
+  TABLE
+    class_var,
+    N exposure*(Sum min mean median max p5 p95); *range of metrics assessing method of moments and confidence intervals;
+  ;
+RUN;
