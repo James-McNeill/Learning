@@ -10,7 +10,8 @@ PROC SQL;
   create table output_data as
     select * from connection to tera /* open connection using tera alias */
       (
-      
-      );
+        SELECT TOP 10 *
+        FROM lib.input_data
+      ); *Use terdata SQL language to create query optimization plan;
   Disconnect from tera; *Close connection after processing SQL within Teradata;
 QUIT;
