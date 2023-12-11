@@ -1,1 +1,5 @@
+# Proximity analysis - using GIS
+https://developers.arcgis.com/python/guide/performing-proximity-analysis-on-feature-data/
 
+# Proximity analysis in Python - using GeoPandas
+https://michaelminn.net/tutorials/python-proximity/index.html
