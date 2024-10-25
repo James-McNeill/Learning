@@ -86,3 +86,12 @@ def create_date_list(startDt='2020-11-01', endDt='2020-12-01'):
     dates = pd.date_range(startDt, endDt, freq='1M') - pd.offsets.MonthBegin(1)
     listDates = [str(x.year)+"_"+str(x.month).zfill(2) for x in dates]
     return listDates
+
+# Method 5 - proportion of missing values per column
+def missing_columns(df):
+    for col in df.columns:
+        miss = df.isnull().sum()
+        miss_per = miss / len(df)
+    return miss_per
+
+# missing_columns(ber_data1)
