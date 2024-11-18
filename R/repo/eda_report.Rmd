@@ -1,0 +1,40 @@
+---
+title: "Exploratory Data Analysis Report"
+output: html_document
+---
+
+# Exploratory Data Analysis (EDA) Report
+
+## Data Engineering Phase
+
+Include the key steps and findings from the data engineering phase of the exploratory data analysis here.
+
+## Summary of the DataFrame
+
+```{r}
+summary(dataset())
+
+
+## Descriptive Statistics of Each Column
+sapply(dataset(), summary)
+
+## Correlations and Covariances by Each Variable
+numeric_columns <- sapply(dataset(), is.numeric)
+numeric_data <- dataset()[, numeric_columns, with = FALSE]
+correlation_matrix <- cor(as.data.frame(numeric_data))
+covariance_matrix <- cov(as.data.frame(numeric_data))
+
+## Correlation matrix
+correlation_matrix
+
+## Covariance matrix
+covariance_matrix
+
+## Statistics for Non-Numeric Columns
+non_numeric_stats <- sapply(dataset(), function(col) !is.numeric(col))
+non_numeric_columns <- names(dataset())[non_numeric_stats]
+non_numeric_stats_table <- sapply(dataset()[, non_numeric_columns, with = FALSE], table)
+
+# Non-Numeric data
+non_numeric_stats_table
+```
