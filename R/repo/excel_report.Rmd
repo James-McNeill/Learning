@@ -1,0 +1,35 @@
+---
+title: "`r params$title`"
+subtitle: "`r params$subtitle`"
+date: "`r format(params$date, '%B %d, %Y')`"
+output: 
+  html_document:
+    self_contained: true
+---
+
+# Report Title: `r params$title`
+
+The current report was generated on `r params$date`.
+
+## Data Table
+
+```{r}
+summary_table <- summary(params$dataset)
+knitr::kable(summary_table)
+```
+
+## Template Table
+
+```{r}
+# library(dplyr)
+# 
+# # Perform grouping and summarization on the input data
+# summary_data <- params$dataset %>%
+#   group_by(Year) %>%
+#   summarise(
+#     Average = mean(Gross_carrying_amt, na.rm = TRUE),
+#     Total = sum(Gross_carrying_amt, na.rm = TRUE)
+#   )
+# 
+# # Display the summary table
+# knitr::kable(summary_data)
