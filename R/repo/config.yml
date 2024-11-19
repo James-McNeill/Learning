@@ -1,0 +1,11 @@
+# YAML file to provide settings for this instance
+# Note that one trailing line should be added to avoid a runtime warning message
+---
+default:
+ dataset: '.../iris_data.csv'
+ n_rows_to_print: 10
+
+production:
+ dataset: 'iris.csv'
+ n_rows_to_print: 5
+---
