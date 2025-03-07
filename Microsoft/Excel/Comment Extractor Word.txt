@@ -1,0 +1,32 @@
+Sub ExtractComments()
+    Dim doc As Document
+    Dim comment As Comment
+    Dim newDoc As Document
+    Dim i As Integer
+    
+    ' Set the current active document
+    Set doc = ActiveDocument
+    
+    ' Create a new document to store the extracted comments
+    Set newDoc = Documents.Add
+    
+    ' Add headers to the new document
+    newDoc.Range.Text = "Comment Extract Report" & vbCrLf & vbCrLf
+    
+    ' Iterate through all comments in the document
+    i = 1
+    For Each comment In doc.Comments
+        With newDoc.Range
+            .InsertAfter "Comment " & i & ":" & vbCrLf
+            .InsertAfter "Author: " & comment.Author & vbCrLf
+            .InsertAfter "Date: " & comment.Date & vbCrLf
+            .InsertAfter "Original Text: " & comment.Scope.Text & vbCrLf
+            .InsertAfter "Comment: " & comment.Range.Text & vbCrLf
+            .InsertAfter String(50, "-") & vbCrLf ' Separator for readability
+        End With
+        i = i + 1
+    Next comment
+    
+    ' Notify user
+    MsgBox "Comments extracted successfully!", vbInformation, "Done"
+End Sub
