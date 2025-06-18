@@ -14,3 +14,6 @@ RobecoSAM
 Vigeo Eiris
 MSCI ESG ratings
 Morningstar Portfolio Carbon Risk score (using Sustainalytics data)
+
+Flood List data: contains data access options [Download; API]
+https://floodlist.com/
