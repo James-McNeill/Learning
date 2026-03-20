@@ -17,3 +17,41 @@ Morningstar Portfolio Carbon Risk score (using Sustainalytics data)
 
 Flood List data: contains data access options [Download; API]
 https://floodlist.com/
+
+EPC - EU Comparison:
+https://eurodw.eu/revisiting-the-babel-tower-of-epc-ratings-updated-thresholds-across-europe/
+> EPC ratings are highly inconsistent across Europe: Different countries (and even regions within countries) use varying methodologies, thresholds, and metrics, making cross-country comparisons unreliable.
+> Methodologies and thresholds are evolving but not harmonised yet: Updates (e.g. France’s dual energy + CO₂ scale) and EU directives aim to standardise EPC calculations, but current data remains fragmented and difficult to source consistently.
+> EPC data availability and quality remain a challenge: Data gaps are common in reporting (e.g. securitisation datasets), with some countries (like France and the Netherlands) showing better coverage than others.
+
+EU Atlas project: 
+https://www.epc-sri-atlas.eu/
+> Centralised view of fragmented EPC landscape: The EPC Atlas aggregates 85+ EPC and Smart Readiness Indicator systems across EU Member States into a single interactive platform, helping users understand a highly fragmented market.
+> Designed to improve comparability and transparency: The platform enables users to explore country-level EPC tools, methodologies, and systems, aiming to support standardisation and better cross-country comparison over time.
+> Still evolving with gaps in coverage and depth: Some features (e.g. cost data, regulatory depth) are still developing, and the value of the tool depends on continuous updates and data completeness.
+
+EU Building Passport (EUB SuperHub):
+https://eubsuperhub.eu/e-passport
+> EU is moving toward a “building passport” layer on top of EPCs: Combining EPC ratings with additional standardised KPIs, renovation pathways, and lifecycle data.
+> Objective is to create a digital, comparable, finance-ready building dataset: Supporting decarbonisation, risk assessment, and cross-country transparency.
+> It will not replace EPCs, but evolve them into “EPC 2.0”: With EPC remaining the regulatory base and passports adding depth, forward-looking insights, and usability.
+
+Building Renovation Passport (iBRoad2EPC):
+https://cordis.europa.eu/project/id/101033781
+> Long-term renovation roadmap for a building
+> Adds:
+>> Step-by-step retrofit plan
+>> Future regulatory requirements (e.g. fossil fuel bans)
+>> Indicators like comfort, smart readiness, measured performance
+
+Think: “EPC + forward-looking upgrade plan”
+
+Material / Circularity Passport:
+https://www.dgnb.de/en/sustainable-building/circular-building/building-resource-passport
+> Full material breakdown of a building
+> Data on:
+>> Carbon footprint
+>> Recyclability
+>> Lifecycle use and value
+
+Think: “EPC + embodied carbon + materials + circularity”
