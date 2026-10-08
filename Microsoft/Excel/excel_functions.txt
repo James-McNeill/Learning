@@ -3,3 +3,15 @@ SUMPRODUCT((Table1[date]=date)*(INDIRECT("Table1["&B3&"]"))
 
 Within this script the INDIRECT function allows for the creation of an excel reference to select the required #Header from the excel table (Table1).
 Allows for the dynamic referencing that can be used to select for different headers within an excel table when trying to summarize into a smaller pivot table.
+
+# FILTER function allows for dynamic selection of data into target table. Base table can have columns in a different order to the input table. Key piece here when using the function
+# is to ensure that the target position has enough space below to allow for it to populate. A SPILL error will emerge if there is not enough space.
+FILTER(
+  CHOOSECOLS(INPUT_DATA, XMATCH($A$15, INPUT_DATA[#Headers])),
+  (INPUT_DATA[MODEL]=$D$15),
+  "No records found"
+)
+CHOOSECOLS: select the columns from the base table
+XMATCH: select column or range of columns to select. Column name reference can be the target table that is being populated.
+Second param: this is the filter that is being selected. To target multiple can apply a multiplication e.g. (INPUT_DATA[MODEL]=$D$15)*(INPUT_DATA[RES]=$D$16)
+Third param: message returned if the filter selection doesn't show any result. Could happen if the data is not present in the base data.
