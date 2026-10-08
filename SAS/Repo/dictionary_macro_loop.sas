@@ -5,7 +5,7 @@
 %macro hpsplit_review(data=input_data, varlist=&var_list.);
   /* 1. Count the number of items in the variable list */
   %local num_items i current_pair current_var current_cutoff;
-  %let num_items - %sysfunc(countw(&varlist., %str( ))); *str( ) is used to for delimiter reference within var_list dictionary;
+  %let num_items = %sysfunc(countw(&varlist., %str( ))); *str( ) is used to for delimiter reference within var_list dictionary;
 
   /* 2. Loop through each item using a shared index */
   %do i = 1 %to &num_items.;
