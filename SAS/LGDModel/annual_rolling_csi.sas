@@ -162,8 +162,20 @@
           on coalesce(b.bin, c.bin) = lbl.bin
         order by Bin_ID;
 
-        /*  */
-      
+        /* Roll up Detail table into High-Level summary */
+        create table _step_csi as
+        select Variable,
+                Base_Date,
+                Compare_Date,
+                sum(Base_Count) as Total_Base_N format=comma12.,
+                sum(Compare_Count) as Total_Compare_N format=comma12.,
+                sum(Bin_CSI_Contribution) as CSI_Score format=8.4
+        from _step_detail
+        group by Variable, Base_Date, Compare_Date;
+      quit;
+
+      proc append base=&out_detail data=_step_detail force; run;
+      proc append base=&out_summary data=_step_csi; run;
     %end;
   %end;
 
